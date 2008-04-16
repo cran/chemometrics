@@ -8,11 +8,7 @@ different groups are included.
 }
 \usage{data(glass)}
 \format{
-  The format is:
- num [1:180, 1:13] 13.9 14.2 14.7 14.8 14.1 ...
- - attr(*, "dimnames")=List of 2
-  ..$ : NULL
-  ..$ : chr [1:13] "Na2O" "MgO" "Al2O3" "SiO2" ...
+  A data matrix with 180 objects and 13 variables.
 }
 \details{
 This is a matrix with 180 objects and 13 columns.

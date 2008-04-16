@@ -21,7 +21,7 @@ usual way.
 }
 \references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
 in Chemometrics. CRC Press. To appear. }
-\author{P. Filzmoser <P.Filzmoser@tuwien.ac.at}}
+\author{ Peter Filzmoser <P.Filzmoser@tuwien.ac.at> }
 \seealso{ \code{\link{clr}},\code{\link{ilr}} }
 \examples{
 data(glass)

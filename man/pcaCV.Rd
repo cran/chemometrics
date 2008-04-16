@@ -41,11 +41,11 @@ of principal components.
 }
 \references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
 in Chemometrics. CRC Press. To appear. }
-\author{ P. Filzmoser <P.Filzmoser@tuwien.ac.at} }
+\author{ Peter Filzmoser <P.Filzmoser@tuwien.ac.at> }
 \seealso{\code{\link{princomp}}}
 \examples{
 data(glass)
-require(robustbase)
-res <- pcaCV(glass,segments=4,repl=100,cex.lab=1.2,ylim=c(0,1),las=1)
+x.sc <- scale(glass)
+resv <- clvalidity(x.sc)
 }
 \keyword{ multivariate }
