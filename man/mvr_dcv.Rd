@@ -1,6 +1,6 @@
 \name{mvr_dcv}
 \alias{mvr_dcv}
-\title{Repeated double-cross-validation for PLS}
+\title{Repeated double-cross-validation for PLS and PCR}
 \description{
 Performs a careful evaluation by repeated double-CV for multivariate regression methods, like PLS and PCR.
 }
@@ -69,6 +69,9 @@ Then the "hastie" strategy is applied for the remaining MSE's.
   \item{sIQRopt}{spread of inner half of residuals as alternative robust spread measure to the SEPopt}
   \item{sMADopt}{MAD of residuals as alternative robust spread measure to the SEPopt}
   \item{MSEPopt}{MSEP over all residuals using optimal number of components}
+  \item{afinal}{final optimal number of components}
+  \item{SEPfinal}{vector of length ncomp with final SEP values; use the element afinal for the 
+		optimal SEP}
 }
 \references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
 in Chemometrics. CRC Press. To appear. }

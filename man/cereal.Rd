@@ -7,7 +7,7 @@ For 15 cereals an X and Y data set, measured on the same objects, is available.
 The X data are 145 infrared spectra, and the Y data are 6 chemical/technical
 properties (Heating value, C, H, N, Starch, Ash). Also the scaled Y data are 
 included (mean 0, variance 1 for each column).
-The cereals come from 5 groups B=Barley, C=Corn, R=Rye, T=Triticale, W=Wheat.
+The cereals come from 5 groups B=Barley, M=Maize, R=Rye, T=Triticale, W=Wheat.
 }
 \usage{data(cereal)}
 \format{
