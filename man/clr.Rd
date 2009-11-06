@@ -19,7 +19,7 @@ usual way.
    Returns the transformed data matrix with the same dimension as X.
 }
 \references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemometrics. CRC Press. To appear. }
+in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \author{ Peter Filzmoser <P.Filzmoser@tuwien.ac.at> }
 \seealso{ \code{\link{alr}},\code{\link{ilr}} }
 \examples{

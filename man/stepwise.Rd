@@ -32,7 +32,7 @@ generated.
   \item{models}{matrix with no. of models rows and no. of variables columns, and 0/1 entried defining the models}
 }
 \references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemometrics. CRC Press. To appear. }
+in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \author{ Leonhard Seyfang and (marginally) Peter Filzmoser <P.Filzmoser@tuwien.ac.at> }
 \seealso{\code{\link[stats]{step}}}
 \examples{

@@ -27,7 +27,7 @@ estimators, e.g. from the MCD estimator, can be supplied.
 A scatterplot with the ellipses is generated. 
 }
 \references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemometrics. CRC Press. To appear. }
+in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \author{ Peter Filzmoser <P.Filzmoser@tuwien.ac.at> }
 \seealso{\code{\link[robustbase]{covMcd}}}
 \examples{

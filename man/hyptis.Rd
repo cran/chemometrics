@@ -24,16 +24,12 @@
 \details{
 This data set can be used for cluster analysis.
 }
-\source{
-  ~~ reference to a publication or URL from which the data were obtained ~~
-}
 \references{
 P. Grassi, M.J. Nunez, K. Varmuza, and C. Franz:
 Chemical polymorphism of essential oils of Hyptis suaveolens from El Salvador.
 Flavour \& Fragrance, 20, 131-135, 2005.
 K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemeometrics. CRC Press. To appear. }
-}
+in Chemeometrics. CRC Press, Boca Raton, FL, 2009}
 \examples{
 data(hyptis)
 str(hyptis)

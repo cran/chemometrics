@@ -27,7 +27,7 @@ numb.nonzero <- sum(coef!=0)
 
 if (plot.opt){
 plot(mod_lasso,breaks=FALSE,cex=0.4,col=gray(0.6),...)
-abline(v=0.3,lty=2)
+abline(v=sopt,lty=2)
 title(paste(numb.zero,"coefficients are zero,",numb.nonzero,"are not zero"))
 }
 

@@ -22,7 +22,7 @@ After running repeated double-CV, this plot visualizes the residuals.
   A plot is generated.
 }
 \references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemometrics. CRC Press. To appear. }
+in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \author{ Peter Filzmoser <P.Filzmoser@tuwien.ac.at> }
 \seealso{\code{\link[pls]{mvr}}}
 \examples{

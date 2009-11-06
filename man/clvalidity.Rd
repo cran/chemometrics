@@ -14,17 +14,17 @@ clvalidity(x, clnumb = c(2:10))
   \item{clnumb}{range for the desired number of clusters}
 }
 \details{
-The validity measure for a number $k$ of clusters is 
-$\sum_j W_j$ divided by $\sum_{j<l} B_{jl}$ with
-$W_j$ is the sum of squared distances of the objects in each cluster 
-cluster to its center, and $B_{jl}$ is the squared distance between
-the cluster centers of cluster $j$ and $l$.
+The validity measure for a number \code{k} of clusters is 
+\eqn{\sum_j W_j} divided by \eqn{\sum_{j<l} B_{jl}} with
+\eqn{W_j} is the sum of squared distances of the objects in each cluster 
+cluster to its center, and \eqn{B_{jl}} is the squared distance between
+the cluster centers of cluster \code{j} and \code{l}.
 }
 \value{
   \item{validity}{vector with validity measure for the desired numbers of clusters}
 }
 \references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemometrics. CRC Press. To appear. }
+in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \author{ Peter Filzmoser <P.Filzmoser@tuwien.ac.at> }
 \seealso{\code{\link{princomp}}}
 \examples{

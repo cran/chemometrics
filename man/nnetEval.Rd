@@ -40,7 +40,7 @@ CV test data (CV error) and for the test data.
   \item{size}{value(s) for number of hidden units, taken from input}
 }
 \references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemometrics. CRC Press. To appear. }
+in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \author{ Peter Filzmoser <P.Filzmoser@tuwien.ac.at> }
 \seealso{\code{\link[nnet]{nnet}}}
 \examples{

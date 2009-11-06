@@ -21,18 +21,17 @@ if (opt=="l1m"){
 else { mx <- apply(X,2,median)}
 my <- median(y)
 
-Xmc <- scale(X,center=mx,scale=FALSE)
+Xmc <- as.matrix(scale(X,center=mx,scale=FALSE))
+ymc <- as.vector(scale(y, center = my, scale = FALSE))
 wx <- sqrt(apply(Xmc^2,1,sum))
 wx <- wx/median(wx)
 wx <- 1/((1+abs(wx/fairct))^2)
-
-wy <- abs(y-my)
+wy <- abs(ymc)
 wy <- wy/median(wy)
 wy <- 1/((1+abs(wy/fairct))^2)
-
 w <- wx*wy
-Xw <- X*sqrt(w)
-yw <- y*sqrt(w)
+Xw <- Xmc*sqrt(w)
+yw <- ymc*sqrt(w)
 
 require(pls)
 
@@ -48,48 +47,56 @@ for (n.seg in 1:length(segment)) {
 	Xwsel <- Xw[obsuse,]
 	ywsel <- yw[obsuse]
 	dsel=list(ywsel=ywsel,Xwsel=as.matrix(Xwsel))
-
-loops <- 1
-ngamma <- 10^5
-difference <- 1
-while ((difference>0.01) && loops<30){
-	ngammaold <- ngamma
-	spls <- mvr(ywsel~Xwsel,data=dsel,ncomp=a,method="simpls")
-	b <- spls$coef[,,a]
-	gamma <- t(t(y[obsuse])%*%spls$sco)
-	T <- spls$sco/sqrt(wsel)
-	r <- y[obsuse]-T%*%gamma
-	rc <- r-median(r)
-	r <- rc/median(abs(rc))
-	wysel <- 1/((1+abs(r/fairct))^2)
-	if (opt=="l1m"){mt <- l1median(T)}
-	else {mt <- apply(T,2,median)}
-	dt <- T-mt
-	wt <- sqrt(apply(dt^2,1,sum))
-	wt <- wt/median(wt)
-	wt <- 1/((1+abs(wt/fairct))^2)
-	ngamma <- sqrt(sum(gamma^2))
-	difference <- abs(ngamma-ngammaold)/ngamma
-	wsel <- drop(wysel*wt)
-	Xwsel <- X[obsuse,]*sqrt(wsel)
-	ywsel <- y[obsuse]*sqrt(wsel)
-	loops <- loops+1
-}
+        loops <- 1
+        ngamma <- 10^5
+        difference <- 1
+        while ((difference>0.01) && loops<30){
+          ngammaold <- ngamma
+          spls <- mvr(ywsel~Xwsel,data=dsel,ncomp=a,method="simpls")
+	  b <- spls$coef[,,a]
+	  gamma <- t(t(ymc[obsuse])%*%spls$sco)
+	  T <- spls$sco/sqrt(wsel)
+	  r <- ymc[obsuse]-T%*%gamma
+	  rc <- r-median(r)
+	  r <- rc/median(abs(rc))
+	  wysel <- 1/((1+abs(r/fairct))^2)
+	  if (opt=="l1m"){mt <- l1median(T)}
+	  else {mt <- apply(T,2,median)}
+	  dt <- T-mt
+	  wt <- sqrt(apply(dt^2,1,sum))
+	  wt <- wt/median(wt)
+	  wt <- 1/((1+abs(wt/fairct))^2)
+	  ngamma <- sqrt(sum(gamma^2))
+	  difference <- abs(ngamma-ngammaold)/ngamma
+	  wsel <- drop(wysel*wt)
+          # neu BL: 17.9.09
+          w0 <- which(wsel==0)
+            if(length(w0) != 0)
+             {
+             wsel <- replace(wsel, list=w0, values=10^(-6))              
+             }
+	  Xwsel <- Xmc[obsuse,]*sqrt(wsel)
+	  ywsel <- ymc[obsuse]*sqrt(wsel)
+	  loops <- loops+1
+        }
 
 # predictions in each segment
-ypred[-obsuse] <- drop(as.matrix(X[-obsuse,]))%*%b
+ypred[-obsuse] <- drop(as.matrix(Xmc[-obsuse,]))%*%b
 # residuals in each segment
-yresj <- y[-obsuse]-ypred[-obsuse]
+yresj <- ymc[-obsuse]-ypred[-obsuse]
 SEPj[n.seg] <- sd(yresj)
 absresj=abs(yresj)
 resjlarge=quantile(absresj,1-trim)
 SEPtrimj[n.seg] <- sd(yresj[absresj<=resjlarge])
 }
-res <- y-ypred
+res <- ymc-ypred
 medres <- median(res)
 res <- res-medres
 ypred <- ypred+medres
-
+# ======= NEU BL: ===========
+# y-Medianzentrierung "rückgängig", sonst stimmt ypred nicht
+        ypred <- ypred + my
+# ==========================
 SEPall=sd(res)
 absres=abs(res)
 reslarge=quantile(absres,1-trim)

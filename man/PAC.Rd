@@ -20,10 +20,10 @@ The data can be used for linear and non-linear models.
 }
 \source{
 K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemeometrics. CRC Press. To appear. }
+in Chemeometrics. CRC Press, Boca Raton, FL, 2009. }
 \references{
 K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemeometrics. CRC Press. To appear. }
+in Chemeometrics. CRC Press, Boca Raton, FL, 2009. }
 \examples{
 data(PAC)
 names(PAC)

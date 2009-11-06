@@ -24,7 +24,7 @@ There is a limitation to at most 9 groups. A summary table is returned.
   \item{sumtab }{Summary table}
 }
 \references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemometrics. CRC Press. To appear. }
+in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \author{ Peter Filzmoser <P.Filzmoser@tuwien.ac.at> }
 \seealso{\code{\link[som]{som}}}
 \examples{

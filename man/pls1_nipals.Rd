@@ -28,7 +28,7 @@ y-data are only allowed to be univariate. This simplifies the algorithm.
   \item{b}{final regression coefficients}
 }
 \references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemometrics. CRC Press. To appear. }
+in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \author{ Peter Filzmoser <P.Filzmoser@tuwien.ac.at> }
 \seealso{\code{\link[pls]{mvr}}, \code{\link{pls2_nipals}}}
 \examples{

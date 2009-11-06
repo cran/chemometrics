@@ -20,8 +20,7 @@ excavated in Antwerp.
 }
 \references{
 K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemeometrics. CRC Press. To appear. }
-}
+in Chemeometrics. CRC Press, Boca Raton, FL, 2009. }
 \examples{
 data(glass)
 str(glass)

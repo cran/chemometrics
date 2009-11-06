@@ -21,8 +21,8 @@ Janssen, K.H.A., De Raedt, I., Schalm, O., Veeckman, J.: Microchim. Acta 15 (sup
 excavated in Antwerp.
 }
 \references{
-K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemometrics. CRC Press. To appear. }
+K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis,
+CRC Press, Boca Raton, FL, 2009.
 }
 \examples{
 data(glass.grp)

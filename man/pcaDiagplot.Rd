@@ -29,7 +29,7 @@ distance measures help to distinguish between outliers and regular observations.
   \item{critOD }{critical cut-off value for the orthogonal distances}
 }
 \references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemometrics. CRC Press. To appear. }
+in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \author{ Peter Filzmoser <P.Filzmoser@tuwien.ac.at> }
 \seealso{\code{\link{princomp}}}
 \examples{

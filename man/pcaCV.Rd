@@ -40,7 +40,7 @@ of principal components.
   \item{MSEP }{matrix with MSEP values, repl rows, and amax columns}
 }
 \references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemometrics. CRC Press. To appear. }
+in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \author{ Peter Filzmoser <P.Filzmoser@tuwien.ac.at> }
 \seealso{\code{\link{princomp}}}
 \examples{
