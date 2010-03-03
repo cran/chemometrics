@@ -84,8 +84,8 @@ biascomp <- apply(residcomp, 2, mean)
 dimr <- dim(residcomp)
 biascomp1 <- array(biascomp, c(dimr[2], dimr[1], dimr[3]))
 biascomp1 <- aperm(biascomp1, c(2,1,3))
-SEPfinal <- sqrt(apply((residcomp-biascomp)^2,2,sum)/(prod(dim(resopt)) - 1))
-
+#SEPfinal <- sqrt(apply((residcomp-biascomp)^2,2,sum)/(prod(dim(resopt)) - 1))
+SEPfinal <- sqrt(apply((residcomp - biascomp1)^2,2,sum)/(prod(dim(resopt)) - 1))  
 # SEPtrim considering residuals at a_final only, excluding trim-% (e.g. 20%) of largest residuals
 medres <- median(residcomp[, afinal,])
 residcomp1 <- residcomp[, afinal,] - medres

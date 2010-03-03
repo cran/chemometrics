@@ -2,6 +2,60 @@ prm <-
 function(X,y,a,fairct=4,opt="l1m",usesvd=FALSE){
 
 # PRM Partial Robust M-regression estimator
+# This version does not rely on mvr{chemometrics} which is always 
+# mean-centering X; instead, "Unisimpls" is used, see below
+
+##################################################################
+Unisimpls <- function(X,y,a){
+  # univariate simpls; PF, 09.02.2010
+  # X ... explanatory variables
+  # y ... response variable
+  # a ... number of desired components
+  ##################################
+  n <-  nrow(X)
+  px <-  ncol(X)
+  # if n<px do SVD:
+  if (px > n) {
+    dimensions <- 1
+    dimension <- px - n
+    ressvd <- svd(t(X))
+    X <- ressvd$v %*% diag(ressvd$d)
+    n <- nrow(X)
+    px <- ncol(X)
+  }
+  else {
+    dimensions <- 0
+  }
+  # end of SVD
+  s <- t(X)%*%y
+  U <- matrix(0,nrow=n,ncol=a)
+  V <- matrix(0,nrow=px,ncol=a)
+  R <- matrix(0,nrow=px,ncol=a) # simpls weights
+  B <- V
+  for (j in 1:a) {  # extract one component after the other
+    r <- s
+    u <- X%*%r
+    u <- u-U[,1:max(1,j-1)]%*%(t(U[,1:max(1,j-1)])%*%u)
+    normu <- drop(sqrt(t(u)%*%u))
+    u <- u/normu
+    r <- r/normu
+    p <- t(X)%*%u
+    v <- p - V[,1:max(1,j-1)]%*%(t(V[,1:max(1,j-1)])%*%p)
+    v <- v/drop(sqrt(t(v)%*%v))
+    s <- s-v%*%(t(v)%*%s)
+    U[,j] <- u
+    R[,j] <- r
+    V[,j] <- v
+    B[,j] <- R[,1:j]%*%t(R[,1:j])%*%t(X)%*%y
+  }
+  # if SVD:
+  if (dimensions == 1) {
+    B <- ressvd$u %*% B
+  }
+  # end of SVD
+  list(coefficients=B,scores=U)
+}
+##################################################################
 
 n=nrow(X)
 p=ncol(X)
@@ -43,12 +97,15 @@ loops <- 1
 ngamma <- 10^5
 difference <- 1
 
-require(pls)
+#require(pls)
 while ((difference>0.01) && loops<30){
 	ngammaold <- ngamma
-	spls <- mvr(yw~Xw,ncomp=a,method="simpls")
-	b <- spls$coef[,,a]
-	gamma <- t(t(ymc)%*%spls$sco)
+	###spls <- mvr(yw~Xw,ncomp=a,method="simpls")
+        spls <- Unisimpls(Xw,yw,a) # new
+	###b <- spls$coef[,,a]
+        b <- spls$coef[,a] # new
+	###gamma <- t(t(ymc)%*%spls$sco) # wrong
+        gamma <- t(t(yw) %*% spls$sco)
 	T <- spls$sco/sqrt(w)
 	r <- ymc-T%*%gamma
 	rc <- r-median(r)
@@ -63,29 +120,34 @@ while ((difference>0.01) && loops<30){
 	ngamma <- sqrt(sum(gamma^2))
 	difference <- abs(ngamma-ngammaold)/ngamma
 	w <- drop(wy*wt)
-        # neu BL: 17.9.09
+        # new BL: 17.9.09
         w0 <- which(w==0)
         if(length(w0) != 0) { w <- replace(w, list=w0, values=10^(-6)) }
-	Xw <- Xmc*sqrt(w)
-	yw <- ymc*sqrt(w)
-#print(difference)
-#print(loops)
+	###Xw <- Xmc*sqrt(w)
+	Xw <- X * sqrt(w)
+	###yw <- ymc*sqrt(w)
+	yw <- y * sqrt(w)
+	#print(difference)
+	#print(loops)
 	loops <- loops+1
-}
+	}
 
 if (usesvd==TRUE){
-  b0 <- drop(coef(spls, intercept=TRUE))[1]
+  #b0 <- drop(coef(spls, intercept=TRUE))[1]
+  b0 <- drop(t(mx)%*%b)
   if (dimensions==1){
 	b <- drop(ressvd$u%*%b)
-	yfit <- as.matrix(Xmc)%*%t(ressvd$u)%*%b+my
+	yfit <- as.matrix(Xmc)%*%t(ressvd$u)%*%b+b0
   }
   else {
-	yfit <- as.matrix(Xmc)%*%b+my+b0
+	#yfit <- as.matrix(Xmc)%*%b+my+b0
+	yfit <- as.matrix(Xmc)%*%b+b0
   }
 }
 else {
-        b0 <- drop(coef(spls, intercept=TRUE))[1]
-        yfit <- as.matrix(Xmc) %*% b + my +b0
+        #b0 <- drop(coef(spls, intercept=TRUE))[1]
+        b0 <- drop(t(mx)%*%b)
+        yfit <- as.matrix(Xmc)%*%b+b0
 }
 
 list(coef=b,intercept=b0,wy=wy,wt=wt,w=w,scores=T,loadings=spls$loadings,
