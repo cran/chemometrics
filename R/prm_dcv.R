@@ -59,7 +59,7 @@ predopt <- matrix(NA, nrow=n, ncol=repl)              # y_test for each a_opt [1
                 b0 <- matrix(rep(b0, nrow(X[-obsuse,])), ncol=ncomp, byrow=TRUE) 
     
              # test set predicted y  
-             pred[-obsuse,,i]  <-  as.matrix(scale(X[-obsuse,], center=rcal$mx, scale=FALSE ))%*% b   + rcal$my + b0                #+ ym  aus prm
+             pred[-obsuse,,i]  <-  as.matrix(scale(X[-obsuse,], center=rcal$mx, scale=FALSE ))%*% b + b0                #+ ym  aus prm
              predopt[-obsuse,i] <- drop(pred[-obsuse,optcomp[n.seg0,i],i])
              }
              # (2) --- end outer loop --- #
