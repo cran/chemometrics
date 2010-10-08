@@ -680,10 +680,10 @@ The data set can be used for classification in high dimensions.
 }
 \source{
 K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemeometrics. CRC Press, Boca Raton, FL, 2009. }
+in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \references{
 K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemeometrics. CRC Press, Boca Raton, FL, 2009. }
+in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \examples{
 data(Phenyl)
 str(Phenyl)

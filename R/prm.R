@@ -76,8 +76,17 @@ if (opt=="l1m"){
 	require(pcaPP)
 	mx <- l1median(X)   
 }
+else if (opt=="mean"){
+	mx <- apply(X,2,mean)   
+}
 else { mx <- apply(X,2,median)}
-my <- median(y)
+
+if (opt=="mean"){
+  my <- mean(y)
+}
+else {
+  my <- median(y)
+}
 
 Xmc <- as.matrix(scale(X,center=mx,scale=FALSE))
 ymc <- as.vector(scale(y, center = my, scale = FALSE))
@@ -123,10 +132,10 @@ while ((difference>0.01) && loops<30){
         # new BL: 17.9.09
         w0 <- which(w==0)
         if(length(w0) != 0) { w <- replace(w, list=w0, values=10^(-6)) }
-	###Xw <- Xmc*sqrt(w)
-	Xw <- X * sqrt(w)
-	###yw <- ymc*sqrt(w)
-	yw <- y * sqrt(w)
+        ### Xw <- Xmc*sqrt(w)
+        ### yw <- ymc*sqrt(w)
+        Xw <- X * sqrt(w)
+        yw <- y * sqrt(w)
 	#print(difference)
 	#print(loops)
 	loops <- loops+1
@@ -134,20 +143,42 @@ while ((difference>0.01) && loops<30){
 
 if (usesvd==TRUE){
   #b0 <- drop(coef(spls, intercept=TRUE))[1]
-  b0 <- drop(t(mx)%*%b)
+  #b0 <- drop(t(mx)%*%b)
   if (dimensions==1){
 	b <- drop(ressvd$u%*%b)
-	yfit <- as.matrix(Xmc)%*%t(ressvd$u)%*%b+b0
+        if (opt=="mean"){
+          b0 <- mean(y-as.matrix(X)%*%t(ressvd$u)%*%b)
+        }
+        else {
+          b0 <- median(y-as.matrix(X)%*%t(ressvd$u)%*%b)
+        }
+	yfit <- as.matrix(X)%*%t(ressvd$u)%*%b+b0
   }
   else {
 	#yfit <- as.matrix(Xmc)%*%b+my+b0
-	yfit <- as.matrix(Xmc)%*%b+b0
+        if (opt=="mean"){
+          b0 <- mean(y-as.matrix(X)%*%b)
+        }
+        else {
+          b0 <- median(y-as.matrix(X)%*%b)
+        }
+	yfit <- as.matrix(X)%*%b+b0
   }
 }
 else {
         #b0 <- drop(coef(spls, intercept=TRUE))[1]
-        b0 <- drop(t(mx)%*%b)
-        yfit <- as.matrix(Xmc)%*%b+b0
+        ###b0 <- drop(t(mx)%*%b)+my
+        ###b0 <- -drop(t(mx)%*%b)+my
+        ###yfit <- as.matrix(Xmc)%*%b+b0
+        ###yfit <- as.matrix(X)%*%b+b0
+        if (opt=="mean"){
+          b0 <- mean(y-as.matrix(X)%*%b)
+        }
+        else {
+          b0 <- median(y-as.matrix(X)%*%b)
+        }
+        yfit <- as.matrix(X)%*%b+b0
+        
 }
 
 list(coef=b,intercept=b0,wy=wy,wt=wt,w=w,scores=T,loadings=spls$loadings,

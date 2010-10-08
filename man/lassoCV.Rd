@@ -6,7 +6,7 @@ Performs cross-validation (CV) for Lasso regression and plots the results
 in order to select the optimal Lasso parameter.
 }
 \usage{
-lassoCV(formula, data, K = 10, fraction = seq(0, 1, by = 0.05), trace = FALSE, plot.opt = TRUE, sdfact = 2, ...)
+lassoCV(formula, data, K = 10, fraction = seq(0, 1, by = 0.05), trace = FALSE, plot.opt = TRUE, sdfact = 2, legpos = "topright", ...)
 }
 \arguments{
   \item{formula}{formula, like y~X, i.e., dependent~response variables}
@@ -16,6 +16,7 @@ lassoCV(formula, data, K = 10, fraction = seq(0, 1, by = 0.05), trace = FALSE, p
   \item{trace}{if 'TRUE', intermediate results are printed}
   \item{plot.opt}{if TRUE a plot will be generated that shows optimal choice for "fraction"}
   \item{sdfact}{factor for the standard error for selection of the optimal parameter, see details}
+  \item{legpos}{position of the legend in the plot}
   \item{\dots}{additional plot arguments}
 }
 \details{

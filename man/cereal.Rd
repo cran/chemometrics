@@ -23,10 +23,10 @@ The data set can be used for PLS2.
 }
 \source{
 K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemeometrics. CRC Press, Boca Raton, FL, 2009. }
+in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \references{
 K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemeometrics. CRC Press, Boca Raton, FL, 2009. }
+in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \examples{
 data(cereal)
 names(cereal)

@@ -1,6 +1,6 @@
 lassoCV <-
 function(formula,data,K = 10,fraction=seq(0,1,by=0.05),trace=FALSE,plot.opt=TRUE,
-	sdfact=2, ...)
+	sdfact=2, legpos = "topright", ...)
 {
 # Cross Validation for Lasso regression
 #
@@ -61,7 +61,7 @@ error.bars(fraction,cv+sdfact*cv.error,
   cv-sdfact*cv.error,width = 1/length(fraction))
 abline(h=cv[ind]+sdfact*cv.error[ind],lty=4)
 abline(v=sopt,lty=4)
-legend("topright",c(paste("MSEP=",round(cv[ind],2),sep=""),
+legend(legpos,c(paste("MSEP=",round(cv[ind],2),sep=""),
   paste("SEP=",round(SEP[ind],2),sep="")))
 }
 

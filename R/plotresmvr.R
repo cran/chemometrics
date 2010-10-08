@@ -13,7 +13,7 @@ par(mfrow=c(1,2))
 predcv=mvr.cv$vali$pred[,,optcomp]
 preddcvall=mvrdcvobj$pred[,,optcomp,]
 preddcv=apply(preddcvall,1,mean)
-ylimits=max(abs(preddcvall-y))
+ylimits=max(abs(preddcvall-drop(y)))
 ylimits=sort(c(-ylimits,ylimits))
 plot(predcv,predcv-y,xlab="Predicted y",ylab="Residuals",cex.lab=1.2,
         cex=0.7,pch=3,col=1,ylim=ylimits,...)

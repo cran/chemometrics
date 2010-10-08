@@ -7,7 +7,7 @@ function(mvrdcvobj,...)
 
 pcr.dcv.optcomp=table(mvrdcvobj$optco)/sum(table(mvrdcvobj$optco))
 plot(names(pcr.dcv.optcomp),pcr.dcv.optcomp,type="b",
-  xlab="Number of PLS components",ylab="Relative frequency for optimal number",
+  xlab="Number of components",ylab="Relative frequency for optimal number",
   cex.lab=1.2,...)
 optcomp=as.numeric(names(which.max(pcr.dcv.optcomp)))
 abline(v=optcomp,lty=2)

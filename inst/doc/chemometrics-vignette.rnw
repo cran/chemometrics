@@ -1,0 +1,3290 @@
+\documentclass[11pt,a4paper,oneside]{article}
+
+\usepackage[english]{babel}       % for the language
+\usepackage[pdftex]{color, graphicx}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{shadethm}
+\usepackage{china2e}              % for the "set of real numbers" sign
+\usepackage{bbm}
+\usepackage{url}
+\usepackage{nicefrac}             % for the nice fractures..
+\usepackage{ipa}                  % for the tilde (follows distribution...)
+\usepackage{tabularx}             % to control column width in tabulars
+\usepackage[hang,small,bf]{caption} % figure caption options
+
+\usepackage{natbib}               % bibliography...
+\bibpunct{(}{)}{,}{a}{}{,}
+
+\setlength{\parindent}{0pt}       % kein Einrücken bei neuem Absatz
+\setlength{\parskip}{0.4cm}       % Abstand zwischen Absätzen
+%\setlength{\headsep}{15mm}
+
+\addtolength{\textwidth}{30mm} 
+\addtolength{\oddsidemargin}{-15mm}
+%\setlength{\evensidemargin}{\oddsidemargin}
+\addtolength{\textheight}{10mm} 
+\addtolength{\topmargin}{-5mm}
+
+\setlength{\shadedtextwidth}{\textwidth}
+%\newlength{\saveparindent}              %to have paragraphs default to their 
+\setlength{\saveparindent}{\parindent}  %usual indent inside the minipage
+
+%\usepackage{fancyhdr}                   % header / footer
+%\pagestyle{fancy}
+%\fancyhf{}
+%\fancyhead[L]{\scshape\leftmark}
+%\fancyhead[R]{\thepage}
+%\renewcommand{\headrulewidth}{0.4pt}
+%\renewcommand{\footrulewidth}{0pt}
+
+\graphicspath{{Figures/}}
+
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{definition}
+\newshadetheorem{algorithm}{Algorithm}[section]
+\definecolor{shadethmcolor}{rgb}{1.0,1.0,1.0}   % Farbe des Hintergrundes
+\definecolor{shaderulecolor}{rgb}{.0,.0,.0}     % Farbe des Rahmens
+\setlength{\shadeboxrule}{1pt}   % Breite des Rahmens
+%\newtheorem{algorithm}{Algorithm}[section]
+
+%------------------------------------------------------------------------------ newcommands
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\proglang}[1]{\textsf{#1}}
+\newcommand{\pkg}[1]{\textbf{#1}}
+\newcommand{\superscript}[1]{\ensuremath{^{\textrm{\tiny{#1}}}}}
+\newcommand{\Rset}{\mathbb{R}}
+\newcommand{\TT}{\mathsf{T}}    % transpose
+\newcommand{\Id}{\mbox{$1 \hspace{-1.0mm} {\bf l}$}}   % identity matrix
+\newcommand{\E}{\mbox{I\negthinspace E}}      % Erwartungswert
+\DeclareMathOperator{\Var}{Var}               % Varianz
+\DeclareMathOperator{\Cov}{Cov}               % Kovarianz
+\DeclareMathOperator{\median}{median}         % Median
+\DeclareMathOperator{\medL}{med_{L1}}         % L1-Median
+\DeclareMathOperator{\MAD}{MAD}               % MAD
+\DeclareMathOperator{\tr}{tr}                 % trace
+\DeclareMathOperator*{\argmin}{arg\,min}      % argmin
+\DeclareMathOperator*{\argmax}{arg\,max}      % argmax
+\DeclareMathOperator{\MSE}{MSE}               % MSE
+\DeclareMathOperator{\SEP}{SEP}               % SEP
+\DeclareMathOperator{\MSEP}{MSEP}             % MSEP
+\DeclareMathOperator{\RMSEP}{RMSEP}           % RMSEP
+\DeclareMathOperator{\IQR}{IQR}               % IQR
+\DeclareMathOperator{\PRESS}{PRESS}           % PRESS
+
+\newcommand{\aT}{\mbox{\hspace*{0.2em}$_a$\vspace*{-0.2em}{\bf T}}}
+\newcommand{\aP}{\mbox{\hspace*{0.2em}$_a$\vspace*{-0.2em}{\bf P}}}
+\newcommand{\aPT}{\mbox{\hspace*{0.2em}$_a$\vspace*{-0.2em}{\bf P}}^\mathrm{T}}
+\newcommand{\aE}{\mbox{\hspace*{0.2em}$_a$\vspace*{-0.2em}{\bf E}}}
+\newcommand{\aQ}{\mbox{\hspace*{0.2em}$_a$\vspace*{-0.2em}{\bf Q}}}
+\newcommand{\aQT}{\mbox{\hspace*{0.2em}$_a$\vspace*{-0.2em}{\bf Q}}^\mathrm{T}}
+\newcommand{\aU}{\mbox{\hspace*{0.2em}$_a$\vspace*{-0.2em}{\bf U}}}
+
+\newcommand{\Af}{{\bf A}}
+\newcommand{\BBf}{{\bf B}}
+\newcommand{\Cf}{{\bf C}}
+\newcommand{\Df}{{\bf D}}
+\newcommand{\Ef}{{\bf E}}
+\newcommand{\Ff}{{\bf F}}
+\newcommand{\Gf}{{\bf G}}
+\newcommand{\Hf}{{\bf H}}
+\newcommand{\If}{{\bf I}}
+\newcommand{\Jf}{{\bf J}}
+\newcommand{\Kf}{{\bf K}}
+\newcommand{\Lf}{{\bf L}}
+\newcommand{\Mf}{{\bf M}}
+\newcommand{\Nf}{{\bf N}}
+\newcommand{\Of}{{\bf O}}
+\newcommand{\Pf}{{\bf P}}
+\newcommand{\Qf}{{\bf Q}}
+\newcommand{\Rf}{{\bf R}}
+\newcommand{\Sf}{{\bf S}}
+\newcommand{\Tf}{{\bf T}}
+\newcommand{\Uf}{{\bf U}}
+\newcommand{\Vf}{{\bf V}}
+\newcommand{\Wf}{{\bf W}}
+\newcommand{\Xf}{{\bf X}}
+\newcommand{\Yf}{{\bf Y}}
+\newcommand{\Zf}{{\bf Z}}
+\newcommand{\af}{{\bf a}}
+\newcommand{\bbf}{{\bf b}}
+\newcommand{\cf}{{\bf c}}
+\newcommand{\df}{{\bf d}}
+\newcommand{\ef}{{\bf e}}
+\newcommand{\ff}{{\bf f}}
+\newcommand{\gf}{{\bf g}}
+\newcommand{\hf}{{\bf h}}
+%\newcommand{\if}{{\bf i}}
+\newcommand{\jf}{{\bf j}}
+\newcommand{\kf}{{\bf k}}
+\newcommand{\lf}{{\bf l}}
+\newcommand{\mf}{{\bf m}}
+\newcommand{\nf}{{\bf n}}
+\newcommand{\of}{{\bf o}}
+\newcommand{\pf}{{\bf p}}
+\newcommand{\qf}{{\bf q}}
+\newcommand{\rf}{{\bf r}}
+%\newcommand{\sf}{{\bf s}}
+\newcommand{\tf}{{\bf t}}
+\newcommand{\uf}{{\bf u}}
+\newcommand{\vf}{{\bf v}}
+\newcommand{\wf}{{\bf w}}
+\newcommand{\xf}{{\bf x}}
+\newcommand{\yf}{{\bf y}}
+\newcommand{\zf}{{\bf z}}
+%------------------------------------------------------------------------------ newcommands end.
+
+%%%%%%%%% Sweave %%%%%%%%%%%
+\usepackage{Sweave} 
+\DefineVerbatimEnvironment{Sinput}{Verbatim} {xleftmargin=0em}
+\DefineVerbatimEnvironment{Soutput}{Verbatim}{xleftmargin=0em}
+\DefineVerbatimEnvironment{Scode}{Verbatim}{xleftmargin=0em}
+\fvset{listparameters={\setlength{\topsep}{0pt}}}
+\renewenvironment{Schunk}{\vspace{\topsep}}{\vspace{\topsep}}
+
+% \VignetteIndexEntry{Multivariate Statistical Analysis using 'chemometrics'}
+% \VignetteDepends{chemometrics, gclus}
+% \VignetteKeyword{chemistry}
+% \VignetteKeyword{multivariate}
+
+%\usepackage[pdfauthor={Heide Gieber}, pdftitle={Multivariate Statistical Analysis using the 
+%  R package chemometrics}, pdftex, plainpages=false, pdfpagelabels, hypertexnames=false]{hyperref}
+
+\begin{document}
+
+%\pagenumbering{arabic} 
+%\setcounter{page}{1}
+
+\title{Multivariate Statistical Analysis \\ using the \\ \proglang{R} package \pkg{chemometrics}}
+\author{Heide Garcia and Peter Filzmoser\\[2mm]
+Department of Statistics and Probability Theory\\
+Vienna University of Technology, Austria\\P.Filzmoser@tuwien.ac.at}
+\maketitle
+
+\begin{abstract}
+  In multivariate data analysis we observe not only a single variable or the relation between two 
+  variables but we consider several characteristics simultaneously. For a statistical analysis of 
+  chemical data (also called chemometrics) we have to take into account the special structure of this 
+  type of data. Classic model assumptions might not be fulfilled by chemical data, for instance there 
+  will be a large number of variables and only few observations, or correlations between the 
+  variables occur. To avoid problems arising from this fact, for chemometrics classical methods have 
+  to be adapted and new ones developed.
+  
+  The statistical environment \proglang{R} is a powerful tool for data analysis and graphical 
+  representation. It is an open source software with the possibility for many individuals to assist 
+  in improving the code and adding functions. One of those contributed function packages - 
+  \pkg{chemometrics} implemented by Kurt Varmuza and Peter Filzmoser - is designed especially for the 
+  multivariate analysis of chemical data and contains functions mostly for regression, classification 
+  and model evaluation.
+  
+  The work at hand is a vignette for this package and can be understood as a manual for its
+  functionalities. The aim of this vignette is to explain the relevant methods and to demonstrate and 
+  compare them based on practical examples.
+\end{abstract}
+
+%\pagenumbering{roman}
+%\setcounter{page}{1}
+
+%\addcontentsline{toc}{section}{Contents}
+%\tableofcontents
+%\newpage
+
+
+%------------------------------------------------------------------------------ introduction
+\SweaveOpts{keep.source=TRUE, eval=TRUE, echo=TRUE, results=hide, fig=FALSE, eps=FALSE, prefix.string=Figures/Fig-01, include=FALSE, width=9, height=4.5}
+
+<<echo=FALSE>>=
+  ## set the prompt to "> " and the continuation to "  "
+  options(prompt="> ", continue="  ")
+  options(width=70)
+@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  INTRODUCTION
+\section{Introduction}
+
+\subsection{The \proglang{R} package \pkg{chemometrics}}
+Multivariate data analysis is the simultaneous observation of more than one characteristic. In 
+contrast to the analysis of univariate data, in this approach not only a single variable or the 
+relation between two variables can be investigated, but the relations between many attributes 
+can be considered. For the statistical analysis of chemical data one has to take into account the 
+special structure of this type of data. Very often, classic model assumptions are not fulfilled 
+by chemical data, for instance there will be less observations than variables, or correlations 
+between the variables occur. Those problems motivated the adaption and development of several 
+methods for chemometrics.
+
+The statistical environment \proglang{R} \citep{R} is a powerful tool for data analysis and 
+graphical representation. The programming language behind it is object oriented. As part of the GNU 
+project \citep{GNU}, it is an open source software and freely available on 
+\url{http://cran.r-project.org}. The fact that anyone can assist in improving the code and adding 
+functions makes \proglang{R} a very flexible tool with a constantly growing number of add-on 
+packages. An introduction to \proglang{R} can be found in \cite{Rintro}.
+
+\cite{VarmuzaFilzmoser} wrote a book for multivariate data analysis in chemometrics, and 
+contributed to the \proglang{R} framework with a function package for corresponding applications. 
+The package contains about 30 functions, mostly for regression, classification and model evaluation 
+and includes some data sets used in the \proglang{R} help examples.
+
+The work at hand is a vignette for this \proglang{R} package \pkg{chemometrics} and can be 
+understood as a manual for its functionalities. It is written with the help of Sweave 
+\citep{Sweave}, a reporting tool which allows for \LaTeX \@ as well as \proglang{R} code and output to 
+be presented within one document. For details on \proglang{R} vignettes and how to extract the 
+\proglang{R} code from the document see \cite{SweaveII}. The aim of this vignette is to explain the 
+relevant methods and to demonstrate them based on practical examples.
+
+To get started, the package \pkg{chemometrics} and other internally required packages can be loaded 
+simultaneously by the command
+<<>>=
+  library(chemometrics)
+@
+
+\subsection{Overview}
+In chemometrics very often we have to deal with multicollinear data containing a large number of variables
+(and only few observations) which makes the use of some classical statistical tools impossible.
+
+Therefore, in chapter \ref{chap:pca} we start with a very important method to analyze this type of 
+data. The idea of {\em principal component analysis} (PCA) is to transform the original variables 
+to a smaller set of latent variables (principal components) with the aim to maximize the explained variance of the data.
+Since the new variables are uncorrelated we get rid of the multicollinearity this way. The usage 
+of the respective \pkg{chemometrics} functions is demonstrated with the help of a practical data example.
+
+In chapter \ref{chap:calib} we explain several regression
+methods that are suitable for chemical data. The process of finding the optimal variables to use for 
+the model or an adequate transformation of the data and the optimal values for the model coefficients 
+is called {\em calibration} of a regression model.
+In order to apply ordinary least squares regression properly we need at least to apply some method for 
+the selection of the most important variables. An algorithm for {\em stepwise} variable selection 
+is implemented in \pkg{chemometrics} which - starting with the empty regression model - adds and 
+removes variables in order to reduce a certain criterion in each step. The resulting subset of
+the original variables is then used for OLS regression.
+
+A method that unlike OLS does not require uncorrelated variables or normal distribution of the residuals
+is {\em principal component regression} (PCR) where not the original variables are used for the explanation 
+of the dependent variable but the principal components. The components are chosen in a way to maximize
+the prediction performance of the regression model.
+In contrast to PCR, {\em Partial least squares} (PLS) regression uses so-called PLS components
+similarly. Those components are calculated in order to maximize the covariance between the independent
+and the dependent variables. 
+For the case of outliers in the data, there is a {\em robust} version of PLS implemented in the 
+\pkg{chemometrics} package.
+
+Last but not least there are two very similar methods which are based on a modified OLS objective function:
+{\em Ridge} and {\em Lasso regression}. The modification consists in adding a penalty term to the objective function
+which causes a shrinkage of the regression coefficients. For Ridge regression, this term depends on the 
+squared coefficients and for Lasso regression on the absolute coefficients.
+At the end of this section there is a section dedicated to the {\em comparison} of the results gained
+by the above mentioned methods applied to a data example.
+
+Chapter \ref{chap:class} finally takes us to the optimal usage of the {\em classification} 
+methods implemented in the \proglang{R} package \pkg{chemometrics}. The task here is to classify
+new objects based on a model that was trained using data with known class membership. Two 
+conceptually relatively simple methods are {\em k nearest neighbors} and {\em classification trees}. 
+The former classifies a new object according to the class that appears mostly among its neighbors
+where the number $k$ of neighbors to consider has to be chosen optimally. Classification trees divide the
+object space along an optimally chosen coordinate into two regions which are divided again and again
+until some optimal tree size is reached, and classify a new object according to the majority class 
+of the region it belongs to.
+
+{\em Artificial neural networks} are motivated by the neurons in the human brain and use functions
+of linear combinations of the original variables - called hidden units -  to model the class 
+membership by regression. We obtain a probability for each object to belong to a certain class and
+assign it to the class with the highest probability. The number of hidden units and a shrinkage 
+parameter used in the objective function have to be optimized when building the model.
+Another more complex classification method are {\em support vector machines}. Here, the original 
+data is transformed to a space with higher dimension in order to make the groups linearly separable 
+by a hyperplane which is chosen in such a way that the margin between the classes is maximized. Often 
+the groups are not perfectly separable, and so we allow for some objects to be on the wrong side
+of the hyperplane but not without constraining the sum of their distances from their respective 
+class. The optimization of a parameter for this restriction is an important task here.
+Again the methods are demonstrated on a data example and the results are compared in the end.
+
+The lecture of appendix \ref{app:cv} about {\em cross validation} is highly recommended as this method 
+is used throughout the vignette to obtain a large number of predictions which is important for the 
+optimization of model parameters and the estimation of the prediction performance of a model.
+In appendix \ref{chap:logratio} we explain some functions for the transformation of compositional 
+data which appear frequently in chemistry.
+%------------------------------------------------------------------------------ introduction end.
+
+%------------------------------------------------------------------------------ pca
+\SweaveOpts{keep.source=TRUE, eval=TRUE, echo=TRUE, results=hide, fig=FALSE, eps=FALSE, prefix.string=Figures/Fig-02, include=FALSE, width=9, height=4.5}
+
+<<echo=FALSE>>=
+  options(prompt="> ", continue="  ")
+  options(width=70)
+@
+                                                          
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  PRINCIPAL COMPONENT ANALYSIS
+\section{Principal Component Analysis}
+\label{chap:pca}
+Functions discussed in this section:
+
+\begin{tabular}{l}
+  \code{pcaCV} \\
+  \code{nipals} \\
+  \code{pcaVarexpl} \\
+  \code{pcaDiagplot}
+\end{tabular}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Method}
+\label{sec:pcamethod}
+
+Principal component analysis (PCA) is a method for the visualization of complex data by dimension
+reduction. Besides exploratory data analysis also prediction models can be created using PCA. 
+The method was introduced by \cite{Pearson}; \cite{Hotelling} made further developments.
+
+The high number of variables in multivariate data leads to three main problems:
+\begin{enumerate}
+  \item	Graphical representation of the data is not possible for more than three variables.
+  \item	High correlation between the variables makes it impossible to apply many statistical methods.
+  \item	Many variables contain only very few information.
+\end{enumerate}
+
+PCA is able to avoid all of these problems by transforming the original variables into a smaller 
+set of latent variables which are uncorrelated. Data transformed in such a way can then be used by 
+other methods. The latent variables with the highest concentration of information form lower 
+dimensional data which can be visualized graphically. Noise is separated from important information. 
+
+
+%%%
+\subsubsection*{Principal Component Transformation}
+
+\begin{definition}
+  Considering a mean-centered $n \times m$-dimensional data matrix $\Xf$, we define the {\em principal 
+  component transformation} as 
+  \begin{equation*}
+    \Tf = \Xf \cdot \Pf,
+  \end{equation*}
+  $\Pf$ being the so-called {\em loadings matrix} of dimension $m \times m$ and $\Tf$ the transformed 
+  $n \times m$-dimensional {\em matrix of scores}, the values of the {\em principal components} (PCs). 
+\end{definition}
+
+We require $\Tf$ to have maximum variance, $\Pf$ to be an orthogonal matrix and its columns 
+$\pf_i$ to be unit vectors. This transformation is a classical eigenvalue problem and nothing 
+else than an orthogonal rotation of the coordinate system. The loadings are the directions 
+of the new axes (the new variables); the scores represent the coordinates of data points 
+with respect to the new system (the new objects).
+
+The mean vector of $\Tf$ is ${\bf 0}$, and if the covariance matrix of $\Xf$ is 
+$\Sf$, the covariance of $\Tf$ is ${\bf PSP}^\TT$. The elements of $\Pf$, 
+$p_{ij}$, represent the influence of the $i$\superscript{th} variable on the $j$\superscript{th} 
+component, and the squared correlation of $\xf_i$ and $\tf_j$ can be interpreted as 
+the variation of $\xf_i$ explained by $\tf_j$.
+
+%%%
+\subsubsection*{The PCA Model}
+
+The PCs resulting from the principal component transformation are ordered descendingly by 
+their level of information but still have the same dimension as the original data. To reach 
+the goal of dimension reduction we use only the first $a$ principal components, resulting in 
+the matrices $\aT$ ($n \times a$) and $\aP$ ($m \times a$), respectively, and in a 
+model of the form
+\begin{equation*}
+  \Xf = \aT \cdot \aPT + \aE.
+\end{equation*}
+
+That means we separate the noise $\aE$ ($n \times m$) from the relevant information. The model complexity 
+$a$ can be reasonably chosen by observing the percentage of the data's total variance that is 
+explained by each model belonging to a fixed number of PCs.
+
+Finally, the fitting of the model is evaluated with regard to the representation of the 
+original variables in the new space and regarding potential outliers that can severely distort 
+the results.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{An \proglang{R} Session}
+\label{pcasession}
+The data set at hand results from the chemical analysis of wines grown in the same region in 
+Italy but derived from three different cultivars. The analysis determined the quantities of 13 
+constituents found in each of the three types of wines. We want to apply PCA in 
+order to reduce the dimension of the data by eliminating the noise.
+
+First of all, since the principal component transformation is not scale invariant we scale the 
+data before we do the PCA, leaving apart the first variable which contains the class 
+information and is hence not relevant for PCA.
+<<>>=
+  library(gclus)                # contains the data set
+  data(wine)
+  X <- scale(wine[,2:14])       # first column: wine type
+@
+
+%%%
+\subsubsection*{The optimal number of components}
+
+Before we actually calculate the PCs it is necessary to determine the optimal model complexity. 
+The \pkg{chemometrics} function \code{pcaCV} uses {\em repeated cross validation} (see appendix 
+\ref{app:cv}) to calculate a large number of explained variances for different model complexities.
+
+<<eval=FALSE>>=
+  res <- pcaCV(X)
+@
+
+<<echo=FALSE, label=01-pcaCV, fig=TRUE>>=
+  par(mfrow=c(1,2))
+  par(mar=c(5, 4, 1, 1))
+  pcaCV(X)
+  par(mar=c(7.5, 4, 1, 1))
+  pcaVarexpl(X, a=5, las=2)
+@
+
+For an increasing number of components the output (Figure \ref{fig:pcaCV}, left) shows the distribution of the 
+explained variances obtained by 50 times repeated 4-fold CV. We choose the lowest possible 
+model complexity which still leads to a reasonable high percentage of explained variance. 
+Here, a threshold of 80\% makes us compute 5 PCs.
+
+%%%
+\subsubsection*{NIPALS Algorithm}
+
+In most chemical applications it will be necessary to compute only a few principal components. 
+For this purpose \pkg{chemometrics} offers an implementation of the so-called {\em nonlinear 
+iterative partial least-squares} algorithm (NIPALS, Algorithm \ref{alg:nipalspca}), 
+developed by H. \cite{Wold}.
+
+Assuming an initial score vector $\uf$ which can be arbitrarily chosen from the variables in 
+$\Xf$, the corresponding loading vector $\bbf$ is calculated by $\Xf^\TT \uf$ 
+and normalized to length 1. This approximation can be improved by calculating $\Xf \cdot \bbf$. 
+Until the improvement does not exceed a small threshold $\epsilon$, the improved new vector is 
+used to repeat this procedure.
+
+If convergence is reached, the first principal component, $\uf \cdot \bbf^\TT$, is subtracted 
+from the currently used $\Xf$ matrix, and the resulting residual matrix $\Xf_{res}$ (that contains 
+the remaining information) is used to find the second PC. This procedure is repeated until the desired 
+number of PCs is reached or until the residual matrix contains very small values.
+
+Passing the argument $a=5$, as determined before, \code{nipals} works as follows:
+<<>>=
+  X_nipals <- nipals(X, a=5)
+@
+
+\verb+X+ is the data matrix; \verb+a+ the number of computed principal components. \code{nipals} 
+gives us back two matrices: one containing the scores for each component and one with the loadings 
+for each component. Furthermore, the improvement of the score vector in each step is displayed. 
+In our case, warning messages occur:
+
+\verb+WARNING! Iteration stop in h= 2  without convergence!+
+
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics{Fig-02-01-pcaCV}
+  \caption{Left: output of \code{pcaCV}. Determination of the optimal number of PCs. The data for 
+           the boxplots was obtained by 4-fold CV, repeated 50 times. Right: output of 
+           \code{pcaVarexpl}. Control the explained variance of each variable.}
+  \label{fig:pcaCV}
+\end{figure}
+
+
+\begin{algorithm} \label{alg:nipalspca}
+The following scheme illustrates the algorithm used by the \proglang{R} function \code{nipals}
+\citep[see][]{VarmuzaFilzmoser}.
+\vspace*{2mm}
+\begin{tabular}{ c l l }
+  1. & $\Xf$                                                           & $\Xf$ is a mean-centered data matrix of dimension $n \times m$.       \\
+  2. & $\uf = \xf_j$                                               & Arbitrarily choose a variable of $\Xf$ as initial score vector. \\
+  3. & $\bbf = \Xf^\TT \uf / \uf^\TT \uf$ & Calculate the corresponding loading vector and                       \\
+     & $\bbf = \bbf / ||\bbf||$	                                 & normalize it to length 1.                                          \\
+  4. & $\uf^* = \Xf \bbf$                                               & Calculate an improved score vector.                                 \\
+  5. & $\uf_\Delta = \uf^* - \uf$                               & Calculate the summed squared differences                             \\
+     & $\Delta \uf = \uf_\Delta ^\TT \uf_\Delta$      & between the previous scores and the improved scores.               \\
+     & if $\Delta \uf > \epsilon$                                      & Continue with step 6.                                               \\
+     & if $\Delta \uf < \epsilon$                                      & Convergence is reached. Continue with step 7.                        \\
+  6. & $\uf = \uf^*$                                                & Use the improved score vector to continue with step 3.             \\
+  7. & $\tf = \uf^*$                                                & Calculation of a PC is finished.                                    \\
+     &                                                                     & Store score vector $\tf$ in score matrix $\Tf$;              \\
+     &                                                                     & store loading vector $\pf$ in loading matrix $\Pf$.        \\
+     & $\pf = \bbf$	                                               & Stop if no further components are needed.                           \\
+  8. & $\Xf_{res} = \Xf - \uf \bbf^\TT$                     & Calculate the residual matrix of $\Xf$.                          \\
+     &                                                                     & Stop if the elements of $\Xf_{res}$ are very small.            \\
+     &                                                                     & No further components are reasonable in this case.                  \\
+  9. & $\Xf = \Xf_{res}$                                           & Replace $\Xf$ with $\Xf_{res}$.                              \\
+     &                                                                     & For calculation of the next PC continue with step 2.
+\end{tabular}
+\vspace*{2mm}
+\end{algorithm}
+
+
+By raising the maximum number of iterations for the approximation of scores and loadings (argument 
+\verb+it+ which defaults to 10) to 160 we get a better result. If this measure still did not 
+lead to convergence one would have the possibility to lower the tolerance limit for convergence 
+(argument \verb+tol+) which is preset to $10^{-4}$. Another way would be to rethink the number of 
+computed components.
+
+We finally decide on the following option:
+<<>>=
+  X_nipals <- nipals(X, a=5, it=160)
+@
+
+In the new orthogonal coordinate system the variables (components) are not correlated 
+anymore, and we are able to use the transformed data with classical methods. However, this
+should not be started without evaluating the model's quality before.
+
+
+%%%
+\subsubsection*{Evaluation}
+
+The numerical accuracy of the NIPALS algorithm makes it very attractive for PC computation. 
+However, since the calculation happens stepwise it is not the fastest algorithm. Singular value 
+decomposition or eigenvalue decomposition are hence more recommendable if a higher number of 
+components is required and for evaluation procedures in which PCA is carried out many times. 
+The earlier described function \code{pcaCV} as well as the following \code{pcaVarexpl} work in 
+this sense.
+
+We want to evaluate the quality of our model taking a look at the representation of the 
+original variables in the rotated coordinate system. Therefore, the function \code{pcaVarexpl} 
+generates a plot (Figure \ref{fig:pcaCV}, right) that shows how much of each variable's variance is explained by our model 
+with 5 PCs.
+
+<<eval=FALSE>>=
+  res <- pcaVarexpl(X, a=5)
+@
+
+In some cases (for example if we consider the model with 5 or only 4 PCs) some variables may be 
+under-represented. In order to avoid this we can add more PCs to the model.
+
+\begin{figure}[t!]
+  \centering
+  \includegraphics{Fig-02-02-outliers}
+  \caption{Types of outliers in principal component analysis.}
+  \label{fig:outliers}
+\end{figure}
+
+Another important thing to do is to examine the existence of outliers in the data because they 
+are able to severely influence the results of the PCA. For this purpose we need to calculate 
+the {\em score distance} (SD) and the {\em orthogonal distance} (OD) of each object.
+
+We understand the SD as the distance of an object in the PCA space from the center of the 
+transformed data. Objects with an SD beyond a certain threshold are called {\em leverage points}. 
+For the critical value of this threshold we can take the root of the 97.5\% quantile of the 
+chi-square distribution with $a$ degrees of freedom, in our case 
+\begin{equation*}
+  \sqrt{\chi^2_{5;0.975}} = 3.8 .
+\end{equation*}
+
+On the other hand, the OD is calculated in the original space as the orthogonal distance of an 
+object to the PCA subspace or, in other words, the distance between the object and its orthogonal 
+projection on the PCA subspace. A robust cutoff value to distinguish between {\em orthogonal outliers} 
+and non-outliers can be taken as
+\begin{equation*}
+  [ \operatorname{median}(\mathrm{OD}^{\nicefrac{2}{3}}) + 
+    \operatorname{MAD}(\mathrm{OD}^{\nicefrac{2}{3}}) \cdot z_{0.975} ]^{\nicefrac{3}{2}} .
+\end{equation*}
+
+With the help of those two distance measures we can subdivide the data points in four classes: 
+Regular points, orthogonal outliers as well as good and bad leverage points. Figure 
+\ref{fig:outliers} taken from \cite{VarmuzaFilzmoser} shows three dimensional data the 
+majority of which lies in a two dimensional subspace spanned by the first two PCs. Both SD 
+and OD are lower than the respective critical values; those objects form the regular part. If, 
+instead, the OD exceeds its critical value (with an SD that is still in a low range), like for 
+object 1, we have an orthogonal outlier. That means the original object lies far from the PCA 
+space but its projection on the PCA space is within the range of the regular data. A point of 
+that type can cause a shift of the PCA space, away from the majority of the data. A similar 
+effect occurs in the case of bad leverage points (object 2), when both SD and OD are higher than 
+the critical values. Points of this type lever the PCA space by pulling it in their direction 
+and are hence able to completely distort the results. Object 3, on the other hand, is a good leverage 
+point with large SD but low OD, causing a stabilization of the PCA space.
+
+The function \code{pcaDiagplot} gives us a nice graphical possibility to detect outliers. 
+It requires at least \verb+X+ (the original data), \verb+X.pca+ (the PCA transformed data) 
+and \verb+a+ (the number of principal components computed). Figure \ref{fig:pcaDiagplot-nipals} 
+shows the output of \code{pcaDiagplot} with the classic NIPALS PCA. Note that \verb+X.pca+ needs to 
+be a \code{princomp} object or a list containing at least scores, loadings and the standard 
+deviation of the scores.
+
+<<>>=
+  X_nipals <- list(scores=X_nipals$T, loadings=X_nipals$P, 
+    sdev=apply(X_nipals$T, 2, sd))
+@
+<<eval=FALSE>>=
+  res <- pcaDiagplot(X, X.pca=X_nipals, a=5)
+@
+
+<<echo=FALSE, label=03-pcaDiagplot-nipals, fig=TRUE>>=
+  par(mar=c(5,4,1,1))
+  res <- pcaDiagplot(X, X.pca=X_nipals, a=5)
+@
+
+\begin{figure}[t!]
+  \centering
+  \includegraphics{Fig-02-03-pcaDiagplot-nipals}
+  \caption{Output of \code{pcaDiagplot} with NIPALS PCA.}
+  \label{fig:pcaDiagplot-nipals}
+\end{figure}
+
+However, for \code{pcaDiagplot} to work properly (i.e.\@ to detect outliers correctly), robust PCA 
+should be used (see Figure \ref{fig:pcaDiagplot-robust}).
+
+<<eval=FALSE>>=
+  X.rob <- scale(wine[,2:14], center = apply(wine[,2:14], 2, median), 
+    scale = apply(wine[,2:14], 2, mad))
+  library(pcaPP)                 # robust PCA based on projection pursuit
+  X.grid <- PCAgrid(X.rob,k=5,scale=mad)
+  res1 <- pcaDiagplot(X.rob,X.grid,a=5)
+@
+<<echo=FALSE, label=04-pcaDiagplot-robust, fig=TRUE>>=
+  X.rob <- scale(wine[,2:14], center = apply(wine[,2:14], 2, median), 
+    scale = apply(wine[,2:14], 2, mad))
+  library(pcaPP)                 # robust PCA based on projection pursuit
+  X.grid <- PCAgrid(X.rob,k=5,scale=mad)
+  par(mar=c(5,4,1,1))
+  res1 <- pcaDiagplot(X.rob,X.grid,a=5)
+@
+
+\begin{figure}[t!]
+  \centering
+  \includegraphics{Fig-02-04-pcaDiagplot-robust}
+  \caption{Output of \code{pcaDiagplot} with robust PCA.}
+  \label{fig:pcaDiagplot-robust}
+\end{figure}
+
+The difference is hard not to notice. Extracting the relevant object numbers we see for instance 
+that if we do not use robust PCA \code{pcaDiagplot} detects only one of the two bad leverage points 
+correctly.
+
+<<echo=FALSE, results=verbatim>>=
+# diagnostics with robust PCA
+  orth1 <- dimnames(X)[[1]][(res1$ODist > res1$critOD) * (res1$SDist < res1$critSD) == 1] # orthogonal outliers
+  good1 <- dimnames(X)[[1]][(res1$ODist < res1$critOD) * (res1$SDist > res1$critSD) == 1] # good leverage points
+  bad1 <- dimnames(X)[[1]][(res1$ODist > res1$critOD) * (res1$SDist > res1$critSD) == 1] # bad leverage points
+# diagnostics with NIPALS
+  orth2 <- dimnames(X)[[1]][(res$ODist > res$critOD) * (res$SDist < res$critSD) == 1] # orthogonal outliers
+  good2 <- dimnames(X)[[1]][(res$ODist < res$critOD) * (res$SDist > res$critSD) == 1] # good leverage points
+  bad2 <- dimnames(X)[[1]][(res$ODist > res$critOD) * (res$SDist > res$critSD) == 1] # bad leverage points
+# print:
+  cat("DIAGNOSTICS WITH NIPALS:", "\n",
+      "orthogonal outliers: ", orth2, "\n",
+      "good leverage points:", good2, "\n",
+      "bad leverage points: ", bad2, "\n", sep=" ")
+  cat("DIAGNOSTICS WITH ROBUST PCA:", "\n",
+      "orthogonal outliers: ", orth1, "\n",
+      "good leverage points:", good1, "\n",
+      "bad leverage points: ", bad1, "\n", sep=" ")
+@
+
+If we treat outliers like regular data we risk to determine a wrong PCA space; just to omit them 
+is not a wise choice either. Those objects should rather be examined more closely regarding their 
+origin and meaning.
+%------------------------------------------------------------------------------ pca end.
+
+%------------------------------------------------------------------------------ calibration
+\SweaveOpts{keep.source=TRUE, eval=TRUE, echo=TRUE, results=hide, fig=FALSE, eps=FALSE, prefix.string=Figures/Fig-03, include=FALSE, width=9, height=5}
+
+<<echo=FALSE>>=
+  options(prompt="> ", continue="  ")
+  options(width=70)
+@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%         
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  CALIBRATION
+\section{Calibration}
+\label{chap:calib}
+In data analysis very often we are interested in possible (linear) relations between the variables 
+which might allow us to explain one or more dependent variables by several regressor variables. 
+Such a {\em linear regression model} can be written as
+\begin{equation} \label{unilinreg}
+  \yf = \Xf \cdot \bbf + \ef 
+\end{equation}
+in case of a single dependent variable ({\em univariate} model). $\yf = (y_1, \ldots, y_n)$ is the 
+variable to be modelled, the $n \times (m+1)$ matrix $\Xf$ contains the {\em predictor variables} 
+$\xf_j = (x_{1j}, \ldots, x_{nj})^\TT$, $j = 1, \ldots, m$, and a column of ones in the first place. 
+The according {\em regression coefficients} are collected in the vector $\bbf = (b_0, b_1, \ldots, b_m)^\TT$ 
+where $b_0$, the coefficient belonging to the vector of ones, is called {\em intercept}. 
+$\ef = (e_1, \ldots, e_n)^\TT$ is the {\em residual vector}.
+
+If we want to predict several variables simultaneously, the {\em multivariate} model is
+\begin{equation} \label{multlinreg}
+  \Yf = \Xf \cdot \BBf + \Ef 
+\end{equation}
+with $p$ dependent variables collected in the $n \times p$ matrix $\Yf$, the $n \times (m+1)$ predictor matrix
+$\Xf$ and the residual matrix $\Ef$. There is a coefficient vector with intercept for 
+each dependent variable which results in an $(m+1) \times p$ matrix $\BBf = (\bbf_1, \ldots, \bbf_p)$.
+
+Given the basic form of a predictive model \eqref{unilinreg} or \eqref{multlinreg} we want to 
+estimate the model parameters in such a way that the prediction performance (see below) 
+is maximized. This estimation process is called {\em calibration} of the model and is carried out 
+applying some regression method to known data. In the end, we examine the performance of the final 
+model applying some validation method with data that was not used to find the model. This gives more
+realistic results.
+
+In regression we encounter the same problems with multivariate data like listed in  
+chapter \ref{chap:pca}: Ordinary least squares (OLS) regression can not be applied to data with more 
+predictor variables than objects because the data matrix will be singular and the inverse can 
+no longer be calculated. Furthermore, dependencies between the predictor variables are not allowed, 
+which is not a very realistic assumption in many practical cases. In the following, multiple as well 
+as multivariate regression methods are presented alternatively to OLS.
+
+In order to depict the various methods in this section we use a data example prepared by \cite{Lieb} 
+and enclosed in the \proglang{R} package \pkg{chemometrics}. For 
+$n=166$ alcoholic fermentation mashes of different feedstock (rye, wheat and corn) we have the 
+matrix $\Yf$ containing the concentration of glucose and ethanol (in g/L), respectively, as the two 
+dependent variables. The $m=235$ variables in $\Xf$ contain the first derivatives of near infrared 
+spectroscopy (NIR) absorbance values at 1115-2285 nm.
+
+<<echo=FALSE>>=
+  data(NIR)
+  X <- NIR$xNIR
+  Y <- NIR$yGlcEtOH
+  namesX <- names(X)
+  attach(X)
+@
+<<eval=FALSE>>=
+  data(NIR)
+  X <- NIR$xNIR
+  Y <- NIR$yGlcEtOH
+  namesX <- names(X)
+  attach(X)
+@
+
+\subsubsection*{Prediction Performance}
+In the following we give a short overview over measures for prediction performance assuming a 
+univariate model \eqref{unilinreg}. Using the predicted values $\hat y_i = \xf_i^\TT \widehat \bbf$, 
+where $\widehat \bbf$ are the estimated regression coefficients, we can write the residuals 
+$e_i = y_i - \hat y_i$, $i=1,\ldots,z$. Since we always aim to obtain a large number of predictions 
+to get more reliable results, very often $z$ (the number of predictions) will be larger than $n$.
+
+An estimate for the spread of the error distribution is the {\em standard error of prediction} (SEP), 
+the standard deviation of the residuals:
+\begin{equation*}
+	\SEP = \sqrt{\frac{1}{z-1} \sum_{i=1}^z (e_i - \textbf{\={e}})^2}
+\end{equation*}
+where {\bf \={e}} is the arithmetric mean of the residuals (or {\em bias}). The fact that the SEP is 
+measured in units of $\yf$ is an advantage for practical applications. It can be used to compare 
+the performance of different methods, which we will do later.
+
+Robust measures for the standard deviation are the {\em interquartile range} ($s_{\IQR}$) or the 
+{\em median absolute deviation} ($s_{\MAD}$). $s_{\IQR}$ is calculated as the difference between 
+the empirical 3\superscript{rd} and 1\superscript{st} quartile and states the range of the middle 
+50\% of the residuals. $s_{\MAD}$ is the median of the absolute deviations from the residuals' 
+median.
+\begin{align*}
+	s_{\IQR} &= Q_3 - Q_1  \\
+	s_{\MAD} &= \median_i |e_i - \median_j (e_j)|
+\end{align*}
+
+Being the mean of the squared residuals, the {\em mean squared error of prediction} (MSEP)
+\begin{equation*}
+	\MSEP = \frac{1}{z} \sum_{i=1}^z e_i^2
+\end{equation*}
+is not measured in units of $\yf$ and mostly used for model selection (determination of 
+coefficients and other model parameters, variable selection, etc.).
+
+With the relation $\SEP^2 = \MSEP - \textbf{\={e}}^2$ we see that if the bias is close to zero, $\SEP^2$ and 
+MSEP are almost identical. In the case of (almost) zero bias, the square root of the MSEP 
+\begin{equation*}
+  \RMSEP = \sqrt{\frac{1}{z} \sum_{i=1}^z e_i^2}
+\end{equation*}
+is almost identical to the SEP.
+
+Another important measure is the PRESS ({\em predicted residual error sum of squares}),
+\begin{equation*}
+  \PRESS = \sum_{i=1}^z e_i^2 = z \cdot \MSEP
+\end{equation*}
+the sum of the squared residuals, which is minimized for the determination of regression 
+coefficients and often applied in CV.
+
+In the best case (if the method we apply is fast enough), we split the data into a calibration set 
+and a test set. The calibration set is then used for model selection by CV and with the test set we 
+estimate the prediction performance for new data (model assessment). The test error we obtain from 
+this procedure is the most realistic measure we can get ($\SEP_\text{test}$, $\MSEP_\text{test}$, 
+$\RMSEP_\text{test}$).
+
+Since some algorithms are too slow for this costly procedure though, we do CV with the whole data 
+set (without splitting off a test set) and obtain measures that are still acceptable ($\SEP_\text{CV}$, 
+$\MSEP_\text{CV}$, $\RMSEP_\text{CV}$).
+
+Calculating "predictions" from the data that was used to develop the model, in general leads to too 
+optimistic estimations and is not recommended (SEC, MSEC, RMSEC - the C stands for calibration).
+
+
+%-------------------------------------------------------------- stepwise
+\SweaveOpts{keep.source=TRUE, eval=TRUE, echo=TRUE, results=hide, fig=FALSE, eps=FALSE, prefix.string=Figures/Fig-03, include=FALSE, width=9, height=5}
+
+<<echo=FALSE>>=
+  options(prompt="> ", continue="  ")
+  options(width=70)
+@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Stepwise Regression}
+\label{sec:step}
+
+Functions discussed in this section:
+
+\begin{tabular}{l}
+  \code{stepwise} \\
+  \code{lmCV}
+\end{tabular}
+
+Stepwise regression is a common method for {\em variable selection} \citep[compare][]{Hocking}. The number
+of predictors is reduced in order to find the most parsimonious (simplest) possible model that still guarantees a good
+prediction performance. Our goal is a good fit of the data at a relatively low model complexity.
+
+The \pkg{chemometrics} function \code{stepwise} does stepwise variable selection starting
+with the empty univariate model where the dependent variable $\yf$ is explained only by the intercept
+and adding or removing in each step one variable until no more improvement
+can be done or until a certain number of steps is reached. The criterion used for the decision which
+variable to add is the {\em Bayesian information criterion} \citep{BIC}:
+
+\begin{definition}
+  For a linear model with normally distributed residuals, the Bayesian information criterion
+  (BIC) is a function of the sum of squares of the model residuals and given as
+  \begin{equation*}
+    \operatorname{BIC} = n \cdot \ln{\frac{\operatorname{RSS}}{n}} + a \cdot \ln{n}.
+  \end{equation*}
+  Since the RSS decreases with increasing $a$ (number of predictor variables used), the BIC contains a 
+  penalty term depending on that number.
+\end{definition}
+
+Note that the absolute BIC value has no meaning because it describes the loss of information
+compared to an exact model. Thus, the lower the BIC value the closer to reality is the model and
+the better is its performance. That is why we choose the variable that causes the model with the
+lowest BIC value.
+
+For our NIR data, let us predict only the glucose concentration from the given x-variables.
+
+<<>>=
+  y <- Y[,1]
+  NIR.Glc <- data.frame(X=X, y=y)
+@
+<<eval=FALSE>>=
+  res.step <- stepwise(y~., data=NIR.Glc)
+@
+%<<echo=FALSE>>=
+%  load("RData/res-step.RData")
+%@
+
+From the result of stepwise regression we can extract the number of steps and seconds needed for
+the algorithm and the number and names of the variables used for the final model:
+
+<<eval=FALSE>>=
+  steps    <- length(res.step$usedTime)
+  seconds  <- res.step$usedTime[steps]
+  varnbr   <- sum(finalvars <- res.step$models[steps,])
+  varnames <- namesX[as.logical(finalvars)]
+@
+
+<<echo=FALSE>>=
+  steps <- 22
+  seconds <- 39
+  varnbr <- 16
+  varnames <- c('X1115.0','X1185.0','X1215.0','X1385.0','X1420.0','X1500.0','X1565.0','X1585.0',
+                'X1690.0','X1715.0','X1720.0','X1815.0','X1995.0','X2070.0','X2100.0','X2195.0')
+@
+
+<<echo=FALSE, results=verbatim>>=
+  cat(" steps needed:        ", steps, "\n",
+      "seconds needed:      ", seconds, "\n",
+      "number of variables: ", varnbr, "\n", sep=" ")
+@
+
+In Figure \ref{fig:bic} the change of the BIC value throughout the algorithm is tracked. We can see
+that the number of predictors decreases from time to time. In each of the first 11 steps one variable
+was added, whereas in step 12 one variable (the one that was added in step 5) is dropped again, and
+so on until in step 22 we reach the final model with 16 variables because no adding or removing of
+variables can achieve a further reduction of the BIC.
+
+\begin{figure}[t!]
+  \centering
+  \includegraphics{Fig-03-01-BIC}
+  \caption{Change of the BIC value during stepwise regression. In steps 12, 15 and 21 a variable
+           is dropped. After 22 steps the final model with 16 variables is reached. This result 
+           highly depends on the choice of the initial model.}
+  \label{fig:bic}
+\end{figure}
+
+<<eval=FALSE, label=01-BIC, fig=TRUE, width=6, height=6>>=
+  # produce Figure 4.1
+  modelsize <- apply(res.step$models, 1, sum)
+  plot(modelsize, res.step$bic, type="b", pch=20,
+    main="BIC during stepwise regression",
+    xlab="model size", ylab="BIC value")
+@
+<<echo=FALSE, label=01-BIC, fig=TRUE, width=6, height=6>>=
+  # produce Figure 4.1
+  modelsize <- c(1,2,3,4,5,6,7,8,9,10,11,10,11,12,11,12,13,14,15,16,15,16)
+  res.step.bic <- c(1292.227,1231.984,1216.206,1182.616,1176.313,1172.719,1136.370,1075.659,
+    1064.525,1060.948,1057.010,1053.532,1050.034,1047.147,1042.120,1039.618,
+    1032.290,1023.446,1022.557,1022.301,1018.909,1017.506)
+  plot(modelsize, res.step.bic, type="b", pch=20,
+    main="BIC during stepwise regression",
+    xlab="model size", ylab="BIC value")
+@
+
+\subsubsection*{Validation of the final model}
+
+We measure the prediction performance of the final model resulting from stepwise regression by
+{\em repeated cross validation} (see appendix \ref{app:cv}).
+
+<<>>=
+  finalmodel <- as.formula(paste("y~", paste(varnames, collapse = "+"),
+    sep = ""))
+  res.stepcv <- lmCV(finalmodel, data=NIR.Glc, repl=100, segments=4)
+@
+
+Here, \code{lmCV} carries out 100 times repeated 4-fold CV and computes the predicted values and residuals
+for each repetition as well as the performance measures SEP and RMSEP and their respective means.
+We analyze the performance of stepwise regression by graphical representation of those values
+(Figure \ref{fig:lmCV}).
+
+<<label=02-lmCV, fig=TRUE>>=
+  par(mfrow=c(1,2))
+  plot(rep(y,100), res.stepcv$predicted, pch=".",
+    main="Predictions from repeated CV",
+    xlab="Measured y", ylab="Predicted y")
+  abline(coef=c(0,1))
+  points(y, apply(res.stepcv$predicted, 1, mean), pch=20)
+  plot(res.stepcv$SEP, main="Standard Error of Prediction",
+    xlab="Number of repetitions", ylab="SEP")
+  abline(h=res.stepcv$SEPm)
+  abline(h=median(res.stepcv$SEP), lty=2)
+@
+
+\begin{figure}[h]
+  \centering
+  \includegraphics{Fig-03-02-lmCV}
+  \caption{Left side: measured versus predicted glucose concentrations. Right side: standard error
+           of prediction for each CV repetition. The horizontal solid and dashed line represent the
+           mean and the median of the errors, respectively. The standard deviation of those 100
+           SEP values is relatively low.}
+  \label{fig:lmCV}
+\end{figure}
+
+The left hand side shows 100 small dots for each measured glucose concentration and their means by
+a bigger point. We see some noise in the data for small y-values which might result from roundoff errors
+and one object (at a glucose concentration of around 45) with suspiciously disperse predictions. 
+However, on the right hand side we see the SEP for each CV repetition with
+
+<<echo=FALSE, results=verbatim>>=
+    cat(" SEP mean:               ", round(res.stepcv$SEPm, 4), "\n",
+      "SEP median:             ", round(median(res.stepcv$SEP), 4), "\n",
+      "SEP standard deviation: ", round(sd(res.stepcv$SEP), 4), "\n", sep=" ")
+@
+
+If the cross validation did not give as stable SEP values as it is the case here one should
+consider other validation methods. For instance to carry out repeated double CV to obtain PLS
+models based on the regressor variables of the final model \citep[compare][section 4.9.1.6]{VarmuzaFilzmoser}.
+
+Note that the regression model found by stepwise variable selection highly depends on the
+choice of the starting model. In order to find the most parsimonious model it is recommended to start
+with the empty model though.
+
+%<<echo=FALSE>>=
+%  o <- apply(abs(res.stepcv$resid), 2,order)
+%  trimlength <- floor(length(y)*0.8)
+%  resid.trim.stepwise <- array(dim=c(trimlength,100))
+%  for (i in 1:100) {
+%    resid.trim.stepwise[,i] <- abs(res.stepcv$resid[,i])[o[1:trimlength,i]]
+%  }
+%@
+
+%-------------------------------------------------------------- stepwise end.
+
+\newpage
+
+%-------------------------------------------------------------- pcr
+\SweaveOpts{keep.source=TRUE, eval=TRUE, echo=TRUE, results=hide, fig=FALSE, eps=FALSE, prefix.string=Figures/Fig-03, include=FALSE, width=9, height=5}
+
+<<echo=FALSE>>=
+  options(prompt="> ", continue="  ")
+  options(width=70)
+@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Principal Component Regression}
+\label{sec:pcr}
+
+Functions discussed in this section:
+
+\begin{tabular}{l}
+  \code{mvr\_dcv}    \\
+  \code{plotcompmvr} \\
+  \code{plotpredmvr} \\
+  \code{plotresmvr}  \\
+  \code{plotSEPmvr}
+\end{tabular}
+
+Another way to face the multicollinearity problem is {\em principal component regression} 
+\citep{Jolliffe}. This method consists in replacing the matrix $\Xf$ by its principal components to
+explain the dependent variable $\yf$. As discussed in chapter \ref{chap:pca}, these PCs are 
+uncorrelated.
+
+\subsubsection*{The Method}
+
+Considering an $n \times m$ matrix $\Xf$ that contains the predictor variables (but no intercept!), 
+and additionally a dependent variable $\yf$ with $n$ observations, our univariate regression model is
+\begin{equation} \label{PCR}
+  \yf = \Xf \cdot \bbf + \ef
+\end{equation}
+
+Here we assume that $\Xf$ is centered.
+
+The first step of PCR is now to determine the optimal number $a$ of principal components of $\Xf$.
+However, contrary to PCA, our goal here is not the maximization of the total explained variance of 
+$\Xf$ but to find the regression model with the {\em best prediction performance}. An important 
+measure therefore is the {\em mean squared error of prediction} (MSEP).
+
+Once the predictors are approximated by the chosen $n \times a$ scores matrix $\Tf$ and the 
+$m \times a$ loadings $\Pf$ with $1 \le a < m$, we replace $\Xf$ in \eqref{PCR} according to
+\begin{equation*}
+  \Xf \approx \Tf \Pf^\TT
+\end{equation*}
+and we obtain the new regression model with uncorrelated regressors
+\begin{equation} \label{eq:pcrols}
+  \yf = \Tf \gf + \ef_T
+\end{equation}
+where $\gf = \Pf^\TT \bbf$ and $\ef_T$ the new residual vector. The regression coefficients for the 
+original model \eqref{PCR} can then be estimated by $\hat \bbf_{PCR}= \Pf \hat \gf$, where $\hat \gf$
+are the OLS coefficients of \eqref{eq:pcrols}.
+
+
+\subsubsection*{PCR with \proglang{R}}
+The crucial step in PCR is the calculation of $a$, the optimum number of PCs. The \pkg{chemometrics} function
+\code{mvr\_dcv} is designed especially for this purpose and carefully determines the optimal value for $a$
+by {\em repeated double cross validation} (see appendix \ref{app:cv}). Furthermore, predicted values,
+residuals and some performance measures are calculated. Take into account that the function \code{mvr\_dcv}
+is made exclusively for univariate PLS models.
+
+<<eval=FALSE>>=
+  res.pcr <- mvr_dcv(y~., data=NIR.Glc, ncomp=40, method = "svdpc",
+    repl = 100)
+@
+%<<echo=FALSE>>=
+%  load("RData/res-pcr.RData")
+%@
+
+Note that the maximum value of \verb+ncomp+ is $\min(n-1, m)$ and that only the
+\verb+method = "svdpc"+ leads to the fitting of PCR models (other methods exist that fit PLS models, 
+see section \ref{sec:pls}). This method uses singular value decomposition of the $\Xf$ matrix to calculate
+its principal components (see chapter \ref{chap:pca}).
+
+For the actual selection of an optimum number of principal components one of three strategies can
+be chosen: \verb+selstrat = c("diffnext", "hastie", "relchange")+. To clarify some terms we have to 
+be aware of the results we get from RDCV: 100 repetitions yield 100 models for each number of components
+and thus 100 MSEP values. If we say "MSEP mean" we are talking about the mean over the CV replications
+for one model complexity. Analogously for "MSEP standard error". For all of those three selection 
+strategies the maximum model complexity that can be chosen is the one that yields the lowest MSEP 
+mean. Let us call this model {\em starting model}.
+
+\begin{itemize}
+  \item \verb+diffnext+: This strategy adds \verb+stdfact+ MSEP standard errors to each MSEP mean and 
+        observes the difference of this value and the MSEP mean of the model with one number of 
+        components less. If this change is negative a model is among the possible optima. The winner 
+        is the most complex of these candidates that still has less components than the starting model.
+  \item	\verb+hastie+ (default): The so-called {\em standard-error-rule} described by \cite{Hastie} adds
+        \verb+sdfact+ MSEP standard errors to the lowest MSEP mean and decides in favour of the least 
+        complex model with an MSEP mean under this boundary. (See also appendix \ref{app:cv}.)
+  \item	\verb+relchange+: Taking into consideration only the models with lower or the same 
+        complexity like the starting model, we use the largest MSEP mean to relativize the 
+        difference of each MSEP mean and the smallest MSEP mean. Among all models with a 
+        sufficiently high relative change (decrease larger than 0.001), we take the one with the highest complexity.
+        Again among all models with lower or the same complexity the model with the lowest MSEP 
+        mean is chosen. From this one, the \verb+sdfact+-standard-error-rule is applied.
+\end{itemize}
+
+The selection of the principal components happens in the inner CV loop after the calculation of the
+principal components which is done by the function \code{mvr} from package \pkg{pls} applying {\em singular
+value decomposition}. This function can be used later as well to calculate the loadings, scores and other
+details for the optimal model. That is to say that the output of \code{mvr\_dcv} does not include those
+things but, in fact, predicted values, residuals and various (also robust) performance measures for each
+CV replication and the optimum number of PCs and the SEP for the final model. This output can be visualized
+by some ready-made plots.
+
+<<eval=FALSE, label=03-comppcr, fig=TRUE>>=
+  plotcompmvr(res.pcr)
+@
+
+\begin{figure}[b!]
+  \centering
+  \includegraphics{Fig-03-03-comppcr}
+  \caption{Output of function \code{plotcompmvr} for PCR. The relative frequency for the optimal number of 
+           PCR components throughout the CV. The maximum is marked by a dashed vertical line. For a better 
+           visualization, frequencies that are zero on the edges are left out.}
+  \label{fig:comppcr}
+\end{figure}
+
+Figure \ref{fig:comppcr} shows the optimum number of PCs to use by plotting the frequencies of their
+occurance throughout the CV (\verb+segments0+ $\times$ \verb+repl+ values, in our case 400)
+against the number of components. A dashed vertical line at the number corresponding to the maximum frequency
+marks the optimum, here at 31. %Sexpr{res.pcr$afinal}
+
+The randomness of cross validation is depicted in Figure \ref{fig:seppcr} where the standard errors
+of prediction (SEP) of the repeated double CV for each number of components are plotted. We can see
+100 grey lines (one for each CV replication) and one black line resulting from one single
+CV carried out additionally that shows very well how optimistic it would be to use only a single CV.
+There is a dashed horizontal line at the SEP (7.5) %Sexpr{round(res.pcr$SEPopt, digits=2)}
+of the model with the optimum number of components and the dashed vertical line indicates the optimum 
+number of components.
+
+<<eval=FALSE, label=04-seppcr, fig=TRUE>>=
+  optpcr <- res.pcr$afinal
+  plotSEPmvr(res.pcr, optcomp=optpcr, y=y, X=X, method="svdpc")
+@
+<<echo=FALSE>>=
+  optpcr <- 31
+@
+
+\begin{figure}[t!]
+  \centering
+  \includegraphics{Fig-03-04-seppcr}
+  \caption{Output of \code{plotSEPmvr} for PCR. SEP values resulting from RDCV for each number of
+           PCR components. One single CV (black line) is rather optimistic, especially for higher 
+           numbers of components.}
+  \label{fig:seppcr}
+\end{figure}
+
+For the optimal model, two very similar plot functions, \code{plotpredmvr} and \code{plotresmvr}, present
+the distribution of the predicted values (Figure \ref{fig:predpcr}) and the residuals
+(Figure \ref{fig:respcr}), respectively. Both demonstrate the situation for a single cross validation
+on the one hand and for repeated double CV on the other hand. The latter plot contains grey crosses for
+all CV replications and black crosses for the average of all replications. A straight line indicates
+where the exact prediction would be. The linear structure for lower glucose concentrations in Figure
+\ref{fig:respcr} derive from the data structure and probable rounding effects.
+
+<<eval=FALSE, label=05-predpcr, fig=TRUE>>=
+  plotpredmvr(res.pcr, optcomp=optpcr, y=y, X=X, method="svdpc")
+@
+<<eval=FALSE, label=06-respcr, fig=TRUE>>=
+  plotresmvr(res.pcr, optcomp=optpcr, y=y, X=X, method="svdpc")
+@
+
+\begin{figure}[p]
+  \centering
+  \includegraphics{Fig-03-05-predpcr}
+  \caption{Output of \code{plotpredmvr} for PCR. Predicted versus measured glucose concentrations. The 
+           right plot shows the variation of the predictions resulting from RDCV.}
+  \label{fig:predpcr}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics{Fig-03-06-respcr}
+  \caption{Output of \code{plotresmvr} for PCR. Residuals versus predicted values. The right plot shows
+           again the variation of the residuals resulting from RDCV.}
+  \label{fig:respcr}
+\end{figure}
+
+The SEP at the optimal number of components is indeed higher than the
+one we get from stepwise regression in section \ref{sec:step}. On the other hand, the cross validation
+of PCR leads to a higher number of used principal components than the number of variables used in 
+stepwise regression. Let us see which results {\em partial least squares regression} yields for the 
+same example.
+
+<<echo=FALSE, results=verbatim>>=
+    #SEP <- apply(res.pcr$resopt[,1,], 2, sd)
+    cat(" optimal number of PCs:  ", optpcr, "\n",
+         "SEP mean:               7.505 \n",                      #round(mean(SEP), 4)
+         "SEP median:             7.4914 \n",                     #round(median(SEP), 4)
+         "SEP standard deviation: 0.3892 \n", sep=" ")    # round(sd(SEP), 4)
+@
+
+%<<echo=FALSE>>=
+%  o <- apply(abs(res.pcr$resopt[,1,]), 2,order)
+%  trimlength <- floor(length(y)*0.8)
+%  resid.trim.pcr <- array(dim=c(trimlength,100))
+%  for (i in 1:100) {
+%    resid.trim.pcr[,i] <- abs(res.pcr$resopt[,1,i])[o[1:trimlength,i]]
+%  }
+%@
+%-------------------------------------------------------------- pcr end.
+
+\newpage
+
+%-------------------------------------------------------------- pls
+\SweaveOpts{keep.source=TRUE, eval=TRUE, echo=TRUE, results=hide, fig=FALSE, eps=FALSE, prefix.string=Figures/Fig-03, include=FALSE, width=9, height=5}
+
+<<echo=FALSE>>=
+  options(prompt="> ", continue="  ")
+  options(width=70)
+@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Partial Least Squares Regression}
+\label{sec:pls}
+
+Besides the functions based on the \pkg{pls} function \code{mvr} that were discussed in the previous
+section, and that fit not only PCR but also PLS models, this section shall be dedicated to the
+following functions:
+
+\begin{tabular}{l}
+  \code{pls1\_nipals} \\
+  \code{pls2\_nipals} \\
+  \code{pls\_eigen}
+\end{tabular}
+
+
+Partial least squares regression is another multivariate linear regression method, i.e.\@ our goal is
+to predict several characteristics simultaneously. The stucture is basically the same as in PCR.
+However, while in the previous section we used the principal components of $\Xf$ to predict $\Yf$ we
+shall now use the so-called {\em PLS components}. Instead of maximizing only the explained variance
+of the predictor variables, PLS components take into account the dependent variables by
+maximizing, for example, the covariance between the scores of $\Xf$ and $\Yf$. That means that PLS
+components are relevant for the prediction of $\Yf$, not for the modelling of $\Xf$.
+
+Since covariance is the product of variance and correlation, PLS regression incorporates PCR (that
+maximizes the variance of $\Xf$) as well as OLS regression (that maximizes the correlation of $\Xf$
+and $\Yf$), and thus models the structural relation
+between dependent variables and predictors. Similar to PCR, PLS regression is able to process
+collinear data with more variables than objects by using a relatively small number of PLS components.
+The optimal number of components can be found once again by cross validation.
+
+First developed by H. \cite{Wold}, the partial least squares regression got established in the field
+of chemometrics later, for example by \cite{Hoeskuldsson}. A review of PLS regression in chemometrics
+is given by S. \cite{WoldS}, who also proposed the alternative name {\em projection to latent structures}.
+
+\subsubsection*{The Method}
+In general, we consider a multivariate linear regression model (\ref{multlinreg})
+with an $n \times m$ matrix $\Xf$ of predictors and an $n \times p$ matrix $\Yf$ of dependent
+variables; both matrices are mean-centered. Similar to PCR, we approximate
+\begin{align*}
+  \Xf & \approx \Tf \Pf^\TT \\
+  \Yf & \approx \Uf \Qf^\TT
+\end{align*}
+where $\Tf$ and $\Uf$ (both of dimension $n \times a$) are the respective score matrices that 
+consist of linear combinations of the x- and y-variables and $\Pf$ ($m \times a$) and $\Qf$ 
+($p \times a$) are the respective loadings matrices of $\Xf$ and $\Yf$. Note that, unlike in PCR,
+in PLS in general not the loadings are orthogonal, but the scores. $a \le \min(n, m)$ is the number 
+of PLS components (chosen by means of CV). 
+
+Additionally, the x- and y-scores are related by the so-called {\em inner relation}
+\begin{equation*} 
+  \Uf = \Tf \Df + \Hf ,
+\end{equation*}
+a linear regression model maximizing the covariance between the x- and y-scores. The regression
+coefficients are stored in a diagonal matrix $\Df = \operatorname{diag} (d_1,\ldots,d_a)$ and the
+residuals in the matrix $\Hf$.
+
+The OLS estimator for $\Df$ gives us an estimate $\widehat \Uf = \Tf \widehat \Df$ and thus 
+$\widehat \Yf = \Tf \widehat \Df \Qf^\TT$. Using $\widehat \Yf = \Xf \widehat \BBf$ we obtain 
+\begin{equation} \label{BdachPLS}
+  \widehat \BBf_{PLS} = \Pf \widehat \Df \Qf^\TT
+\end{equation}
+
+The inner relation can destroy the uniqueness of the decomposition of the data matrices $\Xf$ and
+$\Yf$. Normalization constraints on the score vectors $\tf$ and $\uf$ avoid this problem. To
+fulfill these restrictions we need to introduce (orthogonal) 
+weight vectors $\wf$ and $\cf$ such that
+\begin{align} \label{plsconstraint}
+  \tf = \Xf \wf 	&\text{ and } 	\uf = \Yf \cf   \text{ with}              \notag \\
+  \| \tf \| = \| \Xf \wf \| = 1 	&\text{ and } 	\| \uf \| = \| \Yf \cf \| = 1
+\end{align}
+
+Consequently, here the score vectors do not result from projection of $\Xf$ on loading vectors but
+on weights.
+
+The objective function of PLS regression can then be written as
+\begin{align} \label{plsobjective1}
+  & \max \Cov (\Xf \wf, \Yf \cf) \\
+  or & \max	\tf^\TT \uf = (\Xf \wf)^\TT \Yf \cf = \wf^\TT \Xf^\TT \Yf \cf \label{plsobjective2}
+\end{align}
+
+with the constraints \eqref{plsconstraint}. The maximization problems \eqref{plsobjective1} and
+\eqref{plsobjective2} are equivalent. From \eqref{plsobjective2} we see that the first weight
+vectors $\wf_1$ and $\cf_1$ are the left and right eigenvectors of the SVD of $\Xf^\TT \Yf$
+corresponding to the largest singular value.
+
+In the univariate case $\yf = \Xf \bbf + \ef$ (also referred to as PLS1) we approximate only
+$\Xf \approx \Tf \Pf^\TT$ and the inner relation reduces to 
+\begin{equation} \label{uniinnrel}
+  \yf = \Tf \df + \hf
+\end{equation}
+and the PLS estimator for $\bbf$ to
+\begin{equation} \label{bdachPLS}
+  \widehat \bbf_{PLS} = \Pf \widehat \df
+\end{equation}
+
+
+\subsubsection*{Algorithms}
+
+The algorithms provided by the \proglang{R} package \pkg{chemometrics} differ slightly in the
+results they give and also in computation time and numerical accuracy.
+
+The {\em kernel algorithm} (Algorithm \ref{alg:kernel}) proposed by \cite{Hoeskuldsson} is based on
+the calculation of the so-called kernel matrices $\Xf^\TT \Yf \Yf^\TT \Xf$ and
+$\Yf^\TT \Xf \Xf^\TT \Yf$ and computes weights, scores and loadings step by step, in each step
+removing the extracted information from the data matrix. An efficiency brake might be the
+eigenvalue decomposition of the kernel matrices which is fast if the number of x- and y- variables
+does not get too high (the number of objects has no impact on the dimensions of the kernel matrices).
+
+The {\em NIPALS algorithm} (Algorithm \ref{alg:plsnipals}) already used for PCA (section
+\ref{chap:pca}) yields the same results as the kernel method by calculating the weights, scores and
+loadings in a different, numerically more accurate 
+way. Remember the NIPALS algorithm as an iterative "improvement" of y-scores.
+
+\cite{Hoeskuldsson} describes a simpler version of the kernel algorithm. The {\em eigenvalue algorithm}
+uses the eigenvectors corresponding to the largest $a$ eigenvalues of the
+kernel matrices to obtain directly the x- and y-loadings. Thus no
+weights have to be computed. The scores can then be calculated as usual by projecting the loadings to the x-
+and y-space respectively. Since no deflation of the data is made the scores are not uncorrelated which
+also means that the maximization problem \eqref{plsobjective2} is not solved. However, the loadings
+are orthogonal which is an advantage for mapping. 
+
+The main difference of the {\em SIMPLS algorithm} \citep[Algorithm \ref{alg:simpls}][]{deJong} compared
+to the former ones is that the deflation is not made for the data $\Xf$ but the cross-product matrix
+$\Xf^\TT \Yf$ and that the weights are directly related to the original instead of the deflated data.
+An advantage is that no matrix inversion is needed for the computation of the regression coefficients.
+
+{\em Orthogonal projections to latent structures} (O-PLS) by \cite{TryggWold}
+is a modification of NIPALS that extracts the variation from $\Xf$ that is orthogonal to $\Yf$ and uses
+this filtered data for PLS:
+\begin{equation*}
+  \Xf - \Tf_o \Pf_o^\TT = \Tf \Pf^\TT + \Ef
+\end{equation*}
+This way, not only the correlation between the x- and y-scores is maximized but also the covariance,
+which helps to interpret the result.
+
+\newpage
+
+\begin{algorithm} \label{alg:kernel}
+  {\bf Kernel algorithm.}
+  
+  \vspace*{2mm}
+  \begin{tabular}{ l l l }
+   1a. & calculate $\wf_1$ as the first eigenvector of the kernel matrix $\Xf^\TT \Yf \Yf^\TT \Xf$  \\
+   1b. & calculate $\cf_1$ as the first eigenvector of the kernel matrix $\Yf^\TT \Xf \Xf^\TT \Yf$  \\
+   1c. & normalize both vectors such that                                $\| \Xf \wf_1 \| = \| \Yf \cf_1 \| = 1$ \\
+   2a. & project the x-data on the x-weights to calculate the x-scores   $\tf_1 = \Xf \wf_1$        \\
+   2b. & project the y-data on the y-weights to calculate the y-scores   $\uf_1 = \Yf \cf_1$        \\
+   3.  & calculate x-loadings by OLS regression
+          $\pf_1^\TT = (\tf_1^\TT \tf_1)^{-1} \tf_1^\TT \Xf = \tf_1^\TT \Xf = \wf_1^\TT \Xf^\TT \Xf$ \\
+   4.  & deflate the data matrix                                         $\Xf_1 = \Xf - \tf_1 \pf_1^\TT$
+  \end{tabular}
+  \vspace*{2mm}
+  
+  Follow the steps 1-4 $a$ times using the respective deflated data, until all $a$ PLS components
+  are determined. No deflation of $\Yf$ is necessary. The regression coefficients can be
+  estimated by
+  \begin{equation*}
+    \widehat \BBf = \Wf (\Pf^\TT \Wf)^{-1} \Cf^\TT
+  \end{equation*}
+  Note that the y-loadings are not needed for this purpose.
+
+  In the case of PLS1 there exists only one positive eigenvalue of $\Xf^\TT \yf \yf^\TT \Xf$.
+
+\end{algorithm}
+
+
+\begin{algorithm} \label{alg:simpls}
+  {\bf SIMPLS algorithm.}
+
+  \vspace*{2mm}
+  \begin{tabular}{ l l l }
+   0.  & initialize the cross-product matrix of $\Xf$ and $\Yf$         & $\Sf_1 = \Xf^\TT \Yf$  \\
+   1a. & calculate $\wf_j$ as the first left singular vector of         & \\
+       & $\Sf_{j} = \Sf_{j-1} - \Pf_{j-1} (\Pf_{j-1}^\TT \Pf_{j-1})^{-1} \Pf_{j-1}^\TT \Sf_{j-1}$ & \\
+   1b. & and normalize it                                               & $\wf_1 = \wf_1 / \| \wf_1 \|$   \\
+   2a. & project the x-data on the x-weights to calculate the x-scores  & $\tf_j = \Xf \wf_j$   \\
+   2b. & and normalize them                                             & $\tf_1 = \tf_1 / \| \tf_1 \|$ \\
+   3a. & calculate the x-loadings by OLS regression                     & $\pf_j = \Xf^\TT \tf_j$ \\   
+   3b. & and store them in an accumulated x-loadings matrix             & $\Pf_j = [\pf_1, \pf_2, \ldots, \pf_j]$	\\
+
+  \end{tabular}
+  \vspace*{2mm}
+  
+  Follow the steps 1-3 $a$ times, until all $a$ PLS components are determined. Note that here the
+  weights are directly related to $\Xf$ and not to a deflated matrix (step 2). The deflated
+  cross-product matrix lies in the orthogonal complement of $\Sf_{j-1}$. The regression coefficients
+  can be calculated by
+  \begin{equation*}
+    \hat \BBf = \Wf \Tf^\TT \Yf
+  \end{equation*}
+  which explains why no y-scores or -loadings are calculated in the algorithm. If we compare the SIMPLS
+  result to the kernel result we see that no matrix inversion is needed here.
+
+  In the PLS1 case the deflation step becomes simpler because $\Pf_j = \pf_j$.
+
+\end{algorithm}
+
+\newpage
+
+\begin{algorithm} \label{alg:plsnipals}
+  {\bf NIPALS algorithm.}
+
+  \vspace*{2mm}
+  \begin{tabular}{l p{10cm} p{4cm}}
+   0.  & initialize the first y-score vector as a column of the y-data          & $\uf_1 = \yf_k$  \\
+   1a. & calculate the x-weights by OLS regression &$\wf_1 = (\Xf^\TT \uf_1) / (\uf_1^\TT \uf_1)$  \\
+   1b. & and normalize them                                       & $\wf_1 = \wf_1 / \| \wf_1 \|$  \\
+   2.  & project the x-data on the x-weights to calculate the x-scores       & $\tf_1 = \Xf \wf_1$ \\
+   3a. & calculate the y-weights by OLS regression &$\cf_1 = (\Yf^\TT \tf_1) / (\tf_1^\TT \tf_1)$  \\
+   3b. & and normalize them                                       & $\cf_1 = \cf_1 / \| \cf_1 \|$  \\
+   4a. & project the y-data on the y-weights to calculate the y-scores     & $\uf_1^* = \Yf \cf_1$ \\
+   4b. & and determine the y-score improvement          & $\Delta \uf = \uf_\Delta^\TT \uf_\Delta$ \\
+       & where                                                    & $\uf_\Delta = \uf_1^* - \uf_1$
+  \end{tabular}
+  \vspace*{2mm}
+  
+  If $\Delta \uf > \epsilon$ go to step 1 using $\uf_1^*$. If $\Delta \uf < \epsilon$ the first
+  component is found. Proceed with step 5a using the last $\uf_1^*$.
+
+  \vspace*{2mm}
+  \begin{tabular}{l p{10cm} p{4cm}}
+    5a. & find the x-loadings by OLS regression & $\pf_1 = (\Xf^\TT \tf_1) / (\tf_1^\TT \tf_1)$  \\
+    5b. & find the inner relation parameter by OLS regression & $d_1 = (\uf_1^\TT \tf_1) / (\tf_1^\TT \tf_1)$  \\
+    6a. & deflate the x-data & $\Xf_1 = \Xf - \tf_1 \pf_1^\TT$   \\
+    6b. & deflate the y-data & $\Yf_1 = \Yf - d_1 \tf_1 \cf_1^\TT$
+  \end{tabular}
+  \vspace*{2mm}
+  
+  Follow the steps 0-6 $a$ times using the respective deflated data matrices, until all $a$ PLS
+  components are determined. The regression coefficients can be estimated by
+  \begin{equation*}
+    \widehat \BBf = \Wf (\Pf^\TT \Wf)^{-1} \Cf^\TT
+  \end{equation*}
+  which is the same result as for the kernel algorithm. Again the y-loadings are not needed for the
+  regression coefficients.
+  \vspace*{2mm}
+
+  For PLS1 the algorithm simplifies because no iterations are necessary to find an optimal y-score
+  vector $\uf^*$.
+
+\end{algorithm}
+
+
+\subsubsection*{PLS with \proglang{R}}
+
+In section \ref{sec:pcr} we used the \pkg{chemometrics} function \code{mvr\_dcv} to find the optimal 
+number of principal components for a univariate model by repeated double CV. Several plot 
+functions helped us to evaluate the results graphically. We applied the \code{method="svdpc"} for 
+PCR. For PLS regression, we simply have to change the method to one of \code{simpls}, 
+\code{kernelpls} or \code{oscorespls} in our \proglang{R} code and can use the same functions
+\code{mvr\_dcv}, \code{plotcompmvr}, \code{plotSEPmvr}, \code{plotpredmvr} and \code{plotresmvr}.
+
+<<eval=FALSE>>=
+  res.pls <- mvr_dcv(y~., data=NIR.Glc, ncomp=40, method = "simpls",
+    repl = 100)
+@
+%<<echo=FALSE>>=
+%  load("RData/res-pls.RData")
+%@
+
+\newpage
+
+<<eval=FALSE, label=07-comppls, fig=TRUE>>=
+  plotcompmvr(res.pls)
+@
+<<eval=FALSE, label=08-seppls, fig=TRUE>>=
+  optpls <- res.pls$afinal
+  plotSEPmvr(res.pls, optcomp=optpls, y=y, X=X, method="simpls")
+@
+<<echo=FALSE>>=
+  optpls <- 9
+@
+
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics{Fig-03-07-comppls}
+  \caption{Output of \code{plotcompmvr} for PLS. Compare Figure \ref{fig:comppcr}. The relative 
+           frequency for the optimal number of PLS components throughout the CV. The maximum is 
+           marked by a dashed vertical line. For a better visualization, frequencies that are zero 
+           on the edges are left out.}
+  \label{fig:comppls}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics{Fig-03-08-seppls}
+  \caption{Output of \code{plotSEPmvr} for PLS. Compare Figure \ref{fig:seppcr}. SEP values resulting 
+           from RDCV for each number of PLS components. The black line shows how optimistic one single 
+           CV would be.}
+  \label{fig:seppls}
+\end{figure}
+
+\newpage
+
+<<eval=FALSE, label=09-predpls, fig=TRUE>>=
+  plotpredmvr(res.pls, optcomp=optpls, y=y, X=X , method="simpls")
+@
+<<eval=FALSE, label=10-respls, fig=TRUE>>=
+  plotresmvr(res.pls, optcomp=optpls, y=y, X=X, method="simpls")
+@
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics{Fig-03-09-predpls}
+  \caption{Output of \code{plotpredmvr} for PLS. Compare Figure \ref{fig:predpcr}. Predicted 
+           versus measured values. Grey crosses on the right: variation of predictions from RDCV.}
+  \label{fig:predpls}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics{Fig-03-10-respls}
+  \caption{Output of \code{plotresmvr} for PLS. Compare Figure \ref{fig:respcr}. Residuals 
+           versus predicted values. Grey crosses on the right: variation of predictions from RDCV.}
+  \label{fig:respls}
+\end{figure}
+
+\newpage
+
+For our example, the functions yield the following results: The optimal number of PLS components 
+(Figure \ref{fig:comppls}) is 9, %Sexpr{res.pls$afinal}
+which is very low compared to the former 
+results. We can also observe that the values for the number of used PLS components which occur 
+during the CV are throughout lower and less spread than in the case of PCR. Not only the number of
+components is lower; also the standard error of prediction, 6.4,%Sexpr{round(res.pls$SEPopt,2)},  
+decreases compared to PCR. If we track the development of the SEP for an increasing number of 
+components (Figure \ref{fig:seppls}), we realize that it falls faster to a minimum 
+than for PCR. The plots of predicted values (Figure \ref{fig:predpls}) 
+and residuals (Figure \ref{fig:respls}) show a very similar picture in both cases, though.
+
+<<echo=FALSE, results=verbatim>>=
+    #SEP <- apply(res.pls$resopt[,1,], 2, sd)
+    cat(" optimal number of PCs:  ", optpls, "\n",
+         "SEP mean:                6.3997 \n", #round(mean(SEP), 4)
+         "SEP median:              6.3578 \n", #round(median(SEP), 4)
+         "SEP standard deviation:  0.3771 \n", sep=" ") #round(sd(SEP), 4)
+@
+
+To specifically calculate the loadings, scores and weights for a PLS model created by \code{mvr} 
+using the algorithms SIMPLS, kernel or O-PLS the package \pkg{pls} includes useful functions (e.g. 
+\code{scores}, \code{loadings}, \code{loading.weights}).
+
+Additionally to those algorithms, in the \pkg{chemometrics} package there are also functions that 
+use the NIPALS and the eigenvalue algorithm. The algorithms supported by \code{mvr\_dcv} are usually 
+sufficient for a careful analysis though.
+
+If we have a univariate model the function \code{pls1\_nipals} will calculate the scores and 
+loadings for $\Xf$, weights for $\Xf$ and $\yf$ as well as the final regression coefficients. The 
+optimal number of components can be determined consistently by \code{mvr\_dcv} with the \code{method=kernelpls}.
+<<eval=FALSE>>=
+  res.pls1nipals <- pls1_nipals(X, y, a = res.pls$afinal)
+@
+
+For a PLS2 model it is important to scale the $\Yf$ data in order to achieve an equal treatment of 
+all y-variables. After the optimal number of components has been determined separately, the scores, 
+loadings and weights for $\Xf$ and $\Yf$, the coefficients for the inner relation and the final 
+regression coeffcients are then calculated by the function \code{pls2\_nipals}.
+<<eval=FALSE>>=
+  Ysc <- scale(Y)
+  res.pls2nipals <- pls2_nipals(X, Ysc, a = 9)
+@
+
+Another option for PLS2 is the eigenvalue algorithm. The function \code{pls\_eigen} returns the scores 
+and loadings for $\Xf$ and $\Yf$. For the number of components $a \le \min(n,m,p)$ holds.
+<<eval=FALSE>>=
+  a <- min(dim(X)[1], dim(X)[2], dim(Y)[2])
+  res.plseigen <- pls_eigen(X, Ysc, a = a)
+@
+
+%<<echo=FALSE>>=
+%  o <- apply(abs(res.pls$resopt[,1,]), 2, order)
+%  trimlength <- floor(length(y)*0.8)
+%  resid.trim.pls <- array(dim=c(trimlength,100))
+%  for (i in 1:100) {
+%    resid.trim.pls[,i] <- abs(res.pls$resopt[,1,i])[o[1:trimlength,i]]
+%  }
+@
+%-------------------------------------------------------------- pls end.
+
+%-------------------------------------------------------------- plsrobust
+\SweaveOpts{keep.source=TRUE, eval=TRUE, echo=TRUE, results=hide, fig=FALSE, eps=FALSE, prefix.string=Figures/Fig-03, include=FALSE, width=9, height=5}
+
+<<echo=FALSE>>=
+  options(prompt="> ", continue="  ")
+  options(width=70)
+@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Partial Robust M-Regression}
+\label{sec:plsrobust}
+
+Functions discussed in this section:
+
+\begin{tabular}{l}
+  \code{prm}          \\
+  \code{prm\_cv}      \\
+  \code{prm\_dcv}     \\
+  \code{plotprm}
+\end{tabular}
+
+The methods PCR and PLS are not robust to
+outliers in the data. In order to obtain a better prediction performance 
+we should apply a regression method that is non-sensitive to deviations from the normal model. 
+However, robust regression methods like M-regression or better robust M-regression will fail due to 
+the multicollinearity which occurs in our data.
+
+Contrary to methods that try to robustify PLS \citep{Wakeling, Cummins, Hubert}, 
+\cite{Serneels} proposed a powerful partial version of robust M-regression for a univariate model 
+(\ref{unilinreg}).
+
+Based on robust M-regression on the one hand and PLS regression on the other hand, partial robust 
+M-regression combines all advantages of those two methods: it is robust against vertical outliers as 
+well as outliers in the direction of the regressor variables and it is able to deal with more 
+regressor variables than observations. Additionally, the used algorithm converges rather fast and 
+exhibits a very good performance compared to other robust PLS approaches.
+
+
+\subsubsection*{The Method}
+
+The idea of M-regression by \cite{Huber} is to minimize not the RSS but a {\em function} of the sum of 
+squares of the {\em standardized} residuals using a robust estimator for the standard deviation of 
+the residuals. So, instead of the OLS estimator
+\begin{equation}  \label{bdachOLS}
+	\widehat \bbf_{OLS} = \argmin_\bbf \sum_{i=1}^n (y_i - \xf_i \bbf)^2
+\end{equation}
+with the $i$\superscript{th} observation $\xf_i = (x_{i1}, \ldots, x_{im})$ we obtain the M-estimator
+\begin{equation} \label{bdachM}
+	\widehat \bbf_M = \argmin_\bbf \sum_{i=1}^n \rho (y_i - \xf_i \bbf)
+\end{equation}
+  
+The function $\rho$ is symmetric around zero and non-decreasing; i.e.\@ there is a strong penalty for 
+large residuals. If we denote the residuals in the objective function of M-regression by 
+$r_i = y_i - \xf_i \bbf$, \eqref{bdachM} can be rewritten with weights for the residuals:
+\begin{align*}
+  & w_i^r = \frac{\rho(r_i)}{r_i^2}     \\
+	& \widehat \bbf_M = \argmin_\bbf \sum_{i=1}^n w_i^r (y_i - \xf_i \bbf)^2
+\end{align*}
+
+The main criticism of M-regression is that it is only robust against vertical outliers. Outliers in 
+the direction of the regressor variables can severely influence the estimation. By adding weights $w_i^x$
+for the x-variables to the estimator, \cite{Serneels} obtained a robust M-estimator.
+\begin{align} \label{bdachRM}
+	& \widehat \bbf_{RM} = \argmin_\bbf \sum_{i=1}^n w_i (y_i - \xf_i \bbf)^2     \\
+	& \text{with } w_i = w_i^r \cdot w_i^x .
+\end{align}
+
+This is equivalent to OLS on the data $\Xf$ and $\yf$ multiplied with $\sqrt{w_i}$ rowwise.
+
+The multicollinear data forces us to apply the concept of partial regression to robust M-regression. 
+Like in PLS (equations (\ref{uniinnrel}) and (\ref{bdachPLS})), the objective is to maximize the 
+covariance between the dependent variable and the scores. The difference here is that we modify the 
+covariance function to obtain loadings and scores according to a robust M-estimator.
+
+Using the weighted covariance
+\begin{equation*}
+  \Cov_w (\tf, \yf) = \frac{1}{n} \sum_{i=1}^n (w_i t_i y_i)
+\end{equation*}
+we determine the loading vectors $\pf_1, \ldots, \pf_a$ in a sequential way by
+\begin{align*}
+  & \pf_k = \argmax_\pf \Cov_w (\Xf \pf, \yf)   \\
+  & \text{s.t. } \| \pf \| = 1  \\
+  & \text{and } \Cov_w (\pf_j, \pf) = 0 		\text{ for all previously calculated $\pf_j$}.
+\end{align*}
+
+The loadings are $\tf = \Xf \pf$.
+
+In practice, this is done by an iterative algorithm (see algorithm \ref{alg:irpls}), starting with 
+appropriate starting weights and estimating PLS models until the new regression coefficient vector
+$\widehat \df$ converges. As usual, the optimal number of PLS components is selected by CV.
+
+\begin{algorithm} \label{alg:irpls}
+  {\bf Modified IRPLS algorithm.}
+  \vspace{2mm}
+  
+  The algorithm used by \cite{Serneels} to accomplish PRM-regression is a slight modification of the 
+  {\em Iterative Reweighted Partial Least Squares} (IRPLS) algorithm proposed by \cite{Cummins}. The 
+  modification constists in using robust starting values and making the weights depend not only on 
+  the residuals but also on the scores.
+  \vspace{2mm}
+  
+  Equipped with the "Fair" weight function $f(z, c) = \frac{1}{(1+|\frac{z}{c}|)^2}$ where $c$ is a 
+  tuning constant, the $L_1$-median $\medL$ and the mean absolute deviation of a residual vector 
+  $\rf = (r_1, \ldots, r_n)$, $\hat \sigma = \MAD(\rf) = \median_i |r_i - \median_j r_j|$, we start 
+  with the
+  \vspace{2mm}
+
+  \begin{tabularx}{\textwidth}{ l X X }
+    0.  & initial residuals               & $r_i = y_i - \median_j y_j$                  \\
+        & and initial weights             & $w_i = w_i^r \cdot w_i^x$                    \\
+        & where                     & $w_i^r = f\left(\frac{r_i}{\hat \sigma}, c\right)$ \\
+        & and & $w_i^x = f\left(\frac{\| \xf_i - \medL (\Xf) \|}{\median_i \| \xf_i - \medL (\Xf) \|}, c\right)$ \\
+    1.  & transform the x- and                   & $\tilde{\xf}_i = \sqrt{w_i} \xf_i$    \\
+        & y-data rowwise                         & $\tilde{y}_i = \sqrt{w_i} y_i$        \\
+    2.  & SIMPLS on $\tilde{\Xf}$ and $\tilde{\yf}$ yields the &                         \\
+        & inner relation coefficients and loadings & $\widehat \df$ and $\Pf$            \\
+  \end{tabularx}
+  \vspace{2mm}
+  
+  If the relative difference in norm between the old and the new $\widehat \df$ is larger than some 
+  small threshold, e.g. $10^{-3}$, the regression coefficients can be computed as  
+  $\widehat \bbf_{PRM} = \Pf \widehat \df$. Otherwise go to step 3. 
+  \vspace{2mm}
+  
+  \begin{tabularx}{\textwidth}{ l X X }
+    3.  & correct resulting scores rowwise       & $\tf_i = \tf_i / \sqrt{w_i}$          \\
+        & calculate the new residuals            & $r_i = y_i - \tf_i \widehat \df$           \\
+        & and the new weights with & $w_i^x = f\left(\frac{\| \tf_i - \medL (\Tf) \|}{\median_i \| \tf_i - \medL (\Tf) \|}, c\right)$ \\
+        & and to to step 1. & \\
+  \end{tabularx}
+  \vspace{2mm}
+
+\end{algorithm}
+
+
+\subsubsection*{PRM with \proglang{R}}
+The most important thing we have to keep in mind is to use the original, unscaled data for partial 
+robust M-regression with the package \pkg{chemometrics}. The scaling is done robustly within the 
+functions which allow us to choose between the $L1$-median and the coordinatewise median for 
+mean-centering the data. The latter is the faster calculation but the $L1$-median yields 
+{\em orthogonally equivariant} estimators \citep{Serneels}. That means, if $\Xf$ and $\yf$ are transformed with an
+orthogonal matrix ${\bf \Gamma}$ and a non-zero scalar $c$, respectively, the following property
+holds:
+\begin{equation*}
+  \widehat \bbf(\Xf {\bf \Gamma}, c \yf) = {\bf \Gamma}^\TT \widehat \bbf(\Xf, \yf) c
+\end{equation*}
+
+The optimal number of components can be determined by repeated double CV in function \code{prm\_dcv}.
+
+<<eval=FALSE>>=
+  prm_dcv(X, y, ncomp=40)
+@
+
+Since RDCV is computationally rather expensive in this case, the function \code{prm\_cv} which 
+accomplishes a single CV might be more convenient for our task:
+
+<<eval=FALSE, label=11-prmcv, fig=TRUE>>=
+  res.prmcv <- prm_cv(X, y, a = 40, opt = "median")
+@
+%<<echo=FALSE>>=
+%  load("RData/res-prmcv.RData")
+%@
+
+\begin{figure}[t]
+  \centering
+  \includegraphics{Fig-03-11-prmcv}
+  \caption{Output of function \code{prm\_cv}. PRM-regression models with 1 to 40 components. Dashed 
+           line: mean of SEP values from CV. Solid part: mean and standard deviation of 20\% trimmed 
+           SEP values from CV. Vertical and horizontal line correspond to the optimal number of 
+           components (after standard-error-rule) and the according 20\% trimmed SEP mean, 
+           respectively.}
+  \label{fig:prmcv}
+\end{figure}
+
+As a basis for decision-making the function does not use the SEP but a trimmed version of the SEP 
+(20\% by default). That means that for the calculation of the SEP the 20\% highest 
+absolute residuals are discarded. The difference can be seen in Figure \ref{fig:prmcv} that is produced 
+by \code{prm\_cv}. For each number of components the mean of the trimmed SEP values is plotted and 
+their standard deviation is added. The optimal number of components is the lowest number that yields 
+a trimmed SEP under the dashed horizontal line which is 2 standard errors above the minimum SEP. 
+In our case it is the model with 17 %Sexpr{res.prmcv$optcomp} 
+components have a 20\% trimmed SEP of 3.77. %Sexpr{round(res.prmcv$SEPop, 2)}
+
+<<echo=FALSE, results=verbatim>>=
+  oc <- 17
+  cat(" optimal number of PCs: 17 \n",  #oc <- res.prmcv$optcomp
+       "                         classic   20% trimmed \n",
+       "SEP mean:                5.382      3.9253 \n",          #round(mean(res.prmcv$SEPj[,oc]), 4), round(mean(res.prmcv$SEPtrimj[,oc]), 4)
+       "SEP median:              5.2846     3.8311 \n",          # round(median(res.prmcv$SEPj[,oc]), 4), round(median(res.prmcv$SEPtrimj[,oc]), 4)
+       "SEP standard deviation:  0.9359     0.6934 \n", sep=" ") #round(sd(res.prmcv$SEPj[,oc]), 4), round(sd(res.prmcv$SEPtrimj[,oc]), 4)
+@
+
+The effect of PRM on the prediction can be observed if we plot the predicted versus the measured
+$\yf$ and the residuals against the predicted values: 
+<<eval=FALSE, label=12-plotprm, fig=TRUE>>=
+  plotprm(res.prmcv, y)
+@
+
+\begin{figure}[t]
+  \centering
+  \includegraphics{Fig-03-12-plotprm}
+  \caption{Output of function \code{plotprm}. Compare Figures \ref{fig:predpls} and \ref{fig:respls}. Left: 
+           Predicted versus measured glucose concentrations. Right: Residuals versus predicted values.}
+  \label{fig:plotprm}
+\end{figure}
+
+If we compare Figure \ref{fig:plotprm} with the Figures \ref{fig:predpls} and \ref{fig:respls} we do 
+not see big differences, and comparing the 20\% trimmed SEP values (see section \ref{sec:calibcompare}, 
+it becomes clear that there are no outliers in our data. In absence of outliers, the robust method 
+is never better than the non-robust version.
+
+Now that we have the optimal number of PLS components we can use it to get the estimates for the 
+regression coefficients, the weights, scores, loadings and so on.
+<<eval=FALSE>>=
+  prm(X, y, a = res.prmcv$optcomp, opt = "l1m", usesvd = TRUE)
+@
+
+The argument \verb+usesvd+ is set to \verb+TRUE+ if the number of predictors exceeds the number 
+of observations. The use of SVD and a slight modification of the algorithm make the computation 
+faster in this case.
+%-------------------------------------------------------------- plsrobust end.
+
+%-------------------------------------------------------------- ridge
+\SweaveOpts{keep.source=TRUE, eval=TRUE, echo=TRUE, results=hide, fig=FALSE, eps=FALSE, prefix.string=Figures/Fig-03, include=FALSE, width=9, height=5}
+
+<<echo=FALSE>>=
+  options(prompt="> ", continue="  ")
+  options(width=70)
+@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Ridge Regression}
+\label{sec:ridge}
+
+A method mainly used for multiple linear regression models like Equation \eqref{multlinreg}
+with much more predictors than objects and, consequently, multicollinear x-variables is Ridge
+regression. OLS estimation may lead to unbounded estimators in this case because an unreasonably
+large (positive or negative) coefficient can be offset by the appropriate coefficient of a
+correlated variable. To avoid this discomfort, \cite{Hoerl} suggested to penalize the objective
+function of OLS by a term depending on the coefficients.
+
+For a univariate linear regression model \eqref{unilinreg}
+\begin{equation*}
+  \yf = \Xf \cdot \bbf + \ef
+\end{equation*}
+instead of minimizing the residual sum of squares (RSS) only, they estimate the coefficients by
+\begin{equation} \label{ridgeobjective}
+  \widehat \bbf_R = \argmin_{\bbf=(b_0,\ldots,b_m)}
+                \left\{ \sum_{i=1}^n (y_i - b_0 - \sum_{j=1}^m b_j x_{ij})^2 + \lambda_R \sum_{j=1}^m b_j^2 \right\}
+\end{equation}
+where the penalty term does not contain the coefficient for the intercept. Thus the data
+origin remains untouched. $\lambda_R$, the so-called {\em shrinkage parameter}, is positive. If it
+was zero we would have the OLS model. Its name is motivated by the fact that the modified objective
+function causes a shrinkage of the estimated parameters.
+
+The solution of the new optimization problem \eqref{ridgeobjective} in matrix form is
+\begin{equation*}
+  \widehat{\bbf}_R = (\Xf^\TT \Xf + \lambda_R \Id)^{-1} \Xf^\TT \yf
+\end{equation*}
+and by adding a constant to the diagonal elements of $\Xf^\TT \Xf$, its covariance matrix,
+$\Xf^\TT \Xf + \lambda_R \Id$, becomes non-singular for appropriate $\lambda_R$. This
+{\em regularization} allows us to calculate the inverse in a numerically stable way. Note that the
+Ridge coefficients are a linear function of $\yf$.
+
+If $\widehat{\bbf}_{OLS} = (\Xf^\TT \Xf)^{-1} \Xf^\TT \yf$ is the OLS estimator, the Ridge estimator can
+be written as
+\begin{equation*}
+  \widehat{\bbf}_R = (\Id + \lambda_R (\Xf^\TT \Xf)^{-1})^{-1} \widehat{\bbf}_{OLS}.
+\end{equation*}
+
+Let us assume a regression model with i.i.d.\@ residuals following a normal distribution
+\begin{equation*}
+  \ef \text{ \midtilde } N(\bf{0}, \sigma^2 \Id).
+\end{equation*}
+
+While the OLS estimator is unbiased with variance
+$\sigma^2 (\Xf^\TT \Xf)^{-1}$, for an increasing shrinkage parameter the Ridge estimator turns out
+to be more and more biased, but with a lower variance than in the OLS case:
+\begin{align*}
+  \E[\widehat{\bbf}_R] &= (\Id + \lambda_R (\Xf^\TT \Xf)^{-1})^{-1} \bbf \\
+  \Var[\widehat{\bbf}_R] &= \sigma^2 (\Id + \lambda_R (\Xf^\TT \Xf)^{-1})^{-1} (\Xf^\TT \Xf)^{-1} (\Id + \lambda_R (\Xf^\TT \Xf)^{-1})^{-1}
+\end{align*}
+
+The optimal shrinkage parameter is chosen by cross validation and finds the optimal tradeoff
+between bias and variance. Note that because of the occurring bias, only asymptotic confidence
+intervals and tests are available for Ridge regression \citep{Firinguetti}.
+
+
+\subsubsection*{Ridge regression and PCR}
+
+Ridge regression can be seen as an alternative to principal component regression. In PCR, we usually
+use the first $k$ principal components, which are ordered by decreasing eigenvalues. Remember that
+a large eigenvalue indicates a PC that aims to be very important for the prediction of $\yf$ because it
+explains a big part of the total variance of the regressors. Here, $k$ is usually chosen by cross
+validation and the critical boundary for the choice is relatively subjective. The remaining PCs are
+not considered at all in the final model, i.e.\@ they have zero weight.
+
+In Ridge regression, on the other hand, all variables are used with varying weights. The difference
+between important and less important variables is smoother than in PCR.\@ \cite{Hastie} show that
+Ridge regression gives most weight along the directions of the first PCs and downweights directions
+related to PCs with small variance. Thus, the shrinkage in Ridge regression is directly related to the
+variance of the PCs.
+
+
+\subsubsection*{Ridge regression in \proglang{R}}
+
+For Ridge regression, the \pkg{chemometrics} package provides the two functions \code{ridgeCV} and
+\code{plotRidge}. The most important result of the latter is the optimal value for the shrinkage
+parameter $\lambda_R$. For a number of different parameter values, \code{plotRidge} carries out
+Ridge regression using the function \code{lm.ridge} from package \pkg{MASS}. By generalized cross
+validation (GCV, see appendix \ref{app:cv}), a fast evaluation scheme, the model that minimizes the
+prediction error MSEP is determined. Two plots visualize the results (see Figure \ref{fig:plotridge}).
+
+<<label=13-plotridge, fig=TRUE>>=
+  res.plotridge <- plotRidge(y~., data=NIR.Glc, lambda=seq(0.5,10,by=0.05))
+@
+
+\begin{figure}[p]
+  \centering
+  \includegraphics{Fig-03-13-plotridge}
+  \caption{Output of function \code{plotRidge}. Left: The MSEP gained by GCV for each shrinkage
+           parameter. The dashed vertical line at the minimum MSEP indicates the optimal $\lambda_R$.
+           Right: For each $\lambda_R$, the regression coefficients are plotted. This shows very well
+           the grade of shrinkage. The optimal parameter value from the left plot is shown by a
+           vertical dashed line as well.}
+  \label{fig:plotridge}
+\end{figure}
+
+When the optimal parameter value is determined (\Sexpr{res.plotridge$lambdaopt} in this case), the
+optimal model should be carefully evaluated by repeated cross validation (for our example we do
+10-fold CV with 100 repetitions), using \code{ridgeCV} which also yields two plots (see Figure
+\ref{fig:ridgecv}) and, additionally, some measures for prediction performance.
+
+<<eval=FALSE, label=14-ridgecv, fig=TRUE>>=
+  res.ridge <- ridgeCV(y~., data=NIR.Glc, lambdaopt=res.plotridge$lambdaopt,
+    repl=100)
+@
+%<<echo=FALSE>>=
+%  load("RData/res-ridge.RData")
+%@
+
+\begin{figure}[p]
+  \centering
+  \includegraphics{Fig-03-14-ridgecv}
+  \caption{Output of function \code{ridgeCV}. The left plot opposes predicted and measured glucose concentrations,
+           using a grey cross for each CV replication. The black crosses indicate the mean prediction.
+           On the right side, we see only those black crosses of the mean predictions. Additionally
+           the mean SEP and sMAD are displayed in the legendbox.}
+  \label{fig:ridgecv}
+\end{figure}
+
+Ridge regression leads to an average SEP of 5.39 %Sexpr{round(res.ridge$SEPm, 2)} 
+which is already a
+better result than achieved by PCR and PLS but stepwise regression is still doing better. The
+following method is only a slight modification of Ridge regression but with significantly different
+results.
+
+%<<echo=FALSE>>=
+%  o <- apply(abs(res.ridge$residuals), 2, order)
+%  trimlength <- floor(length(y)*0.8)
+%  resid.trim.ridge <- array(dim=c(trimlength,100))
+%  for (i in 1:100) {
+%    resid.trim.ridge[,i] <- abs(res.ridge$residuals[,i])[o[1:trimlength,i]]
+%  }
+%@
+
+\newpage
+%-------------------------------------------------------------- ridge end.
+
+%-------------------------------------------------------------- lasso
+\SweaveOpts{keep.source=TRUE, eval=TRUE, echo=TRUE, results=hide, fig=FALSE, eps=FALSE, prefix.string=Figures/Fig-03, include=FALSE, width=9, height=5}
+
+<<echo=FALSE>>=
+  options(prompt="> ", continue="  ")
+  options(width=70)
+@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Lasso Regression}
+\label{sec:lasso}
+
+Just as in Ridge regression, in Lasso regression introduced by \cite{Tibshirani} the OLS objective
+function is penalized by an additional term. While Ridge regression penalized the sum of squares of
+the regression coefficients ($L_2$-norm), Lasso regression uses the sum of absolute regression
+coefficients ($L_1$-norm):
+
+\begin{equation} \label{lassoobjective1}
+  \widehat \bbf_L = \argmin_{\bbf=(b_0,\ldots,b_m)}
+                \left\{ \sum_{i=1}^n (y_i - b_0 - \sum_{j=1}^m b_j x_{ij})^2 + \lambda_L \sum_{j=1}^m |b_j| \right\}
+\end{equation}
+
+Here as well, the shrinkage parameter $\lambda_L$ is positive, and the penalty term does not contain the
+intercept coefficient in order to keep the data origin.
+
+There is the same variance-bias tradeoff as in Ridge regression but the Lasso bias is bounded for a
+fixed tuning parameter by a constant that does not depend on the true parameter values and thus it is
+more controllable \citep[as commented in Knight's discussion of][]{Efron}. The optimal shrinkage parameter
+can be chosen as before by cross validation.
+
+The new objective function comes down to a quadratic programming problem and its solution can no
+longer be written explicitly as a function of $\yf$. A rather fast algorithm that accomplishes a
+stepwise orthogonal search 
+was described by \cite{Efron}. They show that a slight modification of
+their {\em Least Angle Regression} (LAR) algorithm implements the Lasso.
+
+
+\subsubsection*{Lasso Regression and Variable Selection}
+
+To understand the \proglang{R} functions described below we write the objective function as a
+constrained optimization problem
+\begin{align}
+  & \min \sum_{i=1}^n (y_i - b_0 - \sum_{j=1}^m b_j x_{ij})^2 \label{lassoobjective2} \\
+  & s.t. \sum_{j=1}^m |b_j| \le s \notag
+\end{align}
+
+If $\lambda_L$ in \eqref{lassoobjective1} is zero we obviously obtain the OLS solution and the
+problem is unconstrained which is equivalent to some maximum value of $s$; with increasing $\lambda_L$
+the coefficients are shrunk until in the extreme case the shrinkage parameter gets so high that all
+coefficients turn exactly zero. In the meantime the constraint value $s$ in \eqref{lassoobjective2}
+decreases continuously to zero.
+
+Here we see a major difference to Ridge regression: while the Ridge coefficients are in general
+different from zero Lasso forces some coefficients to be exactly zero and thus uses only a subset
+of the original $x$-variables in the final model. That means Lasso regression can be seen as an
+alternative {\em variable selection method}.
+
+
+\subsubsection*{Lasso regression in \proglang{R}}
+
+For Lasso regression, the \pkg{chemometrics} package provides the two functions \code{lassoCV} and
+\code{lassocoef} the former of which is used first and provides the optimum constraint value. The
+latter calculates the Lasso coefficients of the final model.
+
+<<eval=FALSE, label=15-lassocv, fig=TRUE>>=
+  res.lasso <- lassoCV(y~., data = NIR.Glc, fraction = seq(0, 1, by = 0.05), 
+    legpos="top")
+@
+%<<echo=FALSE>>=
+%  load("RData/res-lasso.RData")
+%@
+
+\begin{figure}[b!]
+  \centering
+  \includegraphics{Fig-03-15-lassocv}
+  \caption{Output of function \code{lassoCV}. Similar to Figure \ref{fig:prmcv}, the means and standard 
+           deviations of the MSEP values calculated during CV are plotted. The dashed vertical and
+           horizontal line indicate the optimal fraction value and the corresponding MSEP.}
+  \label{fig:lassocv}
+\end{figure}
+
+The argument \verb+fraction+ expresses the absolute sum of Lasso coefficients for the current
+constraint value in terms of the absolute sum of OLS coefficients (which correspond to the
+unconstrained case):
+\begin{equation} \label{fraction}
+  \frac{\sum_{j=1}^m |b_j^L|}{\sum_{j=1}^m |b_j^{OLS}|}
+\end{equation}
+
+Since Lasso regression is computationally more expensive than Ridge regression, we perform only a
+single 10-fold CV to determine the optimal model. In Figure \ref{fig:lassocv} we see the mean MSEP
+values for each fraction \eqref{fraction} and their respective standard errors (more precisely, the standard errors
+multiplied by the argument \verb+sdfact+ which is 2 by default). The dashed horizontal line
+indicates the standard error above the minimum MSEP which serves as a bound to find the optimum
+fraction: the lowest fraction below that bound. Accordingly, the dashed vertical line at 0.05 %Sexpr{res.lasso$sopt} 
+shows the optimum fraction. The plot provides the mean SEP and MSEP values
+for the optimal model in the legend on top. We see here that for our example Lasso is not very
+competitive among the presented methods.
+
+<<eval=FALSE, label=16-lassocoef, fig=TRUE>>=
+  res.lassocoef <- lassocoef(y~., data=NIR.Glc, sopt=res.lasso$sopt)
+@
+%<<echo=FALSE>>=
+%  load("RData/res-lassocoef.RData")
+%@
+
+\begin{figure}[t!]
+  \centering
+  \includegraphics{Fig-03-16-lassocoef}
+  \caption{Output of function \code{lassocoef}. Development of the Lasso coefficients with increasing 
+           fraction. Dashed vertical line: optimal fraction determined before.}
+  \label{fig:lassocoef}
+\end{figure}
+
+The function \code{lassocoef} produces a plot (Figure \ref{fig:lassocoef}) that shows the development
+of the Lasso coefficients as the fraction increases. Each line corresponds to one coefficient. Again,
+the vertical line indicates the optimal fraction as determined before. Besides the plot, the function
+provides the coefficients for the optimal fraction model as well as the number of coefficients that
+are zero and that are non-zero (this information can also be seen in the plot).
+%-------------------------------------------------------------- lasso end.
+
+%-------------------------------------------------------------- comparison calibration
+\SweaveOpts{keep.source=TRUE, eval=TRUE, echo=TRUE, results=hide, fig=FALSE, eps=FALSE, prefix.string=Figures/Fig-03, include=FALSE, width=9, height=5}
+
+<<echo=FALSE>>=
+  options(prompt="> ", continue="  ")
+  options(width=70)
+@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Comparison of Calibration Methods}
+\label{sec:calibcompare}
+
+The table below combines the results of this section. For each method it shows the classic SEP, the 
+robust 20\% trimmed SEP and the number of used variables or components.
+
+We see that stepwise variable selection combined with OLS regression actually yields the best 
+results. This makes us suspect that the data set does not contain outliers which disturb the 
+analysis. In fact, a look at the plots illustrating the measured versus predicted values for each 
+method (stepwise regression: Figure \ref{fig:lmCV}, PCR: Figure \ref{fig:predpcr}, PLS: Figure 
+\ref{fig:predpls}, Ridge regression: Figure \ref{fig:ridgecv}) substantiates this suspicion because
+we cannot spot real outliers but only some sort of artefacts that occur due to the data structure.
+Anyway, none of the methods used here gives better results than stepwise OLS regression. Since in 
+case of fulfilled prerequisites the OLS estimator is the {\em best linear unbiased estimator} 
+(BLUE), there cannot be another method giving better results indeed.
+
+\newpage
+                                                         
+<<echo=FALSE, results=verbatim>>=
+  SEP.stepwise <- 4.625062 #res.stepcv$SEPm
+  SEP20.stepwise <- 1.508322 #mean(apply(resid.trim.stepwise, 2, sd))
+  SEP.pcr <- 7.505016 #mean(apply(res.pcr$resopt[,1,], 2, sd))
+  SEP20.pcr <- 2.587331 #mean(apply(resid.trim.pcr, 2, sd))
+  SEP.pls <- 6.399661 #mean(apply(res.pls$resopt[,1,], 2, sd))
+  SEP20.pls <- 2.241617 #mean(apply(resid.trim.pls, 2, sd))
+  SEP.prm <- 5.708654 #res.prmcv$SEPall[res.prmcv$optcomp]
+  SEP20.prm <- 3.768013 #res.prmcv$SEPop
+  SEP.ridge <- 5.39256 #res.ridge$SEPm
+  SEP20.ridge <- 1.833630 #mean(apply(resid.trim.ridge, 2, sd))
+  SEP.lasso <- 5.660052 #res.lasso$SEP[(res.lasso$fraction==res.lasso$sopt)]
+  SEP20.lasso <- 1.950366 #sd(y - as.matrix(X)%*%res.lassocoef$coef)
+  cat(" PREDICTION PERFORMANCE",
+    "\n Method      SEP     SEP20%    Nr. of Variables / Components ",
+      "\n                                    ",
+    "\n stepwise    ", round(SEP.stepwise, 2), "    ", round(SEP20.stepwise, 2), "        ", varnbr, " variables",
+    "\n PCR         ", round(SEP.pcr, 2), "    ", round(SEP20.pcr, 2), "        ", optpcr, " components",
+    "\n PLS         ", round(SEP.pls, 2), "     ", round(SEP20.pls, 2), "         ", optpls, " components",
+    "\n PRM         ", round(SEP.prm, 2), "    ", round(SEP20.prm, 2), "        ", oc, " components",
+    "\n Ridge       ", round(SEP.ridge, 2), "    ", round(SEP20.ridge, 2), "       ", dim(X)[2], " variables",
+    "\n Lasso       ", round(SEP.lasso, 2), "    ", round(SEP20.lasso, 2), "       110 variables \n", #res.lassocoef$numb.nonzero
+    sep="")
+@
+
+Comparing the computation times (second table) and considering the type of algorithm used for the evaluation
+we can say that Ridge regression is a rather fast algorithm with a relatively good performance 
+at the same time.
+
+<<echo=FALSE, results=verbatim>>=
+  cat(" COMPUTATION TIMES \n",
+    "Method      Algorithm     Time needed \n \n",
+    "stepwise    100 x RCV     0min 44sec \n",
+    "PCR         100 x RDCV    8min 14sec \n",
+    "PLS         100 x RDCV    5min 20sec \n",
+    "PRM         single CV     1min 15sec \n",
+    "Ridge       100 x RCV     2min 36sec \n",
+    "Lasso       single CV     1min 03sec \n")
+@
+
+At this point it is important to underline that the conclusions made above of course hold only for 
+the data we used here. Another data set that for example contains outliers may lead to a 
+completely different rating of the regression methods.
+%-------------------------------------------------------------- comparison calibration end.
+
+%------------------------------------------------------------------------------ calibration end.
+
+
+
+
+
+%------------------------------------------------------------------------------ classification
+\SweaveOpts{keep.source=TRUE, eval=TRUE, echo=TRUE, results=hide, fig=FALSE, eps=FALSE, prefix.string=Figures/Fig-04, include=FALSE, width=9, height=5}
+
+<<echo=FALSE>>=
+  options(prompt="> ", continue="  ")
+  options(width=70)
+@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  CLASSIFICATION
+\section{Classification}
+\label{chap:class}
+
+
+Functions discussed in this section:
+
+\begin{tabular}{l}
+  \code{knnEval} \\
+  \code{nnetEval} \\
+  \code{svmEval} \\
+  \code{treeEval}
+\end{tabular}
+
+Classification methods can be seen as a special case of prediction where each observation belongs
+to a specific known group of objects
+\citep[for instance samples from different types of glass as used in][]{VarmuzaFilzmoser}. Knowing
+about the class membership of all given observations we can establish a {\em classification rule} that can
+be used to predict the class membership of new data. Hence, classification methods do not predict
+continuous characteristics but nominal scale variables. We call this way of establishing classification
+rules {\em supervised learning} because the used algorithm learns to classify new data by training with known
+data.
+
+Like in regression, it is not enough to establish a prediction or classification rule with all the
+available data but we have to validate the resulting model for new data - for instance by dividing
+the data into training and test set (cross validation). As a performance measure that has to be
+minimized we use a misclassification error, i.e.\@ a measure that tells us how many objects were not
+classified correctly. This can be the fraction of misclassified objects on the total number of objects:
+\begin{equation*}
+  \text{misclassification rate} = \frac{\text{number of misclassified objects}}{\text{number of objects}}
+\end{equation*}
+
+Concrete classification methods frequently used in chemometrics are for example linear discriminant
+analysis, PLS discriminant analysis, logistic regression, Gaussian mixture models, $k$ nearest neighbor
+methods, classification trees, artificial neural networks or support vector machines. Since the \proglang{R}
+package \pkg{chemometrics} provides useful functions for the latter four methods we limit ourselves
+here to them. For other methods the interested reader may refer to \cite{Hastie} or \cite{VarmuzaFilzmoser}.
+
+The provided functions are implemented to optimize necessary parameters of those methods with the big
+advantage that they all work according to the same scheme. They are made in a way that they require similar
+input and create similar and thus easily comparable output. The core of the functions \code{knnEval},
+\code{nnetEval}, \code{svmEval} and \code{treeEval} is the evaluation of models with different parameter
+values in order to compare them and to choose the model with the optimal parameter.
+
+This is done via {\em cross validation} (see appendix \ref{app:cv}): we provide the functions with the data with
+known class membership, a vector of indices for training data (this can be for instance two thirds of the
+whole data that are used to establish the classification rule) and a selection of parameter values to
+compare. The functions use the part of the data that is not in the training set as test data and basically
+compute three results for each parameter value:
+\begin{itemize}
+  \item {\em Training error} = the misclassification rate that results if we apply the rule to the training
+    data itself. Since the training data was used to find the rule, this is of course the most optimistic
+    measure.
+  \item {\em Test error} = the misclassification rate that results if we apply the rule to the test data.
+  \item A number of $s$ {\em CV errors} that are practically test errors that result from $s$-fold CV on the training set.
+    The mean and standard deviation are used to depict the result. The CV error can be seen as the most
+    realistic error measure for parameter optimization.
+\end{itemize}
+
+Those errors are plotted for each parameter value and the optimal value can be chosen according to the
+{\em one-standard-error-rule} described in section \ref{sec:knn}.
+
+The data we shall use in this section result from a chemical analysis of $n=178$ wines grown in the same region
+in Italy but derived from three different cultivars. Of each wine, $m=13$ components were measured: alcohol,
+malic acid, ash, alcalinity of ash, magnesium, total phenols, flavanoids, nonflavanoid phenols,
+proanthocyanins, color intensity, hue, OD280/OD315 of diluted wines and proline \citep{wine}.
+
+This is how we load and scale the data:
+<<>>=
+  library(gclus)
+  data(wine)
+  X <- data.frame(scale(wine[,2:14]))   # data without class information
+  grp <- as.factor(wine[,1])            # class information
+  wine <- data.frame(X=X, grp=grp)
+  train <- sample(1:length(grp), round(2/3*length(grp)))
+@
+
+Scaling is necessary for \code{knnEval}, \code{nnetEval} and \code{svmEval}. We do not need it for 
+\code{treeEval} but it is not a problem if the method is done with scaled data. The result will not
+change.
+
+%------------------------------------------------------------------------------ knn
+\SweaveOpts{keep.source=TRUE, eval=TRUE, echo=TRUE, results=hide, fig=FALSE, eps=FALSE, prefix.string=Figures/Fig-04, include=FALSE, width=9, height=5}
+
+<<echo=FALSE>>=
+  options(prompt="> ", continue="  ")
+  options(width=70)
+@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{k Nearest Neighbors}
+\label{sec:knn}
+
+Probably the simplest concept of classification is to conform to the neighbors of an object with
+unknown class membership. If the majority of the observations that are close to the object of
+interest is of class $j$, then we assign this object to class $j$ as well.
+
+In more detail, we assume $n$ objects $\xf_i = (x_{i1},\ldots,x_{im})$ with the class information
+$y_i \in \{1,\ldots,p\}$ for $p$ groups. If our task is to classify the new object $\tilde \xf$, we
+calculate the (Euclidean) distance to all objects $\xf_i$ and use the $k$ objects with the smallest
+distance. The group that is most frequent among those $k$ objects is assumed for $\tilde \xf$.
+The parameter $k$ has to be chosen optimally, i.e.\@ in order to minimize the misclassification rate.
+This is once again done by CV.
+
+Since for each object to be classified the distance to all other objects has to be calculated, be
+aware about possibly long computing times (especially for large data sets).
+
+\subsubsection*{k-NN in \proglang{R}}
+The parameter $k$ denoting the number of neighbors to be considered within the algorithm is optimized
+by (10-fold) cross validation by the following function:
+
+<<label=01-knneval, fig=TRUE>>=
+  knneval <- knnEval(X, grp, train, knnvec=seq(1,30), legpos="topright")
+@
+
+\begin{figure}[t!]
+  \centering
+  \includegraphics{Fig-04-01-knneval}
+  \caption{Output of \code{knnEval}. For each parameter value, the training and test error as well
+           as the CV error mean and standard deviations are plotted. The dashed horizontal line
+           corresponds to one standard error above the minimum CV error mean and is used to find
+           the optimal number of neighbors according to the one-standard-error-rule.}
+  \label{fig:knneval}
+\end{figure}
+
+We input the whole wine data with its group memberships, the indices of training set objects and a
+selection of parameter values to be tried out. The algorithm calculates training, test and CV
+errors as described above and plots them as in Figure \ref{fig:knneval}.
+
+<<echo=FALSE>>=
+  indmin <- which.min(knneval$cvMean)
+  thresh <- knneval$cvMean[indmin] + knneval$cvSe[indmin]
+  fvec <- (knneval$cvMean < thresh)
+  indopt <- min((1:indmin)[fvec[1:indmin]])
+  opt <- knneval$knnvec[indopt]
+@
+
+For each parameter value, the solid points represent the means of the misclassification rates over all
+CV segments. Coming from these points, the standard deviations are visualized. The dashed
+horizontal line indicates the value one standard error above the minimal CV misclassification error
+mean, which is at $k=\Sexpr{knneval$knnvec[indmin]}$. The lowest prediction error mean that lies
+below this line belongs to the model with $k=\Sexpr{opt}$ nearest neighbors. According to the
+{\em one-standard-error-rule} \citep{Hastie}, this is the optimal parameter.
+
+<<results=verbatim, echo=FALSE>>=
+  cat(" optimal number of nearest neighbors:", "k =", opt, "\n",
+      "test error at optimum: ", round(knneval$testerr[indopt],4), "\n",
+      "CV error threshold:    ", round(thresh,4), "\n", sep=" ")
+@
+
+Trying this several times, we see that the optimal parameter depends on the choice of the
+training set and the CV done within the evaluation scheme, so we repeat it 100 times and plot the
+frequencies of the optimal parameter values (Figure \ref{fig:repknn}):
+
+<<eval=FALSE, label=02-repknn, fig=TRUE>>=
+  res <- array(dim=c(100,6))
+  colnames(res) <- c("k","trainerr","testerr","cvmean","cvse","threshold")
+  tt <- proc.time()
+  for (i in 1:100) {
+    train <- sample(1:length(grp), round(2/3*length(grp)))
+    knneval <- knnEval(X, grp, train, knnvec=seq(1,30), plotit=FALSE)
+    indmin <- which.min(knneval$cvMean)
+    res[i,6] <- knneval$cvMean[indmin] + knneval$cvSe[indmin]
+    fvec <- (knneval$cvMean < res[i,6])
+    indopt <- min((1:indmin)[fvec[1:indmin]])
+    res[i,1] <- knneval$knnvec[indopt]
+    res[i,2] <- knneval$trainerr[indopt]
+    res[i,3] <- knneval$testerr[indopt]
+    res[i,4] <- knneval$cvMean[indopt]
+    res[i,5] <- knneval$cvSe[indopt]
+  }
+  tt <- proc.time() - tt
+  plot(table(res[,1]), xlab="Number of Nearest Neighbors", ylab="Frequency")
+@
+%<<echo=FALSE>>=
+%  load("RData/res-knn.RData")
+%@
+
+\begin{figure}[t!]
+  \centering
+  \includegraphics{Fig-04-02-repknn}
+  \caption{Frequencies of the optimal parameter values as they appear throughout the repetition of
+           \code{knnEval}.}
+  \label{fig:repknn}
+\end{figure}
+
+The most frequent number of neighbors is $k = 1$, %Sexpr{names(which.max(table(res[,1])))}, 
+but also k = 5
+and other appear rather often. Although this is not a very distinct result, if we observe the resulting errors
+we see that we obtain a very low misclassification error in any case, so it does not matter so much
+how many neighbors we choose to use.
+
+<<results=verbatim, echo=FALSE>>=
+  mins <- 263.52/60; leftsec <- (mins - floor(mins))*60
+  cat("                   median    sd", "\n",
+       " training error   0.0169   0.0138 \n", #round(median(res[,2], na.rm=TRUE),4), round(sd(res[,2], na.rm=TRUE),4), "\n",
+       " test error       0.05     0.0228 \n", #round(median(res[,3], na.rm=TRUE),4), " ", round(sd(res[,3], na.rm=TRUE),4), "\n",
+       " CV error mean    0.0258   0.0136 \n", #round(median(res[,4], na.rm=TRUE),4), round(sd(res[,4], na.rm=TRUE),4), "\n",
+       " (computing time for 100 repetitions: 4 min 24 sec) \n", sep=" ") #, floor(mins), "min", round(leftsec,0), "sec) \n", sep=" ")
+  #resknn <- res
+  timeknn <- round(mins,0)
+@
+
+After the optimal parameter is chosen, the actual classification rule (estimation of class memberships)
+can be determined by the function \code{knn} of package \pkg{class} which is also used by \code{knnEval}
+internally.
+
+<<eval=FALSE>>=
+  pred <- knn(X[train,], X[-train,], cl=grp[train], k = 1)
+@
+%------------------------------------------------------------------------------ knn end.
+
+%------------------------------------------------------------------------------ tree
+\SweaveOpts{keep.source=TRUE, eval=TRUE, echo=TRUE, results=hide, fig=FALSE, eps=FALSE, prefix.string=Figures/Fig-04, include=FALSE, width=9, height=5}
+
+<<echo=FALSE>>=
+  options(prompt="> ", continue="  ")
+  options(width=70)
+@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Classification Trees}
+\label{sec:tree}
+
+The idea of classification trees \citep{Breiman} is a very simple but powerful one. The space of objects with known
+class membership is partitioned by a hyperplane in a split point along one coordinate ({\em split
+variable}). The split variable and point have to be chosen in such a way that some misclassification
+measure is minimized. The resulting two regions are then partitioned again and again, until each
+region contains only objects from one class.
+The tree can be called {\em complete} or {\em full} then.
+
+Step by step, as the regions become smaller also the misclassification error decreases until for the
+full tree the error measure for the training data is zero. Due to overfitting, the misclassification
+error for new cases can be expected to be far too high though, so we have to find the {\em optimal tree size}
+(number of regions) that minimizes not only the training error but also the test error and prune the
+complete tree down to it. This search is done by cross validation.
+
+Given $n$ objects $\xf_i = (x_1,\ldots,x_m)$ with known class membership $y_i \in \{1,\ldots,p\}$, the
+optimal partition of the object space can be found by minimizing the sum of misclassification errors
+for each region, weighted by the number of objects in the respective region, and penalized with a term
+depending on the tree size which is weighted itself by a given complexity parameter - see Equation
+\eqref{CP}.
+
+We define regions $R_1,\ldots,R_{|T|}$ where the number of regions, $|T|$, constitutes the tree size,
+and $n_l$, the number of objects in region $l$ which obviously sum up to the total number of objects,
+$n$. Then, with the index function $I(y_i=j)$ that is 1 if object $\xf_i$ belongs to group $j$ and 0
+otherwise,
+\begin{equation*}
+	p_{lj} = \frac{1}{n_l} \cdot \sum_{\xf_i \in R_l} I(y_i=j)
+\end{equation*}
+is the relative frequency of group $j$ objects that are located in region $l$.
+
+A measure for misclassification that is more sensitive to changes in the relative frequencies than
+the misclassification rate we used before is the {\em Gini index} for the region $l$ of a tree $T$:
+\begin{equation*}
+	Q_l(T) = \sum_{j=1,\ldots,p} p_{lj} (1 - p_{lj})
+\end{equation*}
+
+The Gini index is used to grow the full tree; for the optimization of the tree complexity we use the
+misclassification rate again.
+
+Then we can define the objective function
+\begin{equation} \label{CP}
+  \min_T \left \{ \sum_{l=1,\ldots,|T|} n_l Q_l(T) + \alpha |T| \right \}
+\end{equation}
+The complexity parameter $\alpha \ge 0$ controls the tree size; $\alpha = 0$ yields the full tree.
+The higher $\alpha$, the more the tree is pruned. With the help of cross validation with different
+values for the tree complexity, we reach our goal to find the smallest tree (i.e.\@ the highest $\alpha$)
+that still yields a sufficiently low misclassification rate.
+
+When the optimal tree is found, new objects that fall into region $l$ are assigned to the group $j(l)$
+with the largest relative frequency in region $l$:
+\begin{equation*}
+  j(l) = \argmax_j \{p_{lj}\}
+\end{equation*}
+
+
+\subsubsection*{Classification trees in \proglang{R}}
+
+The full tree can be grown and plotted using the function \code{rpart}:
+
+<<eval=FALSE>>=
+  tree <- rpart(grp~., data=wine, method="class")
+  plot(tree, main="Full Tree")
+  text(tree)
+@
+
+Figure \ref{fig:treeeval} (left) shows that the first split is done where variable 14 has value
+0.02574, the two subsequent regions are split along the variables 8 and 13, respectively. In the
+end the tree has five regions (terminal nodes of the diagram) and we have to find the optimal tree
+complexity $\alpha$ (alias \verb+cp+) by (10-fold) cross validation. Note that the selected values
+for the tree complexity we input to \code{treeEval} are in descending order. This is reasonable
+because we want to use again the one-standard-error-rule to search for the {\em smallest} possible
+tree which corresponds to a {\em high} value of $\alpha$.
+
+<<eval=FALSE>>=
+  treeeval <- treeEval(X, grp, train, cp=seq(0.45,0.05,by=-0.05))
+@
+
+\begin{figure}[p]
+  \centering
+  \includegraphics{Fig-04-03-treeeval}
+  \caption{Left: Full classification tree for wine data showing the split variables and points that
+           lead to 5 regions. Right: Output of function \code{treeEval}. The one-standard-error-rule
+           can be applied.}
+  \label{fig:treeeval}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics{Fig-04-04-prunetree}
+  \caption{Left: Frequencies of optimal parameter values as they occur throughout the repetition of
+           the evaluation. Right: Classification tree pruned to 3 regions after optimization of tree
+           complexity.}
+  \label{fig:prunetree}
+\end{figure}
+
+<<echo=FALSE, label=03-treeeval, fig=TRUE, height=4.5>>=
+  tree <- rpart(grp~., data=wine, method="class")
+  par(mfrow=c(1,2))
+  par(mar=c(1,0,4,2))
+  plot(tree, main="Full Tree")
+  text(tree)
+  par(mar=c(5,4,1,2))
+  treeeval <- treeEval(X, grp, train, cp=seq(0.45,0.05,by=-0.05), legpos="topright")
+@
+
+We used the scaled data here although it is not necessary. As mentioned before, the result is the
+same as for the unscaled data except for changes in the splitting values. The split variables and
+the tree size stay the same.
+The results of a single execution of this function are presented in Figure \ref{fig:treeeval} (right) and the
+following
+
+<<results=verbatim, echo=FALSE>>=
+  indmin <- which.min(treeeval$cvMean)
+  thresh <- treeeval$cvMean[indmin] + treeeval$cvSe[indmin]
+  fvec <- (treeeval$cvMean < thresh)
+  indopt <- min((1:indmin)[fvec[1:indmin]])
+  opt <- treeeval$cp[indopt]
+  cat(" optimal tree complexity:", "cp =", opt, "\n",
+      "test error at optimum: ", round(treeeval$testerr[indopt],4), "\n",
+      "CV error threshold:    ", round(thresh,4), "\n", sep=" ")
+@
+
+Again, in order to compensate instable results due to changes in the training set and the CV, we execute
+\code{treeEval} 100 times. The resulting errors are shown below and Figure \ref{fig:prunetree}
+(left) gives us the frequencies of the optimal parameters.
+
+<<eval=FALSE, echo=FALSE>>=
+  res <- array(dim=c(100,6))
+  colnames(res) <- c("cp","trainerr","testerr","cvmean","cvse","threshold")
+  tt <- proc.time()
+  for (i in 1:100) {
+    print(i)
+    train <- sample(1:length(grp), round(2/3*length(grp)))
+    treeeval <- treeEval(X, grp, train, cp=seq(0.45,0.05,by=-0.05), plotit=FALSE)
+    indmin <- which.min(treeeval$cvMean)
+    res[i,6] <- treeeval$cvMean[indmin] + treeeval$cvSe[indmin]
+    fvec <- (treeeval$cvMean < res[i,6])
+    indopt <- min((1:indmin)[fvec[1:indmin]])
+    res[i,1] <- treeeval$cp[indopt]
+    res[i,2] <- treeeval$trainerr[indopt]
+    res[i,3] <- treeeval$testerr[indopt]
+    res[i,4] <- treeeval$cvMean[indopt]
+    res[i,5] <- treeeval$cvSe[indopt]
+  }
+  tt <- proc.time() - tt
+@
+%<<echo=FALSE>>=
+%  load("RData/res-tree.RData")
+%@
+
+<<echo=FALSE, results=verbatim>>=
+  mins <- 450.81/60; leftsec <- (mins - floor(mins))*60
+  cat("                   median     sd \n",
+       " training error   0.0763   0.0325 \n", #round(median(res[,2], na.rm=TRUE),4), round(sd(res[,2], na.rm=TRUE),4), "\n",
+       " test error       0.15     0.045  \n", #round(median(res[,3], na.rm=TRUE),4), " ", round(sd(res[,3], na.rm=TRUE),4), "\n",
+       " CV error mean    0.1432   0.04   \n", #round(median(res[,4], na.rm=TRUE),4), round(sd(res[,4], na.rm=TRUE),4), "\n",
+       " (computing time for 100 repetitions: 7 min 31 sec) \n", sep=" ") #floor(mins), "min", round(leftsec,0), "sec) \n", sep=" ")
+  #restree <- res
+  timetree <- round(mins,0)
+@
+
+We see that $\alpha=$ 0.3 %Sexpr{names(which.max(table(res[,1])))} 
+occurs most frequently, so we take
+it as the optimal complexity parameter. Pruning the full tree with this parameter, we obtain the
+optimal tree with 3 regions (see Figure \ref{fig:prunetree}, right). We use one more function from the
+package \pkg{rpart} to do this:
+
+<<eval=FALSE>>=
+  opttree <- prune(tree, cp=0.3)
+  plot(opttree, main="Optimal Tree")
+  text(opttree)
+@
+
+<<eval=FALSE, echo=FALSE, label=04-prunetree, fig=TRUE, height=4.5>>=
+  par(mfrow=c(1,2))
+  par(mar=c(5,4,1,0))
+  plot(table(res[,1]), xlab="Complexity Parameters", ylab="Frequency")
+  opttree <- prune(tree, cp=0.3)
+  par(mar=c(2,4,4,0))
+  plot(opttree, main="Optimal Tree")
+  text(opttree)
+@
+
+%------------------------------------------------------------------------------ tree end.
+
+%------------------------------------------------------------------------------ ann
+\SweaveOpts{keep.source=TRUE, eval=TRUE, echo=TRUE, results=hide, fig=FALSE, eps=FALSE, prefix.string=Figures/Fig-04, include=FALSE, width=9, height=5}
+
+<<echo=FALSE>>=
+  options(prompt="> ", continue="  ")
+  options(width=70)
+@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Artificial Neural Networks}
+\label{sec:ann}
+
+In the style of neurons in the human brain, artificial neurons are modelled as devices with many
+inputs and one output. Artificial neural networks \citep[ANNs - see][]{Schalkoff} are algorithms
+that "learn" by example - like humans or animals. \cite{Otto} contains an overview over ANNs for
+chemometricians. More detailed information can be found in \cite{Cheng} or \cite{Jansson}.
+
+Practically, an ANN comes down to a regression method where the response $\yf$ is a binary variable
+in the case of two groups: its value is 0 for an object that belongs to the first group and 1 for
+the second group. For the general case of $p$ groups we have to use $p$ binary variables $\yf_j$
+being 1 if an object belongs to group $j$ and 0 otherwise.
+
+Neural networks do not model the $n \times p$ matrix $\Yf$ directly by the $n \times m$ predictor matrix $\Xf$
+but by a so-called {\em hidden layer} of variables between them. A nonlinear function (often the
+{\em sigmoid function}) of a linear combination of the x-variables builds $r$ hidden layer variables
+$\zf_k$:
+\begin{align*}
+  &\zf_k = \sigma(\vf_k) = \frac{1}{1 - \exp(-\vf_k)},        \\
+  &\text{where } \vf_k = a_{0k} + a_{1k} \xf_1 + \ldots + a_{mk} \xf_m  \\
+  &\text{and } k = 1,\ldots,r.
+\end{align*}
+
+Those {\em hidden units} can be used to form an additional hidden layer or to model $\Yf$ directly
+by linear or nonlinear regression. The use of more than one hidden layer or nonlinear regression
+harbours a big risk of overfitting. That is why we limit ourselves here to one hidden layer that
+models the y-variables linearly:
+\begin{equation*}
+  \yf_j = b_{0j} + b_{1j} \zf_1 + \ldots + b_{rj} \zf_r \text{ with } j=1,\ldots,p .
+\end{equation*}
+
+The objective function of a neural network is the minimization not of the RSS but of the
+{\em cross entropy} (also called {\em deviance}):
+\begin{equation*}
+  \min \left \{ - \sum_{i=1}^n \sum_{j=1}^p \hat y_{ij} \log \hat y_{ij} \right \}
+\end{equation*}
+
+To avoid the danger of overfitting we introduce a regularization term into the objective. The idea
+is known from Ridge or Lasso regression: we add a penalty term called {\em weight decay} and obtain
+\begin{equation}
+  \min \left \{ - \sum_{i=1}^n \sum_{j=1}^p \hat y_{ij} \log \hat y_{ij}
+                + \lambda \sum (\operatorname{parameters})^2        \right \}
+\end{equation}
+with $\lambda \ge 0$ and where "parameters" means the values of all parameters used in the neural
+network.
+The optimal values for the parameters $r$ and $\lambda$ are obtained by cross validation.
+Unfortunately, we have to try out different combinations of weights and numbers of units. This is
+a rather time consuming and complicated procedure.
+
+The resulting estimate $\widehat \Yf$ contains values $\hat y_{ij} \in [0,1]$ which describe the
+probability for the assignment of the object $\xf_i$ to group $j$. The class with the highest
+probability is assumed for the respective object.
+
+
+%%%
+\subsubsection*{ANNs in \proglang{R}}
+
+In this case the function that we use for parameter tuning is \code{nnetEval} which requires a data
+matrix, a group vector and a selection of indices for training data. In contrast to the functions
+described before there are two parameters to be optimized. The structure of the function is the same
+though and so there are two versions of \code{nnetEval}: one with varying regularization parameters
+and one with selected numbers of hidden units.
+
+<<eval=FALSE>>=
+  weightsel <- c(0,0.01,0.1,0.15,0.2,0.3,0.5,1)
+  nneteval <- nnetEval(X, grp, train, decay=weightsel, size=5)
+  nneteval <- nnetEval(X, grp, train, decay=0.2, size=seq(5,30,by=5))
+@
+
+In order to find the optimal combination $(r, \lambda)$ we have to
+try out several possibilities. Again, the result depends on the choice of the training set and the
+cross validation, so we will have to repeat the procedure again.
+
+Since after some examination it turns out that the number of hidden units does not matter much in
+the sense of misclassification error, we will simply use $r=5$ for the \verb+size+ parameter. This
+has the advantage of saving computing time which gets very high for large numbers of hidden units.
+100 repetitions yield the following errors and the frequencies of optimal weight decay shown in
+Figure \ref{fig:nnetfreq}.
+
+<<eval=FALSE, echo=FALSE>>=
+  res <- array(dim=c(100,6))
+  colnames(res) <-
+    c("weight","trainerr","testerr","cvmean","cvse","threshold")
+  tt <- proc.time()
+  for (i in 1:100) {
+    print(i)
+    train <- sample(1:length(grp), round(2/3*length(grp)))
+    nneteval <- nnetEval(X, grp, train, decay=weightsel, size=5, plotit=FALSE)
+    indmin <- which.min(nneteval$cvMean)
+    res[i,6] <- nneteval$cvMean[indmin] + nneteval$cvSe[indmin]
+    fvec <- (nneteval$cvMean < res[i,6])
+    indopt <- min((1:indmin)[fvec[1:indmin]])
+    res[i,1] <- nneteval$decay[indopt]
+    res[i,2] <- nneteval$trainerr[indopt]
+    res[i,3] <- nneteval$testerr[indopt]
+    res[i,4] <- nneteval$cvMean[indopt]
+    res[i,5] <- nneteval$cvSe[indopt]
+  }
+  tt <- proc.time() - tt
+@
+%<<echo=FALSE>>=
+%  load("RData/res-nnet.RData")
+%@
+
+<<echo=FALSE, results=verbatim>>=
+  mins <- 614.66/60; leftsec <- (mins - floor(mins))*60
+  cat("                   median     sd", "\n",
+       " training error   0        0.0013 \n", #round(median(res[,2], na.rm=TRUE),4), "    ", round(sd(res[,2], na.rm=TRUE),4), "\n",
+       " test error       0.0169   0.0167 \n", #round(median(res[,3], na.rm=TRUE),4), round(sd(res[,3], na.rm=TRUE),4), "\n",
+       " CV error mean    0.0167   0.0091 \n", #round(median(res[,4], na.rm=TRUE),4), round(sd(res[,4], na.rm=TRUE),4), "\n",
+       " (computing time for 100 repetitions: 10 min 15 sec) \n", sep=" ") #floor(mins), "min", round(leftsec,0), "sec) \n", sep=" ")
+  #resnnet <- res
+  timennet <- round(mins,0)
+@
+
+<<eval=FALSE, echo=FALSE, label=05-nnetfreq, fig=TRUE>>=
+  plot(table(res[,1]), xlab="weights", ylab="Frequency")
+@
+
+If we use 5 hidden units and a weight decay of 0.01 (see Figure \ref{fig:nnetfreq}), the plots
+produced by the function \code{nnetEval} (Figure \ref{fig:nneteval}) show slightly different errors
+for this parameter combination. This difference results from the cross validation.
+
+<<eval=FALSE, label=06-nneteval, fig=TRUE>>=
+  par(mfrow=c(1,2))
+  nneteval <- nnetEval(wine, grp, train, size=5, legpos="topright",
+    decay =  c(0,0.01,0.1,0.15,0.2,0.3,0.5,1))
+  nneteval <- nnetEval(wine, grp, train, decay=0.01, legpos="topright",
+    size = c(5,10,15,20,25,30,40))
+@
+
+A concrete classification rule can be determined by \code{nnet} (package \pkg{class}) combined with
+\code{predict} which are also used by \code{nnetEval} internally.
+
+\begin{figure}[b!]
+  \centering
+  \includegraphics{Fig-04-05-nnetfreq}
+  \caption{Frequencies of optimal weight decay values as they occur throughout the repetition.}
+  \label{fig:nnetfreq}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics{Fig-04-06-nneteval}
+  \caption{Output of function \code{nnetEval}. The left plot shows the variation of weight decay for
+           5 hidden unis, on the right side we see the errors for variation of hidden units at a
+           weight decay of 0.01.}
+  \label{fig:nneteval}
+\end{figure}
+
+<<eval=FALSE>>=
+  rule <- nnet(X[train,], class.ind(grp[train]), size=5, entropy=TRUE,
+    decay=0.01)
+  pred <- predict(rule, X[-train,])  # predicted probabilities for test set
+  pred <- apply(pred,1,which.max)    # predicted groups for test set
+@
+%------------------------------------------------------------------------------ ann end.
+
+%------------------------------------------------------------------------------ svm
+\SweaveOpts{keep.source=TRUE, eval=TRUE, echo=TRUE, results=hide, fig=FALSE, eps=FALSE, prefix.string=Figures/Fig-04, include=FALSE, width=9, height=5}
+
+<<echo=FALSE>>=
+  options(prompt="> ", continue="  ")
+  options(width=70)
+@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Support Vector Machines}
+\label{sec:svm}
+
+Another method of supervised learning are support vector machines \citep{Christianini}. For
+applications of SVM in chemistry see \cite{Ivanciuc}.
+The idea here is to transform the data into a space with higher dimension. This way the classes can become
+linearly separable, i.e.\@ a single hyperplane dividing the new space separates the groups. The
+backtransformed hyperplane generally gives a nonlinear class separation. It can happen that the
+groups do not become perfectly separable by transforming the data into a higher dimensional space.
+However, there are ways to deal with that.
+
+We aim to find the best linear division of the new space. We define it as the one that
+yields the biggest margin between the groups. In the case of non-separable groups we allow for
+objects lying on the wrong side of the hyperplane and constrain the sum of their distances from the
+class. If, for instance, the transformed space has two dimensions, one margin line is "supported"
+by two objects of one group and the other one is a parallel line through one point of the other
+group. The best straight line to separate the groups is halfway between the margin lines. This
+motivates the name {\em support vector machine}. In the case of more dimensions of the transformed
+space we have to use accordingly more points to support the hyperplane.
+
+The transformation of the original data space is made by basis expansion: each $m$-dimensional object $\xf_i$ is
+transformed into the new space by $r$ basis functions ($r>m$):
+\begin{equation*}
+  \hf(\xf_i) = \left(h_1(\xf_i),\ldots,h_r(\xf_i)\right) \text{ for } i=1,\ldots,n.
+\end{equation*}
+
+Thanks to the {\em kernel trick} \citep{Boser} we do not have to specify the basis functions
+explicitly but we can replace products $\hf(\xf_i)^\TT \hf(\xf_j)$ by a {\em kernel function}
+\begin{equation*}
+  K(\xf_i, \xf_j) = \hf(\xf_i)^\TT \hf(\xf_j)
+\end{equation*}
+
+The objective function of our optimization problem \eqref{eq:svm} below can be expressed in a way
+that it contains $\xf_i$ and $\xf_j$ only as the product $\xf_i^\TT \xf_j$, or rather
+$\hf(\xf_i)^\TT \hf(\xf_j)$ if we consider the transformed data, and this fact allows us to apply
+this kernel trick. Common choices for kernel functions are:
+\begin{equation*}
+  K(\xf_i,\xf_j) =
+  \begin{cases}
+    (1 + \xf_i^\TT \xf_j)^d 		     & d \text{\superscript{th} degree polynomial}      \\
+   	\exp(-c \|\xf_i - \xf_j\|^2)	   & \text{radial basis function (RBF) with } c > 0   \\
+    \tanh(c_1 \xf_i^\TT \xf_j + c_2) & \text{neural network with } c_1 > 0 \text{ and } c_2 < 0
+  \end{cases}
+\end{equation*}
+
+If after this transformation the classes are linearly separable and if we assume two classes of
+objects and a response vector $\yf$ that is -1 for the first group and +1 for the second, we can find
+a hyperplane
+\begin{equation*}
+  b_0 + \bbf^\TT \xf = 0 \text{ with } \bbf^\TT \bbf = 1
+\end{equation*}
+
+that assigns an object $\xf_i$ to the first group if $b_0 + \bbf^\TT \xf_i < 0$ and to the second
+group otherwise. Perfect group separation is possible if
+\begin{equation*}
+  y_i (b_0 + \bbf^\TT \xf_i) > 0 \text{ for $i=1,\ldots,n$}.
+\end{equation*}
+
+The left hand side of Figure \ref{fig:svmexpl} \citep[compare][]{VarmuzaFilzmoser} shows two
+groups of objects that are {\em linearly separable} in the two-dimensional space. The dashed lines
+with distance $M$ illustrate the largest margin between the classes, one of them supported by two
+points of one group and the other one by a point of the other group. The separating hyperplane, a
+straight line (solid) in this case, lies exactly in the middle of the margin, at a distance $\nicefrac{M}{2}$
+between the dashed lines.
+
+\begin{figure}[t!]
+  \centering
+  \includegraphics{Fig-04-07-svmexpl}
+  \caption{Left: Decision boundaries for separable groups supported by three points. Right: Margin
+           for non-separable groups. The distances of objects that are on the wrong side are marked.}
+  \label{fig:svmexpl}
+\end{figure}
+
+For the maximization of the margin $M$ between the classes we search a scalar $b_0$ and a unit vector
+$\bbf$ such that all objects are more than $\nicefrac{M}{2}$ away from the hyperplane.
+
+\begin{align} \label{eq:svm}
+	&\max M \text{ with respect to $b_0$ and $\bbf$ (where $\bbf^\TT \bbf = 1$)}	\\
+	&\text{s.t. } y_i (b_0 + \bbf^\TT x_i) \ge \nicefrac{M}{2}	\text{ for $i = 1,\ldots,n$}  \label{eq:cond}
+\end{align}
+
+For the linearly non-separable case which we can see in Figure \ref{fig:svmexpl} (right), we have to modify
+the condition \eqref{eq:cond} by introducing {\em slack variables} $\xi_i$ that are 0 for objects on
+the correct side of the margin and a positive distance otherwise. We restrict the sum of those
+distances with a constant and the optimization problem is the following:
+
+\begin{align*}
+	&\max M \text{ with respect to $b_0$ and $\bbf$ (where $\bbf^\TT \bbf = 1$)}	\\
+	&\text{ s.t. } y_i (b_0 + \bbf^\TT x_i) \ge \nicefrac{M}{2} (1-\xi_i), \\
+  &\xi_i \ge 0, \sum_i \xi_i \le \text{const. for $i=1,\ldots,n$}
+\end{align*}
+
+This quadratic programming problem (quadratic objective function with linear inequality conditions)
+can be solved if the constant in the restriction for the slack variables is specified. To constrain
+the sum of the $\xi_i$ we introduce a parameter $\gamma$ that forces the sum to be small and thus
+allows only few objects on the wrong side of the margin. This may cause very complex boundaries in
+the original space and work well for the training data but can easily lead to problems with new
+data. A larger value of $\gamma$, on the other hand, avoids overfitting and yields smoother boundaries.
+The parameter can be optimized via CV.
+
+
+\subsubsection*{SVM in \proglang{R}}
+
+For selected values of $\gamma$, we execute \code{svmEval} with RBFs and obtain Figure
+\ref{fig:svmeval} (left).
+
+<<eval=FALSE>>=
+  gamsel <- c(0.001,0.01,0.02,0.05,0.1,0.15,0.2,0.5,1)
+  svmeval <- svmEval(X, grp, train, gamvec=gamsel, kernel="radial",
+    legpos="top")
+@
+
+\begin{figure}[t!]
+  \centering
+  \includegraphics{Fig-04-08-svmeval}
+  \caption{Left hand side: Output of function \code{svmEval}. Right hand side: The frequencies how
+           often a parameter value turned out to be optimal throughout the repetition of
+           \code{svmEval}.}
+  \label{fig:svmeval}
+\end{figure}
+
+<<eval=FALSE, echo=FALSE>>=
+  repl <- 100
+  gamsel <- c(0.001,0.01,0.02,0.05,0.1,0.15,0.2,0.5,1)
+  res <- array(dim=c(repl,6))
+  colnames(res) <- c("gamma","trainerr","testerr","cvmean","cvse","threshold")
+  tt <- proc.time()
+  for (i in 1:repl) {
+    train <- sample(1:length(grp), round(2/3*length(grp)))
+    se <- svmEval(X, grp, train, gamvec=gamsel, kernel="radial", plotit=FALSE)
+    indmin <- which.min(se$cvMean)
+    res[i,6] <- se$cvMean[indmin] + se$cvSe[indmin]
+    fvec <- (se$cvMean < res[i,6])
+    indopt <- min((1:indmin)[fvec[1:indmin]])
+    res[i,1] <- se$gamvec[indopt]
+    res[i,2] <- se$trainerr[indopt]
+    res[i,3] <- se$testerr[indopt]
+    res[i,4] <- se$cvMean[indopt]
+    res[i,5] <- se$cvSe[indopt]
+  }
+  tt <- proc.time() - tt
+@
+%<<echo=FALSE>>=
+%  load("RData/res-svm.RData")
+%@
+
+<<eval=FALSE, echo=FALSE, label=08-svmeval, fig=TRUE>>=
+  par(mfrow=c(1,2))
+  gamsel <- c(0.001,0.01,0.02,0.05,0.1,0.15,0.2,0.5,1)
+  svmeval <- svmEval(X, grp, train, gamvec=gamsel, kernel="radial",
+    legpos="top")
+  plot(table(res[,1]), xlab="Gamma", ylab="Frequency")
+@
+
+If we repeat the procedure for 100 different training sets
+the most frequent optimal $\gamma$ turns out to be 0.01, %Sexpr{names(which.max(table(res[,1])))},
+as shown in Figure \ref{fig:svmeval} (right). The medians of the resulting errors are as follows:
+
+<<echo=FALSE, results=verbatim>>=
+  mins <- 435.87/60; leftsec <- (mins - floor(mins))*60
+  cat("                   median     sd", "\n",
+       " training error   0.0085   0.0061 \n", #round(median(res[,2], na.rm=TRUE),4), round(sd(res[,2], na.rm=TRUE),4), "\n",
+       " test error       0.0167   0.0145 \n", #round(median(res[,3], na.rm=TRUE),4), round(sd(res[,3], na.rm=TRUE),4), "\n",
+       " CV error mean    0.0167   0.0081 \n", #round(median(res[,4], na.rm=TRUE),4), round(sd(res[,4], na.rm=TRUE),4), "\n",
+       " (computing time for 100 repetitions: 7 min 16 sec) \n", sep=" ") #floor(mins), "min", round(leftsec,0), "sec) \n", sep=" ")
+ #ressvm <- res
+  timesvm <- round(mins,0)
+@
+
+For the optimal parameter $\gamma =$ 0.01 %Sexpr{names(which.max(table(res[,1])))} 
+we can establish the
+classification rule using the training set by \code{svm} from package \pkg{e1071} and obtain
+predictions for the test set by \code{predict}:
+
+<<eval=FALSE>>=
+  rule <- svm(X[train,],grp[train], kernel="radial", gamma=0.01)
+  pred <- predict(svmres, X[-train,])
+@
+%------------------------------------------------------------------------------ svm end.
+
+%------------------------------------------------------------------------------ comparison classification
+\SweaveOpts{keep.source=TRUE, eval=TRUE, echo=TRUE, results=hide, fig=FALSE, eps=FALSE, prefix.string=Figures/Fig-04, include=FALSE, width=9, height=5}
+
+<<echo=FALSE>>=
+  options(prompt="> ", continue="  ")
+  options(width=70)
+@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Comparison of Classification Methods}
+\label{sec:classcomp}
+
+Putting the results of the four methods we used in this section to classify our wine data together
+we can compare the test errors. We chose this error measure because it is the most realistic one
+for new data. Since we repeated each evaluation scheme 100 times we have test errors available
+that belong to the respective optimal parameter choice of each repetition. Figure \ref{fig:classcomp}
+illustrates the distribution of those test errors for each method by a boxplot.
+
+<<eval=FALSE, echo=FALSE, results=verbatim, label=09-classcomp, fig=TRUE, width=4.5, height=4>>=
+  par(mar=c(2,4,2,1))
+  resdat <- data.frame(kNN=resknn[,3],Tree=restree[,3],ANN=resnnet[,3],SVM=ressvm[,3])
+  boxplot(resdat,ylab="Test error", las=1)
+@
+
+\newpage
+
+\begin{figure}[t!]
+  \centering
+  \includegraphics{Fig-04-09-classcomp}
+  \caption{Comparison of test errors resulting from 100 times repeated evaluation schemes of the
+           methods k nearest neighbors, classification tree, artificial neural networks and
+           support vector machines.}
+  \label{fig:classcomp}
+\end{figure}
+
+<<echo=FALSE, results=verbatim>>=
+  cat("Method   Median test error   Computing time \n \n",
+      "kNN            0.05              4 min \n", #round(median(resknn[,3], na.rm=TRUE),3),  "              ", timeknn,  " min \n",
+      "Tree           0.15              8 min \n", #round(median(restree[,3], na.rm=TRUE),3), "              ", timetree, " min \n",
+      "ANN            0.017            10 min \n", #round(median(resnnet[,3], na.rm=TRUE),3), "            ", timennet,   " min \n",
+      "SVM            0.017             7 min \n", sep="") #round(median(ressvm[,3], na.rm=TRUE),3),  "             ", timesvm,   " min \n", sep="")
+@
+
+We can see how much classification trees depend on the choice of the training set. They are
+relatively instable and lead to a high test error compared to the other methods. Neural networks
+and support vector machines yield extremely good results for this data set, yet SVM seems to be
+the faster and more practical choice. Remember that the computation of ANNs becomes extremely
+slow for a higher number of hidden units than we use here, and the simultaneous optimization of
+the two parameters is a quite complex task. kNN gives us a slightly higher test error which is
+still in an acceptable range though. This method is a good alternative if we want to save
+computation time.
+%------------------------------------------------------------------------------ comparison classification end.
+
+%------------------------------------------------------------------------------ classification end.
+
+
+
+
+\appendix
+%------------------------------------------------------------------------------ cross validation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  CROSS VALIDATION
+\section{Cross Validation}
+\label{app:cv}
+
+For model generation and model testing it is important to obtain realistic performance estimates 
+for new cases. To optimize the performance of a model only for the data that was used for its 
+creation may lead to {\em overfitting}, that means the model fits the sample data perfectly but 
+does not predict new data well. Therefore, the data at hand is usually split into three subsets: 
+{\em training}, {\em validation} and {\em test set}. The first two are then used for model 
+selection and the latter for testing the model on new data.
+
+If the original data set contains a large number of objects this is enough, however, very often in 
+chemometrics only a relatively small number of objects is available. Useful tools in this case are 
+resampling strategies like {\em cross validation}. In calibration, for instance, it is desireable 
+to work with a reasonable high number of predictions when optimizing the model complexity on the 
+one hand and estimating the prediction performance for new objects on the other hand. Analogously, 
+this holds for classification.
+
+
+\subsubsection*{Cross Validation (CV)}
+For the optimization of the model complexity, like the number of PLS components or PCs, or the number
+of nearest neighbors, the data is 
+split into $s$ segments, $s-1$ of which are used as training set and the remaining one as 
+validation set. Cross validation with four segments for example is called {\em 4-fold CV}; CV with
+$n$ segments (and hence all subsets of size $n-1$ as training sets) is known as {\em leave-one-out} 
+CV (LOO-CV). 
+
+With the training set we estimate models with different complexities $a=1,\ldots,A$ 
+and with each of these models we calculate the predicted values for the validation set objects. 
+This is repeated $s-1$ times, each time with a different segment as validation set, resulting in an 
+$n \times A$ matrix of predicted values for all $n$ objects and each of the $A$ models. From this 
+matrix, we calculate the prediction error for each model and choose, for instance, the model with 
+the lowest prediction error as the optimal one.
+
+
+\subsubsection*{Repeated Cross Validation (RCV)}
+Not only in order to obtain a larger number of predictions but also to avoid the dependence of the 
+predictions on the data split, it is recommended to repeat the above described procedure $k$ times. 
+That means we split the data $k$ times into training and validation set and, accordingly, obtain 
+$k$ ($n \times A$) prediction matrices and $k$ prediction errors for each model. Their mean and 
+standard deviation make a more careful choice of the optimal model complexity possible. 
+\cite{Hastie} describe a useful {\em one-standard-error-rule} that consists in finding the lowest 
+model complexity whose prediction error mean is below the minimal prediction error mean plus one 
+standard error (see evaluation figures of chapter \ref{chap:class}).
+
+
+\subsubsection*{Double Cross Validation (DCV)}
+The issue of obtaining reliable estimates of the prediction performance for new cases can be 
+handled by splitting the data into calibration set and test set first, then applying CV to the 
+calibration set to optimize the model complexity and finally using the test set for the estimation 
+of realistic prediction errors.
+
+In detail, this is done as follows: in an outer CV loop, split the data into $s_0$ segments, 
+$s_0-1$ of which are used as calibration set and the remaining one as test set. CV on the 
+calibration set ($s$-fold, in an inner loop) yields a model of 
+optimal complexity which is applied to the test set. Repeating this procedure $s_0-1$ times, until 
+each segment was test set once, we obtain $s_0$ optimal models (one for each segment) and $n \times 
+p \times A$ test-set-predicted values (for each segment and each model complexity calculated with 
+the according model). The final model complexity can be taken as the median of the $s_0$ optimal 
+values.
+
+
+\subsubsection*{Repeated Double Cross Validation (RDCV)}
+In order to obtain a higher number of predictions and thus a more reliable estimation, it is 
+recommendable to repeat the above described procedure $k$ times \citep{FilzLiebVarm}. This results in $s_0 \times k$ 
+optimal models and $n \times p \times A \times k$ test-set-predictions. The final model complexity 
+can be for instance chosen as the one that appears with the highest frequency. More selection rules 
+for this case are described in chapter \ref{chap:calib} concerning the \pkg{chemometrics} function 
+\code{mvr\_dcv}. Interesting insight can be achieved by analyzing the histogram or density of the 
+predictions.
+
+
+\subsubsection*{Generalized Cross Validation (GCV)}
+The MSE of the computationally relatively expensive LOO-CV can be approximated by a function 
+depending on the RSS and the Hat-Matrix resulting from (OLS, Ridge, \ldots) regression with all 
+objects. This approximation is known as GCV and saves a lot of computation time.
+
+In OLS regression, the estimation of $\yf$ can be described by the {\em Hat-Matrix} $\Hf$:
+\begin{align} \label{eq:hat}
+  &\widehat \yf = \Xf \widehat \bbf = \Xf (\Xf^\TT \Xf)^{-1} \Xf^\TT \yf = \Hf \yf \\
+  &\Hf = \Xf (\Xf^\TT \Xf)^{-1} \Xf^\TT   \nonumber
+\end{align}
+If $h_{ii}$, $i=1,\ldots,n$ denotes the diagonal elements of the matrix $\Hf$ which results 
+from OLS regression with all $n$ objects, the relation
+\begin{equation} \label{eq:mseloo}
+  \MSE_{LOO} = \frac{1}{n} \sum_{i=1}^n \left( \frac{y_i - \hat y_i}{1 - h_{ii}} \right)^2
+\end{equation}
+holds for the MSE of LOO-CV without actually executing LOO-CV. The diagonal elements $h_{ii}$ of 
+the Hat-Matrix can be approximated by their average, 
+$h_{ii} \approx \frac{\tr \Hf}{n}$, where the trace of $\Hf$ is the sum of its diagonal elements.
+This leads to the approximation of \eqref{eq:mseloo}:
+\begin{equation*}
+  \MSE_{LOO} \approx \frac{1}{\left( 1-\frac{\tr \Hf}{n} \right)^2} \cdot \frac{RSS}{n}
+\end{equation*}
+
+For Ridge regression where the Hat-Matrix is $\Hf = \Xf (\Xf^\TT \Xf + \lambda_R \Id)^{-1} \Xf^\TT$
+or for any other regression method where the estimation is done like in Equation \eqref{eq:hat}
+with a Hat-Matrix that depends only on the x-variables, GCV can be used analogously \citep{Golub}. 
+%------------------------------------------------------------------------------ cross validation end.
+
+%------------------------------------------------------------------------------ logratio
+\SweaveOpts{keep.source=TRUE, eval=TRUE, echo=TRUE, results=hide, fig=FALSE, eps=FALSE, prefix.string=Figures/Fig-B, include=FALSE, width=9, height=4.5}
+
+<<echo=FALSE>>=
+  options(prompt="> ", continue="  ")
+  options(width=70)
+@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  COMPOSITIONAL DATA
+\section{Logratio Transformation}
+\label{chap:logratio}
+
+Functions discussed in this section: 
+
+\begin{tabular}{l}
+  \code{alr} \\
+  \code{clr} \\
+  \code{ilr}
+\end{tabular}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Compositional Data}
+\label{sec:compdat}
+
+In chemistry, we often deal with data drawn from a more restricted space than for instance the 
+set of real numbers. An example are concentrations of chemical compounds in a mixture. 
+\cite{Aitchison} defined:
+
+\begin{definition}
+  "In statistics, {\em compositional data} are quantitative descriptions of the parts of some 
+  whole, conveying exclusively relative information." 
+  That means we are working with data (also called {\em closed data}) that can be represented as 
+  percentages, resulting in a constant row sum.
+  
+  The rows of a compositional data matrix $\Xf \in \Rset^{n \times m}$, $\xf_i = (x_{i1}, 
+  x_{i2}, \dots, x_{im})$, $i = 1, \dots, n$, satisfying $x_{ij} > 0$ and $\sum_{j=1}^m x_{ij} 
+  = \kappa$ are called {\em composition}, each element $x_{ij}$ of a composition is a {\em 
+  component}. $\kappa$ is a non-negative real constant specifying the row sum.
+\end{definition}
+
+The restriction of a constant row sum constitutes the major difficulty we encounter when 
+dealing with compositional data.
+
+As the total row sum is known, one component of a compositional data vector can be omitted. 
+That means the data matrix does not have full rank but its rows are located in an $m-1$ 
+dimensional subspace of $\Rset^m$, which can be described by a so-called {\em simplex} as 
+explained in the following.
+
+Since a composition contains only relative information, multiplication by a non-negative 
+constant leads to an equivalent vector. Each equivalence class in this spirit is represented 
+by one of its elements. The set of all representatives finally spans the sample space of 
+compositional data:
+\begin{equation*}
+  S^m=\{ \xf_i = (x_{i1},\dots, x_{im}) \in \Rset^m: x_{ij} > 0, \sum_{j=1}^m x_{ij} = \kappa \} 
+\end{equation*}
+
+Three phenomenons mainly represent the challenge of statistical inference carried out on such 
+data:
+\begin{enumerate}
+  \item	If we try to apply classic methods (e.g.\@ calculation of confidence ellipsoids) within 
+    the simplex without considering the special structure of the data we risk to leave the 
+    restricted area and reach, for example, negative values which is of course a rather 
+    meaningless result.
+  \item	{\em Spurious correlations} between the components are a result of the fact that all 
+    variable values have to change as soon as one variable's value is modified, if we want the 
+    row sum to stay constant.
+  \item	The arithmetric mean of compositional data has no physical meaning. In the simplex 
+    geometry, it is more recommendable to use the geometric mean instead.
+\end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Logratio Transformation}
+\label{sec:logtrans}
+
+As a solution for the problems with compositional data, \cite{Aitchison} suggested to transform the 
+data from the simplex $S^m$ to the unrestricted set of real numbers using the logratio 
+transformation, to analyze the transformed data in the traditional way and, if needed, to transform the 
+results back to the simplex for interpretation.
+
+Figure \ref{fig:logratio} shows an artificial dataset of trivariate compositional data in a 
+ternary diagram. The data has been alr-transformed to $\Rset^2$ using component number 2 
+as divisor (see below for details on alr) and tolerance ellipsoids that cover in case of normal 
+distribution a certain percentage of the data points have been calculated. The 
+back-transformed tolerance ellipses are deformed in the simplex, and the closer the lines approach 
+to the boundary, the larger is the deformation. This gives an impression of the geometry of the 
+simplex. Elliptically symmetric distributions in the unrestricted space thus show a different 
+distribution in the simplex, and close to the boundary the difference gets more and more pronounced. 
+A statistical analysis directly of the compositional data in the simplex will thus in general be 
+misleading.
+
+For a given $n \times m$ data matrix $\Xf$ containing $n$ compositions in $S^m$ three types of 
+logratio transformations are implemented in \pkg{chemometrics}.
+
+\newpage
+
+\begin{figure}[t!]
+  \centering
+  \includegraphics{Fig-B-01-logratio}
+  \caption{Left: Compositional data in its original space with tolerance regions that result from the 
+           ellipses on the right side. Right: alr-transformed data in $\Rset^2$ and tolerance 
+           ellipses calculated with classic methods.}
+  \label{fig:logratio}
+\end{figure}
+
+\subsubsection*{Additive Logratio Transformation}
+It seems obvious to transform data from the $m-1$ dimensional restricted space $S^m$ to the 
+open $m-1$ dimensional real space $\Rset^{m-1}$. Using one priorily specified component, 
+e.g.\@ number $k$, as common divisor for all the others, the {\em additive logratio transformation} for 
+the $i$\superscript{th} row is defined as:
+\begin{equation*}                                            
+  x_{ij}^\text{alr} = \log \frac{x_{ij}}{x_{ik}},
+\end{equation*}
+where $j = 1,\dots ,m$ and $j \neq k$.
+
+Since the resulting vector still contains the relation to $m-1$ of the original components, it 
+can be interpreted easily. The choice of the divisor component is rather subjective, though, 
+and causes the transformation to be asymmetric in the components. However, the more problematic 
+defect of the alr transformation is the fact that it is not isometric. So, if your analysis 
+needs distances and lengths of vectors to be preserved in terms of the respective inner product, 
+alr is not suitable.
+
+The corresponding \proglang{R} command, \code{alr}, requires (besides the data matrix) the 
+variable that should be used as a divisor:
+<<eval=FALSE, echo=TRUE>>=
+  X_alr <- alr(X, divisorvar=2)
+@
+
+\newpage
+
+\subsubsection*{Centered Logratio Transformation}
+To avoid the problems of the above described transformation, Aitchison also specifies the 
+{\em centered logratio transformation}. As it uses the geometric mean $\bar{x}_{G,i}$ of each 
+composition as a divisor instead of a single component, it is symmetric, and the 
+transformation is defined as
+\begin{equation*}
+  x_{ij}^\text{clr} = \log \frac{x_{ij}}{\bar{x}_{G,i}}
+\end{equation*}
+for $j=1,\dots,m$.
+
+Obviously, this transformation maps from the $m-1$ dimensional $S^m$ to the $m$ dimensional 
+$\Rset^m$ and thus is not injective, resulting in singular covariance matrices of the 
+transformed data. However, if this characteristic is not important for your analysis, clr is a 
+good choice as it is an isometric transformation. Furthermore, just as in the alr case, the 
+interpretation of clr transformed data is still simple because the relation to the original 
+components is preserved.
+
+<<eval=FALSE, echo=TRUE>>=
+  X_clr <- clr(X)
+@
+
+
+\subsubsection*{Isometric Logratio Transformation}
+Although, as an isometric transformation, clr is already a widely useable tool, it still does 
+not preserve the angles between compositions and, as mentioned, the covariance matrices do not 
+have full rank. So, to overcome these last problems, 
+\cite{Egozcue} developed the {\em isometric logratio transformation}. As the name says, it 
+transformes data from the restricted $m-1$ dimensional simplex $S^m$ isometrically to a $m-1$ 
+dimensional subspace of $\Rset^m$. Thus, covariance matrices of the resulting data have 
+full rank. 
+
+The isometric logratio transformation is based on an orthogonal basis of the clr space. Since of 
+course the choice of this basis is not unique, indeed we are talking about a family of 
+transformations that preserves not only lengths and distances but also the angles between 
+compositions.
+
+The ilr transformation for a composition $\xf_i \in S^m$ is defined as
+\begin{equation*}
+  \xf_i^\text{ilr} = \Vf^T \cdot \xf_i^\text{clr}.
+\end{equation*}
+$\Vf$ denotes the $m \times (m-1)$ matrix containing in its columns the vectors of the 
+orthogonal basis.
+
+The basis used for the \pkg{chemometrics} function \code{ilr} is orthonormal, and the 
+$i$\superscript{th} basis vector is specified by
+\begin{equation*}
+  \vf_i = \exp \left( \sqrt{\frac{1}{i(i+1)}} \cdot
+           \Big(\underbrace{1,\dots,1}_{i \text{ times}},   -1,   
+                \underbrace{0,\dots,0}_{m-(i+1) \text{ times}}\Big)^\TT \right) .
+\end{equation*}
+
+<<eval=FALSE, echo=TRUE>>=
+  X_ilr <- ilr(X)
+@
+
+After applying ilr, one can analyze the data with the standard tools. However, in order to 
+interpret the result, it is recommended to transform the data back into the clr space because 
+in the ilr space the relation to the original components is not preserved and interpretation 
+is not that obvious.
+%------------------------------------------------------------------------------ logratio end.
+
+%\newpage
+%\phantomsection
+%\addcontentsline{toc}{chapter}{List of Figures}
+%\listoffigures 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  BIBLIOGRAPHY
+
+%\nocite{*}     % also list references that are not cited throughout the document
+%\phantomsection
+%\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{bibliography}{}
+\bibliographystyle{plainnat}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

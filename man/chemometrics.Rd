@@ -1,7 +1,7 @@
 \name{chemometrics-package}
 \alias{chemometrics-package}
 \alias{chemometrics}
-\docType{chemometrics}
+\docType{package}
 \title{
 This package is the R companion to the book "Introduction to Multivariate 
 Statistical Analysis in Chemometrics" written by K. Varmuza and P. Filzmoser (2009).

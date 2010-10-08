@@ -148,8 +148,13 @@ for (n.seg in 1:length(segment)) {
 ########################################################################
 # NEW PF:
 # predictions in each segment
-b0 <- drop(t(mx)%*%b)
-ypred[-obsuse] <- drop(as.matrix(Xmc[-obsuse,]))%*%b+b0
+###b0 <- drop(t(mx)%*%b)
+###ypred[-obsuse] <- drop(as.matrix(Xmc[-obsuse,]))%*%b+b0
+
+ypred[-obsuse] <- drop(as.matrix(Xmc[-obsuse,]))%*%b
+b0 <- median(y[-obsuse]-ypred[-obsuse])
+ypred[-obsuse] <- ypred[-obsuse]+b0
+
 # residuals in each segment
 yresj <- y[-obsuse]-ypred[-obsuse]
 SEPj[n.seg] <- sd(yresj)
@@ -244,7 +249,7 @@ optcomp <- min((1:ind)[fvec[1:ind]])
 
 if (plot.opt){
   # plot optimal choice of components:
-  plot(1:a,SEPave,xlab="Number of PLS components",ylab="SEP",
+  plot(1:a,SEPave,xlab="Number of components",ylab="SEP",
      ylim=range(SEPave, SEPtrimave + sdfact*SEPtrimse, SEPtrimave - sdfact*SEPtrimse),
      type="n",cex.lab=1.2)
   lines(1:a,SEPave,lty=2)
