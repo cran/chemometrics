@@ -31,7 +31,7 @@ in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \seealso{\code{\link[pls]{mvr}}}
 \examples{
 data(cereal)
-res <- pls_eigen(cereal$X,cereal$Y,a=6)
+res <- pls_eigen(cereal$X,cereal$Y,a=5)
 }
 \keyword{ multivariate }
 
