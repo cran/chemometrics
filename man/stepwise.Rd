@@ -12,7 +12,7 @@ stepwise(formula, data, k, startM, maxTime = 1800, direction = "both", writeFile
   \item{formula}{formula, like y~X, i.e., dependent~response variables}
   \item{data}{data frame to be analyzed}
   \item{k}{sensible values are log(nrow(x)) for BIC or 2 for AIC; if not provided -> BIC}
-  \item{startM}{optional, the starting model}
+  \item{startM}{optional, the starting model; provide a binary vector}
   \item{maxTime}{maximal time to be used for algorithm}
   \item{direction}{either "forward" or "backward" or "both"}
   \item{writeFile}{if TRUE results are stored in the file "resname"}
@@ -29,7 +29,7 @@ generated.
 \value{
   \item{usedTime}{time that has been used for algorithm}
   \item{bic}{BIC values for different models}
-  \item{models}{matrix with no. of models rows and no. of variables columns, and 0/1 entried defining the models}
+  \item{models}{matrix with no. of models rows and no. of variables columns, and 0/1 entries defining the models}
 }
 \references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
 in Chemometrics. CRC Press, Boca Raton, FL, 2009. }

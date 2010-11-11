@@ -588,9 +588,7 @@ point with large SD but low OD, causing a stabilization of the PCA space.
 The function \code{pcaDiagplot} gives us a nice graphical possibility to detect outliers. 
 It requires at least \verb+X+ (the original data), \verb+X.pca+ (the PCA transformed data) 
 and \verb+a+ (the number of principal components computed). Figure \ref{fig:pcaDiagplot-nipals} 
-shows the output of \code{pcaDiagplot} with the classic NIPALS PCA. Note that \verb+X.pca+ needs to 
-be a \code{princomp} object or a list containing at least scores, loadings and the standard 
-deviation of the scores.
+shows the output of \code{pcaDiagplot} with the classic NIPALS PCA. 
 
 <<>>=
   X_nipals <- list(scores=X_nipals$T, loadings=X_nipals$P, 

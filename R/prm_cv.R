@@ -138,10 +138,11 @@ for (n.seg in 1:length(segment)) {
              {
              wsel <- replace(wsel, list=w0, values=10^(-6))              
              }
-	  ###Xwsel <- Xmc[obsuse,]*sqrt(wsel)
-	  Xwsel <- X[obsuse,]*sqrt(wsel)
-	  ###ywsel <- ymc[obsuse]*sqrt(wsel)
-	  ywsel <- y[obsuse]*sqrt(wsel)
+          # corrected:
+	  Xwsel <- Xmc[obsuse,]*sqrt(wsel)
+	  ywsel <- ymc[obsuse]*sqrt(wsel)
+	  #1#Xwsel <- X[obsuse,]*sqrt(wsel)
+	  #1#ywsel <- y[obsuse]*sqrt(wsel)
 	  loops <- loops+1
         }
 

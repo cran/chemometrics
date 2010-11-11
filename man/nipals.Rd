@@ -16,7 +16,7 @@ nipals(X, a, it = 10, tol = 1e-04)
 \details{
 The NIPALS algorithm is well-known in chemometrics. It is an
 algorithm for computing PCA scores and loadings. The advantage
-is that the composents are computed one after the other, and
+is that the components are computed one after the other, and
 one could stop at a desired number of components.
 }
 \value{

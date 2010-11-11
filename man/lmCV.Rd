@@ -3,7 +3,7 @@
 \title{Repeated Cross Validation for lm}
 \description{
 Repeated Cross Validation for multiple linear regression: a cross-validation
-is performed repeadedly, and standard evaluation measured are returned.
+is performed repeatedly, and standard evaluation measures are returned.
 }
 \usage{
 lmCV(formula, data, repl = 100, segments = 4, segment.type = c("random", "consecutive", "interleaved"), length.seg, trace = FALSE, ...)

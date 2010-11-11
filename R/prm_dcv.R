@@ -17,6 +17,8 @@ n = nrow(X)                                             # number of samples
 
 optcomp <- matrix(NA, nrow=segments0, ncol=repl)      # a_opt cv [1:segments0, 1:repl] 
 b       <- matrix(NA, nrow=dim(X)[2], ncol=ncomp)
+bAll       <- array(NA, dim=c(segments0,dim(X)[2],ncomp,repl)) # all regression coefficients
+b0All       <- array(NA, dim=c(segments0,ncomp,repl))  # all intercept terms
 pred    <- array(NA, dim=c(n, ncomp, repl))            # y_test [1:n, 1:ncomp, 1:repl]
 predopt <- matrix(NA, nrow=n, ncol=repl)              # y_test for each a_opt [1:n, 1:repl] 
 
@@ -55,11 +57,21 @@ predopt <- matrix(NA, nrow=n, ncol=repl)              # y_test for each a_opt [1
     
                 b[,n.comp]  <- rcal$coef                             # robust regr.coeff
                 b0[n.comp] <- rcal$intercept                         # robust intercept
-              }
-                b0 <- matrix(rep(b0, nrow(X[-obsuse,])), ncol=ncomp, byrow=TRUE) 
-    
+             }
+             b0All[n.seg0,,i] <- b0
+             #b0 <- matrix(rep(b0, nrow(X[-obsuse,])), ncol=ncomp, byrow=TRUE) 
+             bAll[n.seg0,,,i] <- b 
              # test set predicted y  
-             pred[-obsuse,,i]  <-  as.matrix(scale(X[-obsuse,], center=rcal$mx, scale=FALSE ))%*% b + b0                #+ ym  aus prm
+             # pred[-obsuse,,i]  <-  as.matrix(scale(X[-obsuse,], center=rcal$mx, scale=FALSE ))%*% b + b0 
+
+             # Intercept correction for test set predicted y values:
+             for(n.comp in 1:ncomp){
+               pred[-obsuse,n.comp,i]  <-  as.matrix(X[-obsuse,])%*% b[,n.comp] 
+               b0corr <- median(Y[-obsuse] - pred[-obsuse,n.comp,i])
+               pred[-obsuse,,i] <- pred[-obsuse,n.comp,i] + b0corr
+             }
+
+
              predopt[-obsuse,i] <- drop(pred[-obsuse,optcomp[n.seg0,i],i])
              }
              # (2) --- end outer loop --- #
@@ -93,7 +105,9 @@ absres <- abs(residcomp1)
 reslarge <- quantile(absres, 1-trim)
 SEPtrim <- sd(residcomp1[absres <= reslarge])
 
-list(b=b, resopt=resopt, predopt=predopt, optcomp=optcomp, residcomp=residcomp, 
+bAll=apply(bAll,c(2,3),mean)
+b0All=apply(b0All,c(2),mean)
+list(b=bAll,intercept=b0All,resopt=resopt, predopt=predopt, optcomp=optcomp, residcomp=residcomp, 
      pred=pred, SEPopt=SEPopt,afinal=afinal, SEPfinal=SEPfinal, SEPtrim=SEPtrim)
 }
  

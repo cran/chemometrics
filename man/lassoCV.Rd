@@ -26,10 +26,10 @@ possible value of the Lasso parameter (unconstrained case), see also \code{\link
 The optimal fraction is chosen according to the following criterion:
 Within the CV scheme, the mean of the SEPs is computed, as well as their standard errors. Then one 
 searches for the minimum of the mean SEPs and adds sdfact*standarderror. The optimal fraction
-is the smallest fraction that is below this bound.
+is the smallest fraction with an MSEP below this bound.
 }
 \value{
-  \item{cv}{CV curve at each value of fraction}
+  \item{cv}{MSEP values at each value of fraction}
   \item{cv.error}{standard errors for each value of fraction}
   \item{SEP}{SEP value for each value of fraction}
   \item{ind}{index of fraction with optimal choice for fraction}

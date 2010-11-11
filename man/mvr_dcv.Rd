@@ -6,7 +6,7 @@ Performs a careful evaluation by repeated double-CV for multivariate regression 
 }
 \usage{
 mvr_dcv(formula, ncomp, data, subset, na.action, 
-  method = c("kernelpls", "simpls", "oscorespls", "svdpc"), 
+  method = c("kernelpls", "widekernelpls", "simpls", "oscorespls", "svdpc"), 
   scale = FALSE, repl = 100, sdfact = 2, 
   segments0 = 4, segment0.type = c("random", "consecutive", "interleaved"), length.seg0, 
   segments = 10, segment.type = c("random", "consecutive", "interleaved"), length.seg, 

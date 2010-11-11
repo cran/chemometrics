@@ -2,10 +2,10 @@
 \alias{pcaDiagplot}
 \title{ Diagnostics plot for PCA }
 \description{
-Score distances and of the orthogonal distances are computed and plotted.
+Score distances and orthogonal distances are computed and plotted.
 }
 \usage{
-pcaDiagplot(X, X.pca, a = 2, quantile = 0.975, plot = TRUE, ...)
+pcaDiagplot(X, X.pca, a = 2, quantile = 0.975, scale = TRUE, plot = TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -13,6 +13,7 @@ pcaDiagplot(X, X.pca, a = 2, quantile = 0.975, plot = TRUE, ...)
   \item{X.pca}{ PCA object resulting e.g. from \code{\link{princomp}} }
   \item{a}{ number of principal components }
   \item{quantile}{ quantile for the critical cut-off values }
+  \item{scale}{ if TRUE then X will be scaled - and X.pca should be from scaled data too }
   \item{plot}{ if TRUE a plot is generated }
   \item{\dots}{ additional graphics parameters, see \code{\link{par}} }
 }

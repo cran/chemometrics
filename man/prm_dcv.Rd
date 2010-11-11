@@ -38,6 +38,7 @@ is still in the range of the MSE+sdfact*sd(MSE), where MSE and sd are taken from
 }
 \value{
   \item{b}{estimated regression coefficients}
+  \item{intercept}{estimated regression intercept}
   \item{resopt}{array [nrow(Y) x ncol(Y) x repl] with residuals using optimum number of components}
   \item{predopt}{array [nrow(Y) x ncol(Y) x repl] with predicted Y using optimum number of components}
   \item{optcomp}{matrix [segments0 x repl] optimum number of components for each training set}

@@ -1,6 +1,6 @@
 mvr_dcv <-
 function (formula, ncomp, data, subset, na.action, method = c("kernelpls", 
-    "simpls", "oscorespls", "svdpc"), scale = FALSE, repl = 100, 
+    "widekernelpls", "simpls", "oscorespls", "svdpc"), scale = FALSE, repl = 100, 
     sdfact = 2, segments0 = 4, segment0.type = c("random", "consecutive", 
         "interleaved"), length.seg0, segments = 10, segment.type = c("random", 
         "consecutive", "interleaved"), length.seg, trace = FALSE, 
@@ -21,7 +21,7 @@ function (formula, ncomp, data, subset, na.action, method = c("kernelpls",
     mf <- mf[c(1, m)]
     mf[[1]] <- as.name("model.frame")
     mf <- eval(mf, parent.frame())
-    method <- match.arg(method, c("kernelpls", "simpls", "oscorespls", 
+    method <- match.arg(method, c("kernelpls", "widekernelpls", "simpls", "oscorespls", 
         "svdpc", "model.frame"))
     if (method == "model.frame") 
         return(mf)

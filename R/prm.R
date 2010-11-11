@@ -132,10 +132,11 @@ while ((difference>0.01) && loops<30){
         # new BL: 17.9.09
         w0 <- which(w==0)
         if(length(w0) != 0) { w <- replace(w, list=w0, values=10^(-6)) }
-        ### Xw <- Xmc*sqrt(w)
-        ### yw <- ymc*sqrt(w)
-        Xw <- X * sqrt(w)
-        yw <- y * sqrt(w)
+        # corrected:
+         Xw <- Xmc*sqrt(w)
+         yw <- ymc*sqrt(w)
+        #1#Xw <- X * sqrt(w)
+        #1#yw <- y * sqrt(w)
 	#print(difference)
 	#print(loops)
 	loops <- loops+1

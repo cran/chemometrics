@@ -1,11 +1,12 @@
 "pcaDiagplot" <-
-function(X,X.pca,a=2,quantile=0.975,plot=TRUE, ...){
+function(X,X.pca,a=2,quantile=0.975,scale=TRUE,plot=TRUE, ...){
 #
 # INPUT:
 # X ... mean centered data matrix
 # X.pca ... PCA object
 # a ... dimension of the PCA space (no. of PCs)
 # quantile ... critical quantile
+# scale ... if TRUE then X will be scaled - and X.pca should be from scaled data too
 # plot ... TRUE if plot should be made, otherwise FALSE
 # ... additional plotting arguments
 #
@@ -19,10 +20,27 @@ function(X,X.pca,a=2,quantile=0.975,plot=TRUE, ...){
 if (is.null(a)) {a=ncol(X.pca$loa)} 
 
 # compute score distances:
-SDist=sqrt(apply(t(t(X.pca$sco[,1:a]^2)/X.pca$sdev[1:a]^2),1,sum))
+if (is.null(X.pca$sdev)){
+  sdev <- apply(X.pca$scores,2,sd)
+  SDist=sqrt(apply(t(t(X.pca$sco[,1:a]^2)/sdev[1:a]^2),1,sum))
+}
+else {
+  SDist=sqrt(apply(t(t(X.pca$sco[,1:a]^2)/X.pca$sdev[1:a]^2),1,sum))
+}
 
 # compute orthogonal distances:
-ODist=sqrt(apply((X-X.pca$sco[,1:a]%*%t(X.pca$loa[,1:a]))^2,1,sum))
+if (scale){
+  if (is.null(X.pca$scale)){
+    Xs=scale(X,TRUE,TRUE)
+  }
+  else {
+    Xs=scale(X,center=X.pca$center,scale=X.pca$scale)
+  }
+  ODist=sqrt(apply((Xs-X.pca$sco[,1:a]%*%t(X.pca$loa[,1:a]))^2,1,sum))
+}
+else {
+  ODist=sqrt(apply((scale(X,TRUE,FALSE)-X.pca$sco[,1:a]%*%t(X.pca$loa[,1:a]))^2,1,sum))
+}
 
 # compute critical values
 critSD=sqrt(qchisq(quantile,a))
