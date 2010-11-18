@@ -6,13 +6,13 @@ Performs a careful evaluation by repeated double-CV for robust PLS, called
 PRM (partial robust M-estimation).
 }
 \usage{
-prm_dcv(X,Y,ncomp=10,repl=10,segments0=4,segments=7,segment0.type="random",
+prm_dcv(X,Y,a=10,repl=10,segments0=4,segments=7,segment0.type="random",
   segment.type="random",sdfact=2,fairct=4,trim=0.2,opt="median",plot.opt=FALSE, ...) 
 }
 \arguments{
   \item{X}{predictor matrix}
   \item{Y}{response variable}
-  \item{ncomp}{number of PLS components}
+  \item{a}{number of PLS components}
   \item{repl}{Number of replicattion for the double-CV}
   \item{segments0}{the number of segments to use for splitting into training and 
       test data, or a list with segments (see \code{\link[pls]{mvrCv}})}
@@ -44,11 +44,12 @@ is still in the range of the MSE+sdfact*sd(MSE), where MSE and sd are taken from
   \item{optcomp}{matrix [segments0 x repl] optimum number of components for each training set}
   \item{residcomp}{array [nrow(Y) x ncomp x repl] with residuals using optimum number of components}
   \item{pred}{array [nrow(Y) x ncol(Y) x ncomp x repl] with predicted Y for all numbers of components}
-  \item{SEPopt}{SEP over all residuals using optimal number of components}
+  \item{SEPall}{matrix [ncomp x repl] with SEP values}
+  \item{SEPtrim}{matrix [ncomp x repl] with trimmed SEP values}
+  \item{SEPcomp}{vector of length ncomp with trimmed SEP values; use the element afinal for the 
+		optimal trimmed SEP}
   \item{afinal}{final optimal number of components}
-  \item{SEPfinal}{vector of length ncomp with final SEP values; use the element afinal for the 
-		optimal SEP}
-  \item{SEPtrim}{final trimmed SEP value}
+  \item{SEPopt}{trimmed SEP over all residuals using optimal number of components}
 }
 \references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
 in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
@@ -57,6 +58,6 @@ in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \examples{
 require(pls)
 data(yarn)
-res <- prm_dcv(yarn$NIR,yarn$density,ncomp=3,repl=2)
+res <- prm_dcv(yarn$NIR,yarn$density,a=3,repl=2)
 }
 \keyword{ multivariate }

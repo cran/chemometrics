@@ -41,7 +41,7 @@ is below this bound.
   \item{SEPj}{matrix with segments rows and a columns with SEP values within the CV for each number of components}
   \item{SEPtrimj}{matrix with segments rows and a columns with trimmed SEP values within the CV for each number of components}
   \item{optcomp}{final optimal number of PLS components}
-  \item{SEPop}{trimmed SEP value for final optimal number of PLS components}
+  \item{SEPopt}{trimmed SEP value for final optimal number of PLS components}
 }
 \references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
 in Chemometrics. CRC Press, Boca Raton, FL, 2009. }

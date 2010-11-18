@@ -1,6 +1,6 @@
 prm_dcv   <- function(  X,                            # matrix for X
                         Y,                            # vector for y
-                        ncomp=10,                     # max number of PLS components
+                        a=10,                     # max number of PLS components
                         repl=10,                       # repetitions in rdcv
                         segments0=4,                  # number of outer segments
                         segments=7,                   # number of inner segments
@@ -15,6 +15,7 @@ prm_dcv   <- function(  X,                            # matrix for X
 require(chemometrics)
 n = nrow(X)                                             # number of samples
 
+ncomp <- a
 optcomp <- matrix(NA, nrow=segments0, ncol=repl)      # a_opt cv [1:segments0, 1:repl] 
 b       <- matrix(NA, nrow=dim(X)[2], ncol=ncomp)
 bAll       <- array(NA, dim=c(segments0,dim(X)[2],ncomp,repl)) # all regression coefficients
@@ -68,7 +69,7 @@ predopt <- matrix(NA, nrow=n, ncol=repl)              # y_test for each a_opt [1
              for(n.comp in 1:ncomp){
                pred[-obsuse,n.comp,i]  <-  as.matrix(X[-obsuse,])%*% b[,n.comp] 
                b0corr <- median(Y[-obsuse] - pred[-obsuse,n.comp,i])
-               pred[-obsuse,,i] <- pred[-obsuse,n.comp,i] + b0corr
+               pred[-obsuse,n.comp,i] <- pred[-obsuse,n.comp,i] + b0corr
              }
 
 
@@ -79,36 +80,30 @@ predopt <- matrix(NA, nrow=n, ncol=repl)              # y_test for each a_opt [1
   # (1) --- end repetition loop --- #
 
 
+resopt <- predopt - c(Y)
+residcomp <- pred - c(Y)
+
+
 # a_final as most frequent a_opt cv
 afinaldistr <- table(optcomp)/sum(table(optcomp))
 afinal <- as.numeric(names(which.max(afinaldistr)))
 
-# SEPopt considering only residuals from a_opt cv models
-resopt <- predopt - c(Y)
 
-biasopt <- apply(resopt, 2, mean)
-SEPopt <- sqrt(apply((resopt-biasopt)^2,2,sum)/(prod(dim(resopt)) - 1))
 
-# SEPfinal considering all residuals for each number of PLS components
-residcomp <- pred - c(Y)
-
-biascomp <- apply(residcomp, 2, mean)
-dimr <- dim(residcomp)
-biascomp1 <- array(biascomp, c(dimr[2], dimr[1], dimr[3]))
-biascomp1 <- aperm(biascomp1, c(2,1,3))
-#SEPfinal <- sqrt(apply((residcomp-biascomp)^2,2,sum)/(prod(dim(resopt)) - 1))
-SEPfinal <- sqrt(apply((residcomp - biascomp1)^2,2,sum)/(prod(dim(resopt)) - 1))  
-# SEPtrim considering residuals at a_final only, excluding trim-% (e.g. 20%) of largest residuals
-medres <- median(residcomp[, afinal,])
-residcomp1 <- residcomp[, afinal,] - medres
-absres <- abs(residcomp1)
-reslarge <- quantile(absres, 1-trim)
-SEPtrim <- sd(residcomp1[absres <= reslarge])
+###### SEP values:
+SEPall <- matrix(NA,nrow=ncomp,ncol=repl) # all untrimmed SEP values
+SEPtrim <- matrix(NA,nrow=ncomp,ncol=repl) # all trimmed SEP values
+SEPcomp <- rep(NA,ncomp) # trimmed SEP for each number of components
+for (n.comp in 1:ncomp){
+  SEPall[n.comp,] <- apply(residcomp[,n.comp,],2,sd)
+  SEPtrim[n.comp,] <- sd_trim(residcomp[,n.comp,],trim=trim)
+  SEPcomp[n.comp] <- sd_trim(as.vector(residcomp[,n.comp,]),trim=trim)
+}
 
 bAll=apply(bAll,c(2,3),mean)
 b0All=apply(b0All,c(2),mean)
 list(b=bAll,intercept=b0All,resopt=resopt, predopt=predopt, optcomp=optcomp, residcomp=residcomp, 
-     pred=pred, SEPopt=SEPopt,afinal=afinal, SEPfinal=SEPfinal, SEPtrim=SEPtrim)
+     pred=pred, SEPall=SEPall, SEPtrim=SEPtrim, SEPcomp=SEPcomp,  afinal=afinal, SEPopt=SEPcomp[afinal])
 }
  
  

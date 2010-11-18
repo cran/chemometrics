@@ -185,9 +185,10 @@ Vienna University of Technology, Austria\\P.Filzmoser@tuwien.ac.at}
 %\pagenumbering{roman}
 %\setcounter{page}{1}
 
+\newpage
 %\addcontentsline{toc}{section}{Contents}
-%\tableofcontents
-%\newpage
+\tableofcontents
+\newpage
 
 
 %------------------------------------------------------------------------------ introduction
@@ -864,7 +865,7 @@ the algorithm and the number and names of the variables used for the final model
 
 <<echo=FALSE>>=
   steps <- 22
-  seconds <- 39
+  seconds <- 15
   varnbr <- 16
   varnames <- c('X1115.0','X1185.0','X1215.0','X1385.0','X1420.0','X1500.0','X1565.0','X1585.0',
                 'X1690.0','X1715.0','X1720.0','X1815.0','X1995.0','X2070.0','X2100.0','X2195.0')
@@ -892,7 +893,7 @@ variables can achieve a further reduction of the BIC.
 \end{figure}
 
 <<eval=FALSE, label=01-BIC, fig=TRUE, width=6, height=6>>=
-  # produce Figure 4.1
+  # produce Figure 5
   modelsize <- apply(res.step$models, 1, sum)
   plot(modelsize, res.step$bic, type="b", pch=20,
     main="BIC during stepwise regression",
@@ -954,9 +955,9 @@ and one object (at a glucose concentration of around 45) with suspiciously dispe
 However, on the right hand side we see the SEP for each CV repetition with
 
 <<echo=FALSE, results=verbatim>>=
-    cat(" SEP mean:               ", round(res.stepcv$SEPm, 4), "\n",
-      "SEP median:             ", round(median(res.stepcv$SEP), 4), "\n",
-      "SEP standard deviation: ", round(sd(res.stepcv$SEP), 4), "\n", sep=" ")
+    cat(" SEP mean:               ", round(res.stepcv$SEPm, 3), "\n",
+      "SEP median:             ", round(median(res.stepcv$SEP), 3), "\n",
+      "SEP standard deviation: ", round(sd(res.stepcv$SEP), 3), "\n", sep=" ")
 @
 
 If the cross validation did not give as stable SEP values as it is the case here one should
@@ -966,15 +967,6 @@ models based on the regressor variables of the final model \citep[compare][secti
 Note that the regression model found by stepwise variable selection highly depends on the
 choice of the starting model. In order to find the most parsimonious model it is recommended to start
 with the empty model though.
-
-%<<echo=FALSE>>=
-%  o <- apply(abs(res.stepcv$resid), 2,order)
-%  trimlength <- floor(length(y)*0.8)
-%  resid.trim.stepwise <- array(dim=c(trimlength,100))
-%  for (i in 1:100) {
-%    resid.trim.stepwise[,i] <- abs(res.stepcv$resid[,i])[o[1:trimlength,i]]
-%  }
-%@
 
 %-------------------------------------------------------------- stepwise end.
 
@@ -1171,9 +1163,9 @@ same example.
 <<echo=FALSE, results=verbatim>>=
     #SEP <- apply(res.pcr$resopt[,1,], 2, sd)
     cat(" optimal number of PCs:  ", optpcr, "\n",
-         "SEP mean:               7.505 \n",                      #round(mean(SEP), 4)
-         "SEP median:             7.4914 \n",                     #round(median(SEP), 4)
-         "SEP standard deviation: 0.3892 \n", sep=" ")    # round(sd(SEP), 4)
+         "SEP mean:               7.433 \n",                      #round(mean(SEP), 4)
+         "SEP median:             7.449 \n",                     #round(median(SEP), 4)
+         "SEP standard deviation: 0.373 \n", sep=" ")    # round(sd(SEP), 4)
 @
 
 %<<echo=FALSE>>=
@@ -1181,12 +1173,12 @@ same example.
 %  trimlength <- floor(length(y)*0.8)
 %  resid.trim.pcr <- array(dim=c(trimlength,100))
 %  for (i in 1:100) {
-%    resid.trim.pcr[,i] <- abs(res.pcr$resopt[,1,i])[o[1:trimlength,i]]
+%    resid.trim.pcr[,i] <- (res.pcr$resopt[,1,i])[o[1:trimlength,i]]
 %  }
 %@
 %-------------------------------------------------------------- pcr end.
 
-\newpage
+%\newpage
 
 %-------------------------------------------------------------- pls
 \SweaveOpts{keep.source=TRUE, eval=TRUE, echo=TRUE, results=hide, fig=FALSE, eps=FALSE, prefix.string=Figures/Fig-03, include=FALSE, width=9, height=5}
@@ -1466,7 +1458,7 @@ PCR. For PLS regression, we simply have to change the method to one of \code{sim
   plotSEPmvr(res.pls, optcomp=optpls, y=y, X=X, method="simpls")
 @
 <<echo=FALSE>>=
-  optpls <- 9
+  optpls <- 14
 @
 
 
@@ -1517,11 +1509,12 @@ PCR. For PLS regression, we simply have to change the method to one of \code{sim
 \newpage
 
 For our example, the functions yield the following results: The optimal number of PLS components 
-(Figure \ref{fig:comppls}) is 9, %Sexpr{res.pls$afinal}
-which is very low compared to the former 
-results. We can also observe that the values for the number of used PLS components which occur 
+(Figure \ref{fig:comppls}) is 14, %Sexpr{res.pls$afinal}
+which is rather low compared to the former 
+results. Note that there is a second peak at 9 components which could be selected
+in order to obtain a possibly small model. We can also observe that the values for the number of used PLS components which occur 
 during the CV are throughout lower and less spread than in the case of PCR. Not only the number of
-components is lower; also the standard error of prediction, 6.4,%Sexpr{round(res.pls$SEPopt,2)},  
+components is lower; also the standard error of prediction, 6.4, %Sexpr{round(res.pls$SEPopt,2)},  
 decreases compared to PCR. If we track the development of the SEP for an increasing number of 
 components (Figure \ref{fig:seppls}), we realize that it falls faster to a minimum 
 than for PCR. The plots of predicted values (Figure \ref{fig:predpls}) 
@@ -1530,9 +1523,9 @@ and residuals (Figure \ref{fig:respls}) show a very similar picture in both case
 <<echo=FALSE, results=verbatim>>=
     #SEP <- apply(res.pls$resopt[,1,], 2, sd)
     cat(" optimal number of PCs:  ", optpls, "\n",
-         "SEP mean:                6.3997 \n", #round(mean(SEP), 4)
-         "SEP median:              6.3578 \n", #round(median(SEP), 4)
-         "SEP standard deviation:  0.3771 \n", sep=" ") #round(sd(SEP), 4)
+         "SEP mean:                6.489 \n", #round(mean(SEP), 4)
+         "SEP median:              6.491 \n", #round(median(SEP), 4)
+         "SEP standard deviation:  0.408 \n", sep=" ") #round(sd(SEP), 4)
 @
 
 To specifically calculate the loadings, scores and weights for a PLS model created by \code{mvr} 
@@ -1571,7 +1564,7 @@ and loadings for $\Xf$ and $\Yf$. For the number of components $a \le \min(n,m,p
 %  trimlength <- floor(length(y)*0.8)
 %  resid.trim.pls <- array(dim=c(trimlength,100))
 %  for (i in 1:100) {
-%    resid.trim.pls[,i] <- abs(res.pls$resopt[,1,i])[o[1:trimlength,i]]
+%    resid.trim.pls[,i] <- (res.pls$resopt[,1,i])[o[1:trimlength,i]]
 %  }
 @
 %-------------------------------------------------------------- pls end.
@@ -1594,7 +1587,11 @@ Functions discussed in this section:
   \code{prm}          \\
   \code{prm\_cv}      \\
   \code{prm\_dcv}     \\
-  \code{plotprm}
+  \code{plotprm} \\
+  \code{plotcompprm} \\
+  \code{plotSEPprm} \\
+  \code{plotpredprm} \\
+  \code{plotresprm} 
 \end{tabular}
 
 The methods PCR and PLS are not robust to
@@ -1723,14 +1720,11 @@ holds:
   \widehat \bbf(\Xf {\bf \Gamma}, c \yf) = {\bf \Gamma}^\TT \widehat \bbf(\Xf, \yf) c
 \end{equation*}
 
-The optimal number of components can be determined by repeated double CV in function \code{prm\_dcv}.
-
-<<eval=FALSE>>=
-  prm_dcv(X, y, ncomp=40)
-@
-
-Since RDCV is computationally rather expensive in this case, the function \code{prm\_cv} which 
-accomplishes a single CV might be more convenient for our task:
+The optimal number of components can be determined by repeated double CV using the
+function \code{prm\_dcv}. However, 
+since RDCV is computationally rather expensive in this case, 
+we first start with the function \code{prm\_cv} which 
+accomplishes a single CV:
 
 <<eval=FALSE, label=11-prmcv, fig=TRUE>>=
   res.prmcv <- prm_cv(X, y, a = 40, opt = "median")
@@ -1756,16 +1750,16 @@ absolute residuals are discarded. The difference can be seen in Figure \ref{fig:
 by \code{prm\_cv}. For each number of components the mean of the trimmed SEP values is plotted and 
 their standard deviation is added. The optimal number of components is the lowest number that yields 
 a trimmed SEP under the dashed horizontal line which is 2 standard errors above the minimum SEP. 
-In our case it is the model with 17 %Sexpr{res.prmcv$optcomp} 
-components have a 20\% trimmed SEP of 3.77. %Sexpr{round(res.prmcv$SEPop, 2)}
+In our case it is the model with 20 %Sexpr{res.prmcv$optcomp} 
+components have a 20\% trimmed SEP of 4.95. %Sexpr{round(res.prmcv$SEPop, 2)}
 
 <<echo=FALSE, results=verbatim>>=
-  oc <- 17
-  cat(" optimal number of PCs: 17 \n",  #oc <- res.prmcv$optcomp
+  oc <- 20
+  cat(" optimal number of PCs: 20 \n",  #oc <- res.prmcv$optcomp
        "                         classic   20% trimmed \n",
-       "SEP mean:                5.382      3.9253 \n",          #round(mean(res.prmcv$SEPj[,oc]), 4), round(mean(res.prmcv$SEPtrimj[,oc]), 4)
-       "SEP median:              5.2846     3.8311 \n",          # round(median(res.prmcv$SEPj[,oc]), 4), round(median(res.prmcv$SEPtrimj[,oc]), 4)
-       "SEP standard deviation:  0.9359     0.6934 \n", sep=" ") #round(sd(res.prmcv$SEPj[,oc]), 4), round(sd(res.prmcv$SEPtrimj[,oc]), 4)
+       "SEP mean:                5.454      5.094 \n",          #round(mean(res.prmcv$SEPj[,oc]), 4), round(mean(res.prmcv$SEPtrimj[,oc]), 4)
+       "SEP median:              5.488      5.070 \n",          # round(median(res.prmcv$SEPj[,oc]), 4), round(median(res.prmcv$SEPtrimj[,oc]), 4)
+       "SEP standard deviation:  0.627      1.289 \n", sep=" ") #round(sd(res.prmcv$SEPj[,oc]), 4), round(sd(res.prmcv$SEPtrimj[,oc]), 4)
 @
 
 The effect of PRM on the prediction can be observed if we plot the predicted versus the measured
@@ -1784,8 +1778,10 @@ $\yf$ and the residuals against the predicted values:
 
 If we compare Figure \ref{fig:plotprm} with the Figures \ref{fig:predpls} and \ref{fig:respls} we do 
 not see big differences, and comparing the 20\% trimmed SEP values (see section \ref{sec:calibcompare}, 
-it becomes clear that there are no outliers in our data. In absence of outliers, the robust method 
-is never better than the non-robust version.
+it becomes clear that there are no large outliers in our data. 
+In absence of outliers, the robust method usually not better than the non-robust version.
+We can, however, observe 
+artifacts in the residual plots which may be due to rounding errors.
 
 Now that we have the optimal number of PLS components we can use it to get the estimates for the 
 regression coefficients, the weights, scores, loadings and so on.
@@ -1796,6 +1792,95 @@ regression coefficients, the weights, scores, loadings and so on.
 The argument \verb+usesvd+ is set to \verb+TRUE+ if the number of predictors exceeds the number 
 of observations. The use of SVD and a slight modification of the algorithm make the computation 
 faster in this case.
+
+
+Repeated double CV may give a more precise answer on the optimal number of components
+than a single CV. Robust estimation on the other hand is usually more time consuming,
+and therefore repreated double CV will require considerably more time than single CV.
+Nevertheless, we will compare the results here. Repeated double CV for PRM can
+be executed as follows:
+
+<<eval=FALSE, label=11a-prmdcv, fig=TRUE>>=
+  res.prmdcv <- prm_dcv(X, y, a = 40, opt = "median",repl=20)
+@
+
+We compute 40 components (which in practice may be too much).
+In total, 20 replications of the double CV scheme are performed.
+While the single CV for PRM needed about 4 minutes, repeated double CV
+requires more than 4 hours. Nevertheless, the plots of the results are
+interesting. We have the same diagnostic plots as for repeated double
+CV of the classical counterpart, and also the commands are similar.
+
+The frequencies of the optimal numbers of components can be seen by:
+<<eval=FALSE, label=07a-compprmdcv, fig=TRUE>>=
+  plotcompprm(res.prmdcv)
+@
+Figure \ref{fig:compprmdcv} shows the resulting frequency distribution.
+There is a clear peak at 20 components. Note that here we obtain the
+same result as for single CV.
+\begin{figure}[h!]
+  \centering
+  \includegraphics{Fig-04-07a-compprmdcv}
+  \caption{Output of \code{plotcompprm} for PRM-DCV. The optimal number of
+components is indicated by the vertical dashed line.}
+  \label{fig:compprmdcv}
+\end{figure}
+
+In a next plot the prediction performance measure is shown. Note that for
+robust methods a trimmed version of the SEP needs to be used in order to
+reduce the effect of outliers. Here we used a trimming of 20\%. 
+<<eval=FALSE, label=08a-sepprmdcv, fig=TRUE>>=
+  plotSEPprm(res.prmdcv,res.prmdcv$afinal,y,X)
+@
+The result of executing the above command is shown in Figure \ref{fig:sepprmdcv}.
+The gray lines correspond to the results of the 20 repetitions of the double CV
+scheme, while the black line represents the single CV result. Obviously,
+single CV is much more optimistic than repeated double CV. Note that the
+single CV result is computed within this plot function, and thus this takes 
+some time.
+\begin{figure}[h!]
+  \centering
+  \includegraphics{Fig-04-08a-sepprmdcv}
+  \caption{Output of \code{plotSEPprmdcv} for PRM. The gray lines result from
+repeated double CV, the black line from single CV.}
+  \label{fig:sepprmdcv}
+\end{figure}
+
+Similar as for repeated double CV for classical PLS, there are functions for
+PRM showing diagnostic plots:
+<<eval=FALSE, label=08b-predprmdcv, fig=TRUE>>=
+  plotpredprm(res.prmdcv,res.prmdcv$afinal,y,X)
+@
+The predicted versus measured response values are shown in Figure \ref{fig:predprmdcv}.
+The left picture is the prediction from a single CV, while in the right picture
+the resulting predictions from repeated double CV are shown. The latter plot
+gives a clearer picture of the prediction uncertainty.
+\begin{figure}[h!]
+  \centering
+  \includegraphics{Fig-04-08b-predprmdcv}
+  \caption{Predicted versus measured response values as output of \code{predprmdcv} for PRM.
+The left picture shows the results from single CV, the right picture visualizes the
+results from repeated double CV.}
+  \label{fig:predprmdcv}
+\end{figure}
+
+The residuals versus predicted values are visualized by:
+<<eval=FALSE, label=08c-resprmdcv, fig=TRUE>>=
+plotresprm(res.prmdcv,res.prmdcv$afinal,y,X)
+@
+The results are shown in Figure \ref{fig:resprmdcv}. Again, the left picture for
+single CV shows artifacts of the data, but the right picture for repeated
+double CV makes the uncertainty visible.
+\begin{figure}[h!]
+  \centering
+  \includegraphics{Fig-04-08c-resprmdcv}
+  \caption{Output of \code{plotresprm} for PRM. The left picture shows the resisuals
+ from single CV, the right picture visualizes the
+results from repeated double CV.}
+  \label{fig:resprmdcv}
+\end{figure}
+
+
 %-------------------------------------------------------------- plsrobust end.
 
 %-------------------------------------------------------------- ridge
@@ -1927,7 +2012,7 @@ optimal model should be carefully evaluated by repeated cross validation (for ou
   \label{fig:ridgecv}
 \end{figure}
 
-Ridge regression leads to an average SEP of 5.39 %Sexpr{round(res.ridge$SEPm, 2)} 
+Ridge regression leads to an average SEP of 5.37 %Sexpr{round(res.ridge$SEPm, 2)} 
 which is already a
 better result than achieved by PCR and PLS but stepwise regression is still doing better. The
 following method is only a slight modification of Ridge regression but with significantly different
@@ -1938,7 +2023,7 @@ results.
 %  trimlength <- floor(length(y)*0.8)
 %  resid.trim.ridge <- array(dim=c(trimlength,100))
 %  for (i in 1:100) {
-%    resid.trim.ridge[,i] <- abs(res.ridge$residuals[,i])[o[1:trimlength,i]]
+%    resid.trim.ridge[,i] <- (res.ridge$residuals[,i])[o[1:trimlength,i]]
 %  }
 %@
 
@@ -2088,32 +2173,36 @@ method (stepwise regression: Figure \ref{fig:lmCV}, PCR: Figure \ref{fig:predpcr
 we cannot spot real outliers but only some sort of artefacts that occur due to the data structure.
 Anyway, none of the methods used here gives better results than stepwise OLS regression. Since in 
 case of fulfilled prerequisites the OLS estimator is the {\em best linear unbiased estimator} 
-(BLUE), there cannot be another method giving better results indeed.
+(BLUE), there cannot be another method giving better results indeed. On the other hand we see
+that robust PLS (i.e.~PRM) is performing somewhat better than classical PLS.
 
 \newpage
                                                          
 <<echo=FALSE, results=verbatim>>=
-  SEP.stepwise <- 4.625062 #res.stepcv$SEPm
-  SEP20.stepwise <- 1.508322 #mean(apply(resid.trim.stepwise, 2, sd))
-  SEP.pcr <- 7.505016 #mean(apply(res.pcr$resopt[,1,], 2, sd))
-  SEP20.pcr <- 2.587331 #mean(apply(resid.trim.pcr, 2, sd))
-  SEP.pls <- 6.399661 #mean(apply(res.pls$resopt[,1,], 2, sd))
-  SEP20.pls <- 2.241617 #mean(apply(resid.trim.pls, 2, sd))
-  SEP.prm <- 5.708654 #res.prmcv$SEPall[res.prmcv$optcomp]
-  SEP20.prm <- 3.768013 #res.prmcv$SEPop
-  SEP.ridge <- 5.39256 #res.ridge$SEPm
-  SEP20.ridge <- 1.833630 #mean(apply(resid.trim.ridge, 2, sd))
-  SEP.lasso <- 5.660052 #res.lasso$SEP[(res.lasso$fraction==res.lasso$sopt)]
-  SEP20.lasso <- 1.950366 #sd(y - as.matrix(X)%*%res.lassocoef$coef)
+  SEP.stepwise <- 4.61 #res.stepcv$SEPm
+  SEP20.stepwise <- 4.40 #mean(apply(resid.trim.stepwise, 2, sd))
+  SEP.pcr <- 7.43 #mean(apply(res.pcr$resopt[,1,], 2, sd))
+  SEP20.pcr <- 7.37 #mean(apply(resid.trim.pcr, 2, sd))
+  SEP.pls <- 6.49 #mean(apply(res.pls$resopt[,1,], 2, sd))
+  SEP20.pls <- 6.52 #mean(apply(resid.trim.pls, 2, sd))
+  SEP.prm <- 5.40 #res.prmcv$SEPall[res.prmcv$optcomp]
+  SEP20.prm <- 4.95 #res.prmcv$SEPop
+  SEP.prmdcv <- 5.95 #res.prmdcv$SEPall[res.prmcv$optcomp]
+  SEP20.prmdcv <- 5.86 #res.prmcdv$SEPop
+  SEP.ridge <- 5.37 #res.ridge$SEPm
+  SEP20.ridge <- 5.32 #mean(apply(resid.trim.ridge, 2, sd))
+  SEP.lasso <- 6.48 #res.lasso$SEP[(res.lasso$fraction==res.lasso$sopt)]
+  SEP20.lasso <- 5.89 #compute trimmed SEP within lassoCV function (not implemented)
   cat(" PREDICTION PERFORMANCE",
-    "\n Method      SEP     SEP20%    Nr. of Variables / Components ",
+    "\n Method      SEP     SEP20%     Nr. of Variables / Components ",
       "\n                                    ",
     "\n stepwise    ", round(SEP.stepwise, 2), "    ", round(SEP20.stepwise, 2), "        ", varnbr, " variables",
-    "\n PCR         ", round(SEP.pcr, 2), "    ", round(SEP20.pcr, 2), "        ", optpcr, " components",
-    "\n PLS         ", round(SEP.pls, 2), "     ", round(SEP20.pls, 2), "         ", optpls, " components",
-    "\n PRM         ", round(SEP.prm, 2), "    ", round(SEP20.prm, 2), "        ", oc, " components",
-    "\n Ridge       ", round(SEP.ridge, 2), "    ", round(SEP20.ridge, 2), "       ", dim(X)[2], " variables",
-    "\n Lasso       ", round(SEP.lasso, 2), "    ", round(SEP20.lasso, 2), "       110 variables \n", #res.lassocoef$numb.nonzero
+    "\n PCR         ", round(SEP.pcr, 2), "    ", round(SEP20.pcr, 2), "       ", optpcr, " components",
+    "\n PLS         ", round(SEP.pls, 2), "    ", round(SEP20.pls, 2), "       ", optpls, " components",
+    "\n PRM-CV      ", round(SEP.prm, 2), "     ", round(SEP20.prm, 2), "       ", oc, " components",
+    "\n PRM-DCV     ", round(SEP.prmdcv, 2), "    ", round(SEP20.prmdcv, 2), "       ", oc, " components",
+    "\n Ridge       ", round(SEP.ridge, 2), "    ", round(SEP20.ridge, 2), "      ", dim(X)[2], " variables",
+    "\n Lasso       ", round(SEP.lasso, 2), "    ", round(SEP20.lasso, 2), "      110 variables \n", #res.lassocoef$numb.nonzero
     sep="")
 @
 
@@ -2124,12 +2213,13 @@ at the same time.
 <<echo=FALSE, results=verbatim>>=
   cat(" COMPUTATION TIMES \n",
     "Method      Algorithm     Time needed \n \n",
-    "stepwise    100 x RCV     0min 44sec \n",
-    "PCR         100 x RDCV    8min 14sec \n",
-    "PLS         100 x RDCV    5min 20sec \n",
-    "PRM         single CV     1min 15sec \n",
-    "Ridge       100 x RCV     2min 36sec \n",
-    "Lasso       single CV     1min 03sec \n")
+    "stepwise    100 x RCV       0min 44sec \n",
+    "PCR         100 x RDCV      2min 56sec \n",
+    "PLS         100 x RDCV      2min 27sec \n",
+    "PRM         single CV       4min 15sec \n",
+    "PRM         20 x RDCV     241min 15sec \n",
+    "Ridge       100 x RCV       1min 40sec \n",
+    "Lasso       single CV       0min 33sec \n")
 @
 
 At this point it is important to underline that the conclusions made above of course hold only for 

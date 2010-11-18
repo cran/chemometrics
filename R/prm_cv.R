@@ -159,34 +159,18 @@ ypred[-obsuse] <- ypred[-obsuse]+b0
 # residuals in each segment
 yresj <- y[-obsuse]-ypred[-obsuse]
 SEPj[n.seg] <- sd(yresj)
-absresj=abs(yresj)
-resjlarge=quantile(absresj,1-trim)
-SEPtrimj[n.seg] <- sd(yresj[absresj<=resjlarge])
-}
-res <- y-ypred
-########################################################################
-## OLD: predictions in each segment
-#ypred[-obsuse] <- drop(as.matrix(Xmc[-obsuse,]))%*%b
-## residuals in each segment
-#yresj <- ymc[-obsuse]-ypred[-obsuse]
-#SEPj[n.seg] <- sd(yresj)
 #absresj=abs(yresj)
 #resjlarge=quantile(absresj,1-trim)
 #SEPtrimj[n.seg] <- sd(yresj[absresj<=resjlarge])
-#}
-#res <- ymc-ypred
-#medres <- median(res)
-#res <- res-medres
-#ypred <- ypred+medres
-## ======= NEU BL: ===========
-## y-Medianzentrierung "rückgängig", sonst stimmt ypred nicht
-#        ypred <- ypred + my
-## ==========================
+SEPtrimj[n.seg] <- sd_trim(yresj,trim=trim)
+}
+res <- y-ypred
 ########################################################################
 SEPall=sd(res)
-absres=abs(res)
-reslarge=quantile(absres,1-trim)
-SEPtrim=sd(res[absres<=reslarge])
+#absres=abs(res)
+#reslarge=quantile(absres,1-trim)
+#SEPtrim=sd(res[absres<=reslarge])
+SEPtrim=sd_trim(res,trim=trim)
 
 list(predicted=ypred,residuals=res,SEPall=SEPall,SEPtrim=SEPtrim,
 	SEPj=SEPj,SEPtrimj=SEPtrimj)

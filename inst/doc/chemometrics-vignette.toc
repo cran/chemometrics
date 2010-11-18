@@ -1,0 +1,25 @@
+\select@language {english}
+\contentsline {section}{\numberline {1}Introduction}{4}
+\contentsline {subsection}{\numberline {1.1}The \textsf {R} package \textbf {chemometrics}}{4}
+\contentsline {subsection}{\numberline {1.2}Overview}{4}
+\contentsline {section}{\numberline {2}Principal Component Analysis}{6}
+\contentsline {subsection}{\numberline {2.1}The Method}{6}
+\contentsline {subsection}{\numberline {2.2}An \textsf {R} Session}{7}
+\contentsline {section}{\numberline {3}Calibration}{14}
+\contentsline {subsection}{\numberline {3.1}Stepwise Regression}{16}
+\contentsline {subsection}{\numberline {3.2}Principal Component Regression}{20}
+\contentsline {subsection}{\numberline {3.3}Partial Least Squares Regression}{25}
+\contentsline {subsection}{\numberline {3.4}Partial Robust M-Regression}{33}
+\contentsline {subsection}{\numberline {3.5}Ridge Regression}{40}
+\contentsline {subsection}{\numberline {3.6}Lasso Regression}{44}
+\contentsline {subsection}{\numberline {3.7}Comparison of Calibration Methods}{46}
+\contentsline {section}{\numberline {4}Classification}{47}
+\contentsline {subsection}{\numberline {4.1}k Nearest Neighbors}{49}
+\contentsline {subsection}{\numberline {4.2}Classification Trees}{52}
+\contentsline {subsection}{\numberline {4.3}Artificial Neural Networks}{55}
+\contentsline {subsection}{\numberline {4.4}Support Vector Machines}{58}
+\contentsline {subsection}{\numberline {4.5}Comparison of Classification Methods}{61}
+\contentsline {section}{\numberline {A}Cross Validation}{63}
+\contentsline {section}{\numberline {B}Logratio Transformation}{65}
+\contentsline {subsection}{\numberline {B.1}Compositional Data}{65}
+\contentsline {subsection}{\numberline {B.2}Logratio Transformation}{66}
