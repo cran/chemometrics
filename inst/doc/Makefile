@@ -13,3 +13,4 @@ all 	: chemometrics-vignette.pdf
 	$(LATEX) $*
 	$(LATEX) $*
 	rm -f *.ps $*-* $*.dvi $*.log $*.bbl *.tex $*.aux $*.blg $*.log
+	rm Rplots.pdf
