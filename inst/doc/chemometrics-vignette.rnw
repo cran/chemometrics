@@ -15,8 +15,8 @@
 \usepackage{natbib}               % bibliography...
 \bibpunct{(}{)}{,}{a}{}{,}
 
-\setlength{\parindent}{0pt}       % kein Einrücken bei neuem Absatz
-\setlength{\parskip}{0.4cm}       % Abstand zwischen Absätzen
+\setlength{\parindent}{0pt}       % no indent for new paragraph
+\setlength{\parskip}{0.4cm}       % space between two paragraphs
 %\setlength{\headsep}{15mm}
 
 \addtolength{\textwidth}{30mm} 
