@@ -4,8 +4,8 @@
 \usepackage[pdftex]{color, graphicx}
 \usepackage{amsmath, amsthm, amssymb}
 \usepackage{shadethm}
-\usepackage{china2e}              % for the "set of real numbers" sign
-\usepackage{bbm}
+%\usepackage{china2e}              % for the "set of real numbers" sign
+%\usepackage{bbm}
 \usepackage{url}
 \usepackage{nicefrac}             % for the nice fractures..
 \usepackage{ipa}                  % for the tilde (follows distribution...)
@@ -14,6 +14,26 @@
 
 \usepackage{natbib}               % bibliography...
 \bibpunct{(}{)}{,}{a}{}{,}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PDF compression for R 2.14
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Set PDF 1.5 and compression, including object compression
+%% Needed for MiKTeX -- most other distributions default to this
+\ifx\pdfoutput\undefined
+\else
+  \ifx\pdfoutput\relax
+  \else
+    \ifnum\pdfoutput>0
+      % PDF output
+      \pdfminorversion=5
+      \pdfcompresslevel=9
+      \pdfobjcompresslevel=2
+    \fi
+  \fi
+\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \setlength{\parindent}{0pt}       % no indent for new paragraph
 \setlength{\parskip}{0.4cm}       % space between two paragraphs

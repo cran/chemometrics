@@ -15,7 +15,7 @@ require(pls)
     mf <- eval(mf, parent.frame())
     mt <- attr(mf, "terms")
     y <- model.response(mf, "numeric")
-    X <- delete.intercept(model.matrix(mt, mf))
+    X <- pls:::delete.intercept(model.matrix(mt, mf))
 
 n <- nrow(X)
 

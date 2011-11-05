@@ -1,0 +1,104 @@
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-02-01-pcaCV.pdf CFig-02-01-pcaCV.pdf               
+mv CFig-02-01-pcaCV.pdf Fig-02-01-pcaCV.pdf               
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-03-04-seppcr.pdf   CFig-03-04-seppcr.pdf   
+mv CFig-03-04-seppcr.pdf   Fig-03-04-seppcr.pdf   
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-03-11-prmcv.pdf      CFig-03-11-prmcv.pdf      
+mv CFig-03-11-prmcv.pdf      Fig-03-11-prmcv.pdf      
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-04-02-repknn.pdf       CFig-04-02-repknn.pdf       
+mv CFig-04-02-repknn.pdf       Fig-04-02-repknn.pdf       
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-04-08a-sepprmdcv.pdf CFig-04-08a-sepprmdcv.pdf
+mv CFig-04-08a-sepprmdcv.pdf Fig-04-08a-sepprmdcv.pdf
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-02-02-outliers.pdf            CFig-02-02-outliers.pdf            
+mv CFig-02-02-outliers.pdf            Fig-02-02-outliers.pdf            
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-03-05-predpcr.pdf  CFig-03-05-predpcr.pdf  
+mv CFig-03-05-predpcr.pdf  Fig-03-05-predpcr.pdf  
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-03-12-plotprm.pdf    CFig-03-12-plotprm.pdf    
+mv CFig-03-12-plotprm.pdf    Fig-03-12-plotprm.pdf    
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-04-03-treeeval.pdf     CFig-04-03-treeeval.pdf     
+mv CFig-04-03-treeeval.pdf     Fig-04-03-treeeval.pdf     
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-04-08b-predprmdcv.pdf CFig-04-08b-predprmdcv.pdf
+mv CFig-04-08b-predprmdcv.pdf Fig-04-08b-predprmdcv.pdf
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-02-03-pcaDiagplot-nipals.pdf CFig-02-03-pcaDiagplot-nipals.pdf 
+mv CFig-02-03-pcaDiagplot-nipals.pdf Fig-02-03-pcaDiagplot-nipals.pdf 
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-03-06-respcr.pdf   CFig-03-06-respcr.pdf   
+mv CFig-03-06-respcr.pdf   Fig-03-06-respcr.pdf   
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-03-13-plotridge.pdf  CFig-03-13-plotridge.pdf  
+mv CFig-03-13-plotridge.pdf  Fig-03-13-plotridge.pdf  
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-04-04-prunetree.pdf    CFig-04-04-prunetree.pdf    
+mv CFig-04-04-prunetree.pdf    Fig-04-04-prunetree.pdf    
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-04-08c-resprmdcv.pdf CFig-04-08c-resprmdcv.pdf
+mv CFig-04-08c-resprmdcv.pdf Fig-04-08c-resprmdcv.pdf
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-02-04-pcaDiagplot-robust.pdf  CFig-02-04-pcaDiagplot-robust.pdf  
+mv CFig-02-04-pcaDiagplot-robust.pdf  Fig-02-04-pcaDiagplot-robust.pdf  
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-03-07-comppls.pdf  CFig-03-07-comppls.pdf  
+mv CFig-03-07-comppls.pdf  Fig-03-07-comppls.pdf  
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-03-14-ridgecv.pdf    CFig-03-14-ridgecv.pdf    
+mv CFig-03-14-ridgecv.pdf    Fig-03-14-ridgecv.pdf    
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-04-05-nnetfreq.pdf     CFig-04-05-nnetfreq.pdf     
+mv CFig-04-05-nnetfreq.pdf     Fig-04-05-nnetfreq.pdf     
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-04-08-svmeval.pdf CFig-04-08-svmeval.pdf
+mv CFig-04-08-svmeval.pdf Fig-04-08-svmeval.pdf
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-03-01-BIC.pdf                 CFig-03-01-BIC.pdf                 
+mv CFig-03-01-BIC.pdf                 Fig-03-01-BIC.pdf                 
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-03-08-seppls.pdf   CFig-03-08-seppls.pdf   
+mv CFig-03-08-seppls.pdf   Fig-03-08-seppls.pdf   
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-03-15-lassocv.pdf    CFig-03-15-lassocv.pdf    
+mv CFig-03-15-lassocv.pdf    Fig-03-15-lassocv.pdf    
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-04-06-nneteval.pdf     CFig-04-06-nneteval.pdf     
+mv CFig-04-06-nneteval.pdf     Fig-04-06-nneteval.pdf     
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-04-09-classcomp.pdf CFig-04-09-classcomp.pdf
+mv CFig-04-09-classcomp.pdf Fig-04-09-classcomp.pdf
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-03-02-lmCV.pdf                CFig-03-02-lmCV.pdf                
+mv CFig-03-02-lmCV.pdf                Fig-03-02-lmCV.pdf                
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-03-09-predpls.pdf  CFig-03-09-predpls.pdf  
+mv CFig-03-09-predpls.pdf  Fig-03-09-predpls.pdf  
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-04-07a-compprmdcv.pdf  CFig-04-07a-compprmdcv.pdf  
+mv CFig-04-07a-compprmdcv.pdf  Fig-04-07a-compprmdcv.pdf  
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-04-11a-prmdcv.pdf CFig-04-11a-prmdcv.pdf
+mv CFig-04-11a-prmdcv.pdf Fig-04-11a-prmdcv.pdf
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-03-03-comppcr.pdf             CFig-03-03-comppcr.pdf             
+mv CFig-03-03-comppcr.pdf             Fig-03-03-comppcr.pdf             
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-03-10-respls.pdf   CFig-03-10-respls.pdf   
+mv CFig-03-10-respls.pdf   Fig-03-10-respls.pdf   
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-04-01-knneval.pdf    CFig-04-01-knneval.pdf    
+mv CFig-04-01-knneval.pdf    Fig-04-01-knneval.pdf    
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-04-07-svmexpl.pdf      CFig-04-07-svmexpl.pdf      
+mv CFig-04-07-svmexpl.pdf      Fig-04-07-svmexpl.pdf      
+
+ps2pdf -dPDFSETTINGS=/ebook -dAutoRotatePages=/None Fig-B-01-logratio.pdf CFig-B-01-logratio.pdf
+mv CFig-B-01-logratio.pdf Fig-B-01-logratio.pdf
+
+
+

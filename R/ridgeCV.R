@@ -16,7 +16,7 @@ require(MASS)
     mf <- eval(mf, parent.frame())
     mt <- attr(mf, "terms")
     y <- model.response(mf, "numeric")
-    X <- delete.intercept(model.matrix(mt, mf))
+    X <- pls:::delete.intercept(model.matrix(mt, mf))
 
 ym <- mean(y)
 Xsc <- apply(X,2,sd)

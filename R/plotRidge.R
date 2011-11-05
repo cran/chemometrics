@@ -13,7 +13,7 @@ require(MASS)
     mf <- eval(mf, parent.frame())
     mt <- attr(mf, "terms")
     y <- model.response(mf, "numeric")
-    X <- delete.intercept(model.matrix(mt, mf))
+    X <- pls:::delete.intercept(model.matrix(mt, mf))
 
 ridge=lm.ridge(formula,data,lambda=lambda)
 

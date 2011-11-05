@@ -6,7 +6,7 @@ function(mvrdcvobj,optcomp,y,X,method="simpls",complete=TRUE, ...)
 #
 
 dat=list(y=y,X=as.matrix(X))
-SEP.dcv=apply(drop(mvrdcvobj$pred-drop(y)),2,sd)
+SEP.dcv=apply(drop(mvrdcvobj$pred-drop(y)),c(3,2),sd) # sd not from matrix!
 matplot(t(SEP.dcv),type="l",lty=1,col=gray(0.6),
   xlab="Number of components",ylab="SEP",cex.lab=1.2,...)
 

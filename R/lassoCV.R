@@ -15,7 +15,7 @@ require(lars)
     mf <- eval(mf, parent.frame())
     mt <- attr(mf, "terms")
     y <- model.response(mf, "numeric")
-    X <- delete.intercept(model.matrix(mt, mf))
+    X <- pls:::delete.intercept(model.matrix(mt, mf))
 
 all.folds <- cv.folds(length(y), K)
     residmat <- matrix(0, length(fraction), K)

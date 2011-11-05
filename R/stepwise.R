@@ -15,7 +15,7 @@ require(pls)
     y <- model.response(mf, "numeric")
     y <- as.matrix(y)
     colnames(y) <- deparse(formula[[2]])
-    x <- delete.intercept(model.matrix(mt, mf))
+    x <- pls:::delete.intercept(model.matrix(mt, mf))
     x <- as.data.frame(x)
 
 form <- function(a, namesX) {
