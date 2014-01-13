@@ -1,8 +1,8 @@
 lassocoef <- 
 function (formula, data, sopt, plot.opt = TRUE, ...) 
 {
-    require(pls)
-    require(lars)
+#    require(pls)
+#    require(lars)
     mf <<- match.call(expand.dots = FALSE)
     m <- match(c("formula", "data"), names(mf), 0)
     mf <- mf[c(1, m)]
@@ -10,7 +10,7 @@ function (formula, data, sopt, plot.opt = TRUE, ...)
     mf <- eval(mf, parent.frame())
     mt <- attr(mf, "terms")
     y <- model.response(mf, "numeric")
-    X <- pls:::delete.intercept(model.matrix(mt, mf))
+    X <- delintercept(model.matrix(mt, mf))
 
 # ---- comment BL 14.2.2012 ---    
     mod_lasso <- lars(X, y)                                                     ## calculates entire lasso path

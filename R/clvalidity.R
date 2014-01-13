@@ -3,8 +3,8 @@ function(x,clnumb=c(2:10)){
 #
 # Compute and plot cluster validity measure
 #
-require(e1071)
-require(mclust)
+#require(e1071)
+#require(mclust)
 vali=matrix(NA,nrow=3,ncol=length(clnumb))
 for (j in 1:length(clnumb)){
 	k=clnumb[j]

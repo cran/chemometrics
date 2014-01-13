@@ -6,9 +6,9 @@ NIR data
 }
 \description{
 For 166 alcoholic fermentation mashes of different feedstock (rye, wheat and corn)
-we have 235 variables (X) containing the first derivatives of near infrared spectroscopy
-(NIR) absorbance values at 1115-2285 nm, and two variables (Y) containing the 
-concentration of glucose and ethanol (in g/L).
+we have 235 variables (X) containing the first derivatives of near infrared 
+spectroscopy (NIR) absorbance values at 1115-2285 nm, and two variables (Y) containing 
+the concentration of glucose and ethanol (in g/L).
 }
 \usage{data(NIR)}
 \format{

@@ -8,7 +8,7 @@
 %\usepackage{bbm}
 \usepackage{url}
 \usepackage{nicefrac}             % for the nice fractures..
-\usepackage{ipa}                  % for the tilde (follows distribution...)
+%\usepackage{ipa}                  % for the tilde (follows distribution...)
 \usepackage{tabularx}             % to control column width in tabulars
 \usepackage[hang,small,bf]{caption} % figure caption options
 
@@ -426,8 +426,7 @@ First of all, since the principal component transformation is not scale invarian
 data before we do the PCA, leaving apart the first variable which contains the class 
 information and is hence not relevant for PCA.
 <<>>=
-  library(gclus)                # contains the data set
-  data(wine)
+  data(wine,package="gclus")
   X <- scale(wine[,2:14])       # first column: wine type
 @
 
@@ -1953,7 +1952,7 @@ be written as
 
 Let us assume a regression model with i.i.d.\@ residuals following a normal distribution
 \begin{equation*}
-  \ef \text{ \midtilde } N(\bf{0}, \sigma^2 \Id).
+  \ef \sim N(\bf{0}, \sigma^2 \Id).
 \end{equation*}
 
 While the OLS estimator is unbiased with variance
@@ -2544,7 +2543,8 @@ with the largest relative frequency in region $l$:
 The full tree can be grown and plotted using the function \code{rpart}:
 
 <<eval=FALSE>>=
-  tree <- rpart(grp~., data=wine, method="class")
+  # library(rpart)
+  tree <- rpart::rpart(grp~., data=wine, method="class")
   plot(tree, main="Full Tree")
   text(tree)
 @

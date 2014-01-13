@@ -17,7 +17,8 @@
     \item{\code{Fenchone}}{a numeric vector}
     \item{\code{Terpinolene}}{a numeric vector}
     \item{\code{Fenchol}}{a numeric vector}
-    \item{\code{Location}}{a factor with levels \code{East-high} \code{East-low} \code{North} \code{South}}
+    \item{\code{Location}}{a factor with levels \code{East-high} \code{East-low} 
+    \code{North} \code{South}}
     \item{\code{Group}}{a numeric vector with the group information}
   }
 }

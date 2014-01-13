@@ -7,7 +7,7 @@ function(X,quantile=0.975,plot=TRUE, ...)
 # plot ... TRUE or FALSE, if TRUE plot is generated
 # "..." ... additional plot parameters, see par
 
-require(robustbase)
+#require(robustbase)
 X.mcd <- covMcd(X)
 md=sqrt(mahalanobis(X,apply(X,2,mean),cov(X)))
 rd=sqrt(mahalanobis(X,X.mcd$center,X.mcd$cov))

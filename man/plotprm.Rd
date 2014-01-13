@@ -2,8 +2,8 @@
 \alias{plotprm}
 \title{Plot results from robust PLS}
 \description{
-The predicted values and the residuals are shown for robust PLS using the optimal number
-of components.
+The predicted values and the residuals are shown for robust PLS using the optimal 
+number of components.
 }
 \usage{
 plotprm(prmobj, y, ...)
@@ -23,8 +23,8 @@ the predicted y versus the residuals.
 \value{
   A plot is generated.
 }
-\references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
+\references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical 
+Analysis in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \author{ Peter Filzmoser <P.Filzmoser@tuwien.ac.at> }
 \seealso{\code{\link{prm}}}
 \examples{

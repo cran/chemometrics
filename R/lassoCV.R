@@ -3,8 +3,8 @@ function (formula, data, K = 10, fraction = seq(0, 1, by = 0.05),
     trace = FALSE, plot.opt = TRUE, sdfact = 2, legpos = "topright", 
     ...) 
 {
-    require(pls)
-    require(lars)
+#    require(pls)
+#    require(lars)
     mf <<- match.call(expand.dots = FALSE)
     m <- match(c("formula", "data"), names(mf), 0)
     mf <- mf[c(1, m)]
@@ -12,7 +12,7 @@ function (formula, data, K = 10, fraction = seq(0, 1, by = 0.05),
     mf <- eval(mf, parent.frame())
     mt <- attr(mf, "terms")
     y <- model.response(mf, "numeric")
-    X <- pls:::delete.intercept(model.matrix(mt, mf))
+    X <- delintercept(model.matrix(mt, mf))
     all.folds <- cv.folds(length(y), K)
     residmat <- matrix(0, length(fraction), K)
     SEPmat <- matrix(0, length(fraction), K)

@@ -16,7 +16,7 @@ evalSEfac <- function(pred,grptrain,spltr,grplev){
   list(mean=mean(misscli),se=sd(misscli)/sqrt(kfold),all=misscli)
 }
 
-require(class)
+#require(class)
 
 # main routine
   ntrain=length(train)
@@ -26,7 +26,7 @@ require(class)
   cvMean=rep(NA,lknnvec)
   cvSe=rep(NA,lknnvec)
   cverr=matrix(NA,nrow=kfold,ncol=lknnvec)
-  require(class)
+#  require(class)
   for (j in 1:lknnvec){
     pred=knn(X[train,],X[-train,],factor(grp[train]),k=knnvec[j])
     tab=table(grp[-train],pred)

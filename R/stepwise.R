@@ -4,7 +4,7 @@ function(formula,data, k, startM, maxTime=1800, direction="both", writeFile=FALS
 
 # Stepwise regression, starting from the empty model, with scope to the full model
 #
-require(pls)
+#require(pls)
 
     mf <<- match.call(expand.dots = FALSE)
     m <- match(c("formula", "data"), names(mf), 0)
@@ -15,7 +15,7 @@ require(pls)
     y <- model.response(mf, "numeric")
     y <- as.matrix(y)
     colnames(y) <- deparse(formula[[2]])
-    x <- pls:::delete.intercept(model.matrix(mt, mf))
+    x <- delintercept(model.matrix(mt, mf))
     x <- as.data.frame(x)
 
 form <- function(a, namesX) {

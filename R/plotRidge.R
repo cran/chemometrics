@@ -3,8 +3,8 @@ function(formula,data,lambda=seq(0.5,50,by=0.05), ...)
 {
 # Plot results from Cross Validation for Ridge regression
 #
-require(pls)
-require(MASS)
+#require(pls)
+#require(MASS)
 
     mf <<- match.call(expand.dots = FALSE)
     m <- match(c("formula", "data"), names(mf), 0)
@@ -13,7 +13,7 @@ require(MASS)
     mf <- eval(mf, parent.frame())
     mt <- attr(mf, "terms")
     y <- model.response(mf, "numeric")
-    X <- pls:::delete.intercept(model.matrix(mt, mf))
+    X <- delintercept(model.matrix(mt, mf))
 
 ridge=lm.ridge(formula,data,lambda=lambda)
 

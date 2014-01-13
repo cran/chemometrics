@@ -25,8 +25,8 @@ columns is computed.
    Returns the trimmed standard deviations of the vector x, or in case of
 a matrix, of the columns of x.
 }
-\references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
+\references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical 
+Analysis in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \author{ Peter Filzmoser <P.Filzmoser@tuwien.ac.at> }
 \seealso{ \code{\link{sd}},\code{\link{mean}} }
 \examples{

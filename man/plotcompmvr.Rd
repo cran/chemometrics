@@ -19,14 +19,16 @@ number of components.
   \item{optcomp}{optimal number of components}
   \item{compdistrib}{frequencies for the optimal number of components}
 }
-\references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
+\references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical 
+Analysis in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \author{ Peter Filzmoser <P.Filzmoser@tuwien.ac.at> }
 \seealso{\code{\link[pls]{mvr}}}
 \examples{
-require(pls)
-data(yarn)
-res <- mvr_dcv(density~NIR,ncomp=10,data=yarn,method="simpls",repl=10)
+data(NIR)
+X <- NIR$xNIR[1:30,]      # first 30 observations - for illustration
+y <- NIR$yGlcEtOH[1:30,1] # only variable Glucose
+NIR.Glc <- data.frame(X=X, y=y)
+res <- mvr_dcv(y~.,data=NIR.Glc,ncomp=10,method="simpls",repl=10)
 plot2 <- plotcompmvr(res)
 }
 \keyword{ multivariate }

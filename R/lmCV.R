@@ -6,7 +6,7 @@ function(formula,data, repl=100,
 # Repeated Cross Validation for multiple linear regression
 #    see also function "mvr" and "mvrCv" from library(pls)
 
-require(pls)
+#require(pls)
 
     mf <<- match.call(expand.dots = FALSE)
     m <- match(c("formula", "data"), names(mf), 0)
@@ -15,7 +15,7 @@ require(pls)
     mf <- eval(mf, parent.frame())
     mt <- attr(mf, "terms")
     y <- model.response(mf, "numeric")
-    X <- pls:::delete.intercept(model.matrix(mt, mf))
+    X <- delintercept(model.matrix(mt, mf))
 
 n <- nrow(X)
 

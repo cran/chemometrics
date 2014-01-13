@@ -10,7 +10,7 @@ SEP.dcv=apply(drop(mvrdcvobj$pred-drop(y)),c(3,2),sd) # sd not from matrix!
 matplot(t(SEP.dcv),type="l",lty=1,col=gray(0.6),
   xlab="Number of components",ylab="SEP",cex.lab=1.2,...)
 
-require(pls)
+#require(pls)
 if (complete){
   ncomp <- ncol(SEP.dcv)
 }

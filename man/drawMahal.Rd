@@ -7,7 +7,8 @@ corresponding to certain Mahalanobis distances and quantiles of
 the data are drawn.
 }
 \usage{
-drawMahal(x, center, covariance, quantile = c(0.975, 0.75, 0.5, 0.25), m = 1000, lwdcrit = 1, ...)
+drawMahal(x, center, covariance, quantile = c(0.975, 0.75, 0.5, 0.25), m = 1000, 
+lwdcrit = 1, ...)
 }
 \arguments{
   \item{x}{ numeric data frame or matrix with 2 columns }
@@ -26,8 +27,8 @@ estimators, e.g. from the MCD estimator, can be supplied.
 \value{
 A scatterplot with the ellipses is generated. 
 }
-\references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
+\references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical 
+Analysis in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \author{ Peter Filzmoser <P.Filzmoser@tuwien.ac.at> }
 \seealso{\code{\link[robustbase]{covMcd}}}
 \examples{

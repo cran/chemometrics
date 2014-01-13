@@ -73,7 +73,7 @@ n=nrow(X)
 p=ncol(X)
 
 if (opt=="l1m"){
-	require(pcaPP)
+	#require(pcaPP)
 	mx <- l1median(X)   
 }
 else { mx <- apply(X,2,median)}

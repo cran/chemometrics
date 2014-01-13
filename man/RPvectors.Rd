@@ -7,7 +7,9 @@ according to a chosen distributions; optionally the random vectors are
 orthogonalized.
 }
 \usage{
-RPvectors(a, m, ortho = "none", distr = "uniform", par_unif = c(-1, 1), par_norm = c(0, 1), par_eq = c(-1, 0, 1), par_uneq = c(-sqrt(3), 0, sqrt(3)), par_uneqprob = c(1/6, 2/3, 1/6))
+RPvectors(a, m, ortho = "none", distr = "uniform", par_unif = c(-1, 1), 
+par_norm = c(0, 1), par_eq = c(-1, 0, 1), par_uneq = c(-sqrt(3), 0, sqrt(3)), 
+par_uneqprob = c(1/6, 2/3, 1/6))
 }
 \arguments{
   \item{a}{

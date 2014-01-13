@@ -73,7 +73,7 @@ if (usesvd==TRUE){
 }
 
 if (opt=="l1m"){
-	require(pcaPP)
+	#require(pcaPP)
 	mx <- l1median(X)   
 }
 else if (opt=="mean"){

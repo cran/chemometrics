@@ -43,7 +43,7 @@ mkTable <- function(pred,tab,grplev){
   cvMean=rep(NA,lvary)
   cvSe=rep(NA,lvary)
   cverr=matrix(NA,nrow=kfold,ncol=lvary)
-  require(nnet)
+#  require(nnet)
   for (j in 1:lvary){
     if (varying=="size"){
       resnnet=nnet(X[train,],class.ind(grp[train]),size=size[j],

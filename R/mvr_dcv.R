@@ -14,7 +14,7 @@ function (formula, ncomp, data, subset, na.action, method = c("kernelpls",
         segments(x - barw, lower, x + barw, lower, ...)
         range(upper, lower)
     }
-    require(pls)
+#    require(pls)
     mf <<- match.call(expand.dots = FALSE)
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 
         0)
@@ -35,7 +35,7 @@ function (formula, ncomp, data, subset, na.action, method = c("kernelpls",
         Y <- as.matrix(Y)
         colnames(Y) <- deparse(formula[[2]])
     }
-    X <- pls:::delete.intercept(model.matrix(mt, mf))
+    X <- delintercept(model.matrix(mt, mf))
     nobj <- dim(X)[1]
     npred <- dim(X)[2]
     if (length(attr(mt, "term.labels")) == 1 && !is.null(colnames(mf[[attr(mt, 

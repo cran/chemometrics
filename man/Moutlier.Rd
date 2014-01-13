@@ -31,8 +31,8 @@ the observation numbers.
   \item{cutoff }{Value with the outlier cut-off}
   ...
 }
-\references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
+\references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical 
+Analysis in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \author{ Peter Filzmoser <P.Filzmoser@tuwien.ac.at> }
 \seealso{\code{\link[robustbase]{covMcd}}}
 \examples{

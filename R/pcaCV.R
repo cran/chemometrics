@@ -25,7 +25,7 @@ function(X,amax,center=TRUE,scale=TRUE,repl=50,
 # ExplVar ... explained variance (R^2) for all numbers of components
 
 
-require(pls)
+#require(pls)
 
     if (missing(amax)) {
         amax <- min(nrow(X) - 1, ncol(X))

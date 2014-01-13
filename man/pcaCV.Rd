@@ -7,7 +7,9 @@ principal components can be determined by inspecting the distribution
 of the explained variances.
 }
 \usage{
-pcaCV(X, amax, center = TRUE, scale = TRUE, repl = 50, segments = 4, segment.type = c("random", "consecutive", "interleaved"), length.seg, trace = FALSE, plot.opt = TRUE, ...)
+pcaCV(X, amax, center = TRUE, scale = TRUE, repl = 50, segments = 4, 
+segment.type = c("random", "consecutive", "interleaved"), length.seg, trace = FALSE, 
+plot.opt = TRUE, ...)
 }
 \arguments{
   \item{X}{ numeric data frame or matrix }
@@ -16,7 +18,8 @@ pcaCV(X, amax, center = TRUE, scale = TRUE, repl = 50, segments = 4, segment.typ
   \item{scale}{ should the data be scaled? TRUE or FALSE  }
   \item{repl}{ number of replications of the CV procedure }
   \item{segments}{ number of segments for CV }
-  \item{segment.type}{ "random", "consecutive", "interleaved" splitting into training and test data }
+  \item{segment.type}{ "random", "consecutive", "interleaved" splitting into training 
+  and test data }
   \item{length.seg}{ number of parts for training and test data, overwrites segments }
   \item{trace}{ if TRUE intermediate results are reported }
   \item{plot.opt}{ if TRUE the results are shown by boxplots }
@@ -39,8 +42,8 @@ of principal components.
   \item{ExplVar }{matrix with explained variances, repl rows, and amax columns}
   \item{MSEP }{matrix with MSEP values, repl rows, and amax columns}
 }
-\references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
+\references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical 
+Analysis in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \author{ Peter Filzmoser <P.Filzmoser@tuwien.ac.at> }
 \seealso{\code{\link{princomp}}}
 \examples{

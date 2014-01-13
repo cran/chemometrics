@@ -16,7 +16,7 @@ evalSE <- function(pred,grptrain,spltr,grplev){
   list(mean=mean(misscli),se=sd(misscli)/sqrt(kfold),all=misscli)
 }
 
-require(rpart)
+#require(rpart)
 
 mkTable <- function(pred,tab,grplev){
   predf=factor(pred,labels=grplev[sort(unique(pred))])
@@ -36,7 +36,6 @@ mkTable <- function(pred,tab,grplev){
   cvMean=rep(NA,lvary)
   cvSe=rep(NA,lvary)
   cverr=matrix(NA,nrow=kfold,ncol=lvary)
-  require(rpart)
   for (j in 1:lvary){
     restree=rpart(grp~.,data=dat[train,],method="class",
                    control=rpart.control(cp=.00001))

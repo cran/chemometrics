@@ -24,7 +24,7 @@ evalSEfac <- function(pred,grptrain,spltr,grplev){
   cvMean=rep(NA,lgamvec)
   cvSe=rep(NA,lgamvec)
   cverr=matrix(NA,nrow=kfold,ncol=lgamvec)
-  require(e1071)
+#  require(e1071)
   for (j in 1:lgamvec){
     ressvm=svm(X[train,],factor(grp[train]),kernel=kernel,degree=3,gamma=gamvec[j])
     pred=predict(ressvm,X[-train,])

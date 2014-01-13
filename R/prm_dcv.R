@@ -12,7 +12,7 @@ prm_dcv   <- function(  X,                            # matrix for X
                         opt="median",                 # calculation method for multivariate median
                         plot.opt=FALSE, ...)
 {
-require(chemometrics)
+#require(chemometrics)
 n = nrow(X)                                             # number of samples
 
 ncomp <- a

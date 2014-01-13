@@ -13,7 +13,8 @@ pcaDiagplot(X, X.pca, a = 2, quantile = 0.975, scale = TRUE, plot = TRUE, ...)
   \item{X.pca}{ PCA object resulting e.g. from \code{\link{princomp}} }
   \item{a}{ number of principal components }
   \item{quantile}{ quantile for the critical cut-off values }
-  \item{scale}{ if TRUE then X will be scaled - and X.pca should be from scaled data too }
+  \item{scale}{ if TRUE then X will be scaled - and X.pca should be from scaled data 
+  too }
   \item{plot}{ if TRUE a plot is generated }
   \item{\dots}{ additional graphics parameters, see \code{\link{par}} }
 }
@@ -29,8 +30,8 @@ distance measures help to distinguish between outliers and regular observations.
   \item{critSD }{critical cut-off value for the score distances}
   \item{critOD }{critical cut-off value for the orthogonal distances}
 }
-\references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
+\references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical 
+Analysis in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \author{ Peter Filzmoser <P.Filzmoser@tuwien.ac.at> }
 \seealso{\code{\link{princomp}}}
 \examples{

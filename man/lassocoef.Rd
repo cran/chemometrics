@@ -27,8 +27,8 @@ number of coefficients that are exactly zero.
   \item{numb.nonzero}{number of nonzero coefficients for optimal fraction}
   \item{ind}{index of fraction with optimal choice for fraction}
 }
-\references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
+\references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical 
+Analysis in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \author{ Peter Filzmoser <P.Filzmoser@tuwien.ac.at> }
 \seealso{\code{\link[lars]{cv.lars}}, \code{\link{lassoCV}}}
 \examples{

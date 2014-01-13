@@ -6,8 +6,8 @@ function(formula,data,lambdaopt, repl=5,
 # Repeated Cross Validation  for ridge regression
 #
 
-require(pls)
-require(MASS)
+#require(pls)
+#require(MASS)
 
     mf <<- match.call(expand.dots = FALSE)
     m <- match(c("formula", "data"), names(mf), 0)
@@ -16,7 +16,7 @@ require(MASS)
     mf <- eval(mf, parent.frame())
     mt <- attr(mf, "terms")
     y <- model.response(mf, "numeric")
-    X <- pls:::delete.intercept(model.matrix(mt, mf))
+    X <- delintercept(model.matrix(mt, mf))
 
 ym <- mean(y)
 Xsc <- apply(X,2,sd)

@@ -1,38 +1,54 @@
-##useDynLib(chemometrics)
-#importFrom(class)
-#importFrom(e1071)
-##importFrom(gclus)
-##importFrom(lars)
-#importFrom(MASS)
-##importFrom(mclust)
-#importFrom(nnet)
-#importFrom(pcaPP)
-#importFrom(rpart)
-#importFrom(robustbase)
-#importFrom(som)
+# Export all names
+exportPattern(".")
 
-import(class)
-import(e1071)
-#importFrom(gclus)
-#importFrom(lars)
-import(MASS)
-#importFrom(mclust)
-import(nnet)
-import(pcaPP)
+# Import all packages listed as Imports or Depends
+#import(
+#)
+
+importFrom(class,knn)
+importFrom(e1071,cmeans)
+importFrom(e1071,svm)
+importFrom(MASS,lm.ridge)
+importFrom(nnet,nnet)
+importFrom(nnet,class.ind)
+importFrom(pcaPP,l1median)
+#importFrom(rpart,rpart)
+#importFrom(rpart,rpart.control)
+#importFrom(rpart,prune)
+importFrom(robustbase,covMcd)
+importFrom(som,som)
+importFrom(pls,mvr)
+importFrom(pls,cvsegments)
+#importFrom(pls,delete.intercept)
+importFrom(lars,lars)
+importFrom(lars,cv.folds)
+importFrom(mclust,Mclust)
+importFrom(mclust,mclustBIC)
+#importFrom(gclus,wine)
+
 import(rpart)
-import(robustbase)
-import(som)
+
+### OLD ###
+
+#import(class)
+#import(e1071)
+#import(MASS)
+#import(nnet)
+#import(pcaPP)
+#import(rpart)
+#import(robustbase)
+#import(som)
 
 
 ## Imports:
-importFrom(pls,mvr)
+#importFrom(pls,mvr)
 
 ## Exported functions:
-export(alr,lassocoef,nnetEval,plotpredmvr,plotSEPmvr,prm_cv, stepwise,
-       clr,lassoCV,pcaCV,plotpredprm,plotSEPprm,prm_dcv,svmEval,
-       clvalidity,lmCV,pcaDiagplot,plotprm,plotsom,prm,treeEval,
-       drawMahal,Moutlier,pcaVarexpl,plotresmvr,pls1_nipals,ridgeCV,
-       ilr,mvr_dcv,plotcompmvr,plotresprm,pls2_nipals,RPvectors,
-       knnEval,nipals,plotcompprm,plotRidge,pls_eigen,sd_trim)
+#export(alr,lassocoef,nnetEval,plotpredmvr,plotSEPmvr,prm_cv, stepwise,
+#       clr,lassoCV,pcaCV,plotpredprm,plotSEPprm,prm_dcv,svmEval,
+#       clvalidity,lmCV,pcaDiagplot,plotprm,plotsom,prm,treeEval,
+#       drawMahal,Moutlier,pcaVarexpl,plotresmvr,pls1_nipals,ridgeCV,
+#       ilr,mvr_dcv,plotcompmvr,plotresprm,pls2_nipals,RPvectors,
+#       knnEval,nipals,plotcompprm,plotRidge,pls_eigen,sd_trim)
 
 

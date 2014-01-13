@@ -22,15 +22,17 @@ The result is compared with predicted values obtained via usual CV of PRM.
 \value{
   A plot is generated.
 }
-\references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
+\references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical 
+Analysis in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \author{ Peter Filzmoser <P.Filzmoser@tuwien.ac.at> }
 \seealso{\code{\link{prm}}}
 \examples{
-require(pls)
-data(yarn)
-res <- prm_dcv(yarn$NIR,yarn$density,a=4,repl=2)
-plot4 <- plotresprm(res,opt=res$afinal,yarn$density,yarn$NIR)
+data(NIR)
+X <- NIR$xNIR[1:30,]      # first 30 observations - for illustration
+y <- NIR$yGlcEtOH[1:30,1] # only variable Glucose
+NIR.Glc <- data.frame(X=X, y=y)
+res <- prm_dcv(X,y,a=4,repl=2)
+plot4 <- plotresprm(res,opt=res$afinal,y,X)
 }
 \keyword{ multivariate }
 

@@ -25,8 +25,8 @@ Ridge regression.
   \item{predicted}{predicted values for the optimal lambda}
   \item{lambdaopt}{optimal Ridge parameter lambda from GCV}
 }
-\references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
+\references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical 
+Analysis in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \author{ Peter Filzmoser <P.Filzmoser@tuwien.ac.at> }
 \seealso{\code{\link[MASS]{lm.ridge}}, \code{\link{plotRidge}}}
 \examples{

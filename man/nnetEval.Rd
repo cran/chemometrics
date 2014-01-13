@@ -5,8 +5,8 @@
 Evaluation for Artificial Neural Network (ANN) classification by cross-validation
 }
 \usage{
-nnetEval(X, grp, train, kfold = 10, decay = seq(0, 10, by = 1), size = 30, maxit = 100, 
-plotit = TRUE, legend = TRUE, legpos = "bottomright", ...)
+nnetEval(X, grp, train, kfold = 10, decay = seq(0, 10, by = 1), size = 30, 
+maxit = 100, plotit = TRUE, legend = TRUE, legpos = "bottomright", ...)
 }
 \arguments{
   \item{X}{standardized complete X data matrix (training and test data)}
@@ -39,8 +39,8 @@ CV test data (CV error) and for the test data.
   \item{decay}{value(s) for weight decay, taken from input}
   \item{size}{value(s) for number of hidden units, taken from input}
 }
-\references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
+\references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical 
+Analysis in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \author{ Peter Filzmoser <P.Filzmoser@tuwien.ac.at> }
 \seealso{\code{\link[nnet]{nnet}}}
 \examples{

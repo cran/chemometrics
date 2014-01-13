@@ -5,8 +5,8 @@
 Evaluation for Support Vector Machines (SVM) by cross-validation
 }
 \usage{
-svmEval(X, grp, train, kfold = 10, gamvec = seq(0, 10, by = 1), kernel = "radial", degree = 3, 
-   plotit = TRUE, legend = TRUE, legpos = "bottomright", ...)
+svmEval(X, grp, train, kfold = 10, gamvec = seq(0, 10, by = 1), kernel = "radial", 
+degree = 3, plotit = TRUE, legend = TRUE, legpos = "bottomright", ...)
 }
 \arguments{
   \item{X}{standardized complete X data matrix (training and test data)}
@@ -14,9 +14,10 @@ svmEval(X, grp, train, kfold = 10, gamvec = seq(0, 10, by = 1), kernel = "radial
   \item{train}{row indices of X indicating training data objects}
   \item{kfold}{number of folds for cross-validation}
   \item{gamvec}{range for gamma-values, see \code{\link[e1071]{svm}}}
-  \item{kernel}{kernel to be used for SVM, should be one of "radial", "linear", "polynomial", "sigmoid",
-            default to "radial", see \code{\link[e1071]{svm}}}
-  \item{degree}{degree of polynome if kernel is "polynomial", default to 3, see \code{\link[e1071]{svm}}}
+  \item{kernel}{kernel to be used for SVM, should be one of "radial", "linear", 
+  "polynomial", "sigmoid", default to "radial", see \code{\link[e1071]{svm}}}
+  \item{degree}{degree of polynome if kernel is "polynomial", default to 3, see 
+  \code{\link[e1071]{svm}}}
   \item{plotit}{if TRUE a plot will be generated}
   \item{legend}{if TRUE a legend will be added to the plot}
   \item{legpos}{positioning of the legend in the plot}
@@ -37,8 +38,8 @@ CV test data (CV error) and for the test data.
   \item{cverr}{all errors from CV}
   \item{gamvec}{range for gamma-values, taken from input}
 }
-\references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
+\references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical 
+Analysis in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \author{ Peter Filzmoser <P.Filzmoser@tuwien.ac.at> }
 \seealso{\code{\link[e1071]{svm}}}
 \examples{

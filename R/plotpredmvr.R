@@ -6,7 +6,7 @@ function(mvrdcvobj,optcomp,y,X,method="simpls",...)
 #
 
 dat=list(y=y,X=as.matrix(X))
-require(pls)
+#require(pls)
 mvr.cv=mvr(y~X,ncomp=optcomp,data=dat,method=method,validation="CV")
 
 par(mfrow=c(1,2))

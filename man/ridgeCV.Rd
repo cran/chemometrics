@@ -7,8 +7,8 @@ where the optimal Ridge parameter lambda was chosen on a fast evaluation scheme.
 }
 \usage{
 ridgeCV(formula, data, lambdaopt, repl = 5, segments = 10, 
-   segment.type = c("random", "consecutive", "interleaved"), length.seg, trace = FALSE,
-   plot.opt = TRUE, ...)
+   segment.type = c("random", "consecutive", "interleaved"), length.seg, 
+   trace = FALSE, plot.opt = TRUE, ...)
 }
 \arguments{
   \item{formula}{formula, like y~X, i.e., dependent~response variables}
@@ -26,10 +26,11 @@ ridgeCV(formula, data, lambdaopt, repl = 5, segments = 10,
   \item{\dots}{additional plot arguments}
 }
 \details{
-Generalized Cross Validation (GCV) is used by the function \code{\link[MASS]{lm.ridge}} 
-to get a quick answer for the optimal Ridge parameter. This function should make a
-careful evaluation once the optimal parameter lambda has been selected. Measures
-for the prediction quality are computed and optionally plots are shown.
+Generalized Cross Validation (GCV) is used by the function 
+\code{\link[MASS]{lm.ridge}} to get a quick answer for the optimal Ridge parameter. 
+This function should make a careful evaluation once the optimal parameter lambda has 
+been selected. Measures for the prediction quality are computed and optionally plots 
+are shown.
 }
 \value{
   \item{residuals}{matrix of size length(y) x repl with residuals}
@@ -41,8 +42,8 @@ for the prediction quality are computed and optionally plots are shown.
   \item{RMSEP}{Root MSEP value computed for each column of "residuals"}
   \item{RMSEPm}{mean RMSEP value}
 }
-\references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical Analysis
-in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
+\references{ K. Varmuza and P. Filzmoser: Introduction to Multivariate Statistical 
+Analysis in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \author{ Peter Filzmoser <P.Filzmoser@tuwien.ac.at> }
 \seealso{\code{\link[MASS]{lm.ridge}}, \code{\link{plotRidge}}}
 \examples{
