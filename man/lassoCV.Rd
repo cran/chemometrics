@@ -47,6 +47,6 @@ Analysis in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \seealso{\code{\link[lars]{cv.lars}}, \code{\link{lassocoef}}}
 \examples{
 data(PAC)
-res=lassoCV(y~X,data=PAC,K=5,fraction=seq(0.1,0.5,by=0.1))
+# takes some time: # res <- lassoCV(y~X,data=PAC,K=5,fraction=seq(0.1,0.5,by=0.1))
 }
 \keyword{ multivariate }

@@ -12,9 +12,7 @@ for (h in 1:a){
 	wh <- t(Xh)%*%yh				#LS regression for wh
 	wh <- wh/as.vector(sqrt(t(wh)%*%wh))		#normalization of wh
 	th <- Xh%*%wh				 	#LS regression for th
-	ch <- as.numeric(t(yh)%*%th)			#LS regression for ch
-	ch <- ch/as.vector(sqrt(t(th)%*%th))		#normalization of ch
-	#ch <- ch/as.vector(sqrt(t(ch)%*%ch))		#normalization of ch
+        ch <- as.numeric (crossprod (yh, th) / crossprod (th)) #LS regression for ch
 	ph <- t(Xh)%*%th/as.vector(t(th)%*%th)		#LS regression for ph
 	Xh <- Xh - th%*%t(ph)				#calculate new Xh
 	yh <- yh - th*ch				#calculate new yh

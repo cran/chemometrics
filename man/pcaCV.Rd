@@ -49,6 +49,6 @@ Analysis in Chemometrics. CRC Press, Boca Raton, FL, 2009. }
 \examples{
 data(glass)
 x.sc <- scale(glass)
-resv <- clvalidity(x.sc)
+resv <- clvalidity(x.sc,clnumb=c(2:5))
 }
 \keyword{ multivariate }

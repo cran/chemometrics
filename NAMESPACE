@@ -5,6 +5,17 @@ exportPattern(".")
 #import(
 #)
 
+importFrom("grDevices", "gray")
+importFrom("graphics", "abline", "axis", "barplot", "boxplot",
+             "layout", "legend", "lines", "matplot", "par", "plot",
+             "points", "segments", "text", "title")
+importFrom("stats", "AIC", "IQR", "as.formula", "cov", "dist",
+             "kmeans", "lm", "mad", "mahalanobis", "median",
+             "model.matrix", "model.response", "predict", "qchisq",
+             "qnorm", "quantile", "rnorm", "runif", "sd", "step",
+             "update", "var")
+importFrom("utils", "write.table")
+
 importFrom(class,knn)
 importFrom(e1071,cmeans)
 importFrom(e1071,svm)

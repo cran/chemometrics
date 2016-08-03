@@ -22,8 +22,9 @@ for (h in 1:a){
 		wh <- t(Xh)%*%uh				#LS regression for wh
 		wh <- wh/as.vector(sqrt(t(wh)%*%wh))		#normalization of wh
 		th <- Xh%*%wh				 	#LS regression for th
-		ch <- t(Yh)%*%th				#LS regression for ch
-		ch <- ch/as.vector(sqrt(t(ch)%*%ch))		#normalization of ch
+		#ch <- t(Yh)%*%th				#LS regression for ch
+		#ch <- ch/as.vector(sqrt(t(ch)%*%ch))		#normalization of ch
+                ch <- crossprod(Yh,th)/drop(crossprod(th)) #LS regression for ch
 		uhnew <- Yh%*%ch 				#LS regression for uh
 		deltau <- uhnew-uh
 		unorm <- as.numeric(sqrt(t(deltau)%*%deltau))
