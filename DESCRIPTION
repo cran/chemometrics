@@ -1,8 +1,8 @@
 Package: chemometrics
 Type: Package
 Title: Multivariate Statistical Analysis in Chemometrics
-Version: 1.4.1
-Date: 2016-08-03
+Version: 1.4.2
+Date: 2017-03-17
 Author: Peter Filzmoser and Kurt Varmuza
 Maintainer: P. Filzmoser <P.Filzmoser@tuwien.ac.at>
 Depends: R (>= 2.10), rpart
@@ -14,6 +14,6 @@ License: GPL (>= 3)
 URL: http://www.statistik.tuwien.ac.at/public/filz/
 Additional_repositories:
 NeedsCompilation: no
-Packaged: 2016-08-03 08:34:14 UTC; root
+Packaged: 2017-03-17 06:53:29 UTC; root
 Repository: CRAN
-Date/Publication: 2016-08-03 11:13:56
+Date/Publication: 2017-03-17 09:17:12 UTC
