@@ -1,6 +1,5 @@
 stepwise <-
-function(formula,data, k, startM, maxTime=1800, direction="both", writeFile=FALSE, resname="stepres00", 
-			maxsteps=500,...) {
+function(formula,data, k, startM, maxTime=1800, direction="both", writeFile=FALSE, maxsteps=500,...) {
 
 # Stepwise regression, starting from the empty model, with scope to the full model
 #
@@ -50,7 +49,7 @@ form <- function(a, namesX) {
             if(bic[i] >= bic[i-1]) break
         }
         if(as.integer(Sys.time())-startTime >= maxTime) break
-        try(write.table(cbind(usedTime, bic, models), file=paste(resname, ".txt", sep=""), col.names=FALSE, row.names=FALSE))
+        #try(write.table(cbind(usedTime, bic, models), file=paste(resname, ".txt", sep=""), col.names=FALSE, row.names=FALSE))
     }
    if(any(is.na(models[,1]))) {
         tmp      <- which(is.na(models[,1]))[1]-1
@@ -67,7 +66,8 @@ form <- function(a, namesX) {
         }
     }
     if (writeFile){
-    write.table(cbind(usedTime, bic, models), file=paste(resname, ".txt", sep=""), col.names=FALSE, row.names=FALSE)
+    #write.table(cbind(usedTime, bic, models), file=paste(resname, ".txt", sep=""), col.names=FALSE, row.names=FALSE)
+    cat(cbind(usedTime, bic, models))
     }
     return(list(usedTime=usedTime, bic=bic, models=models))
 }

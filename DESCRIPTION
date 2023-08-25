@@ -1,19 +1,22 @@
 Package: chemometrics
+Version: 1.4.4
 Type: Package
 Title: Multivariate Statistical Analysis in Chemometrics
-Version: 1.4.2
-Date: 2017-03-17
-Author: Peter Filzmoser and Kurt Varmuza
-Maintainer: P. Filzmoser <P.Filzmoser@tuwien.ac.at>
+Date: 2023-08-25
+Authors@R: 
+   c(
+   person(given = "Peter", family = "Filzmoser", email = "Peter.Filzmoser@tuwien.ac.at", role = c("aut", "cre", "cph"))
+   )
+Maintainer: Peter Filzmoser <Peter.Filzmoser@tuwien.ac.at>
 Depends: R (>= 2.10), rpart
 Imports: class, e1071, MASS, nnet, pcaPP, robustbase, som, lars, pls,
         mclust
 Suggests: gclus
 Description: R companion to the book "Introduction to Multivariate Statistical Analysis in Chemometrics" written by K. Varmuza and P. Filzmoser (2009).
 License: GPL (>= 3)
-URL: http://www.statistik.tuwien.ac.at/public/filz/
-Additional_repositories:
-NeedsCompilation: no
-Packaged: 2017-03-17 06:53:29 UTC; root
+URL: http://cstat.tuwien.ac.at/filz/
+Author: Peter Filzmoser [aut, cre, cph]
 Repository: CRAN
-Date/Publication: 2017-03-17 09:17:12 UTC
+Date/Publication: 2023-08-25 10:00:20 UTC
+NeedsCompilation: no
+Packaged: 2023-08-25 09:09:56 UTC; filz
